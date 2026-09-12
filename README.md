@@ -1,2 +1,2 @@
 # orgtriage
-Turn Salesforce org findings into a prioritized backlog. Read-only Chrome extension for Salesforce administrators.
+OrgTriage source is being prepared for publication. Bug reports and feature requests are welcome in Issues.
