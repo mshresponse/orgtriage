@@ -1820,8 +1820,9 @@ test('a saving becomes hours a year only when the view count is real', () => {
 
 /* --- Tab reuse and cancel commit (Codex go/no-go, 2026-09-14) ------------- */
 
-import { orgHosts, normalizeApiHost } from '@/shared/hosts';
-import { commitScan, cancelScan } from '@/background/scanRunner';
+import { orgHosts, normalizeApiHost, lightningHostFor as apiLightningHostFor, isLightningHost } from '@/shared/hosts';
+import { advanceScan, cancelScan, currentRun, runIsLive, releaseRun } from '@/background/scanRunner';
+import { put as cachePut } from '@/background/cache';
 
 test('the plan page matches every host a tab on the same org can be open at', () => {
   assert.deepEqual(orgHosts('acme.lightning.force.com'), [
@@ -1841,9 +1842,60 @@ test('the plan page matches every host a tab on the same org can be open at', ()
   assert.equal(normalizeApiHost('acme.my.salesforce-setup.com'), 'acme.my.salesforce.com');
 });
 
-test('a scan that nobody is running cannot be committed', () => {
-  // The commit gate is what stops a cancel that lands after the last slice
-  // from being followed by a snapshot write: no live job, no write.
-  assert.equal(commitScan('00D000000000001', 'apex'), false);
-  assert.equal(cancelScan('00D000000000001', 'apex'), false);
+test('a finished run stays live until released, and a cancel or restart in that window kills it', async () => {
+  // Codex go/no-go 2, 2026-09-14: the first gate keyed on the analyzer alone,
+  // so a restart during finalization was mistaken for the run being finalized.
+  const ctx = { ...deniedContext(), client: { ...deniedClient(), query: async () => ({ records: [], totalSize: 0, truncated: false }) } as unknown as AnalyzerContext['client'] };
+  const { orgId } = ctx;
+
+  const a = await advanceScan('apexlint', ctx, true);
+  assert.equal(a.status, 'done');
+  const runA = currentRun(orgId, 'apexlint');
+  assert.ok(runA, 'the finished run is still registered');
+  assert.equal(runIsLive(orgId, 'apexlint', runA!), true);
+
+  // Cancel during finalization: the run is no longer live, nothing may be written.
+  assert.equal(cancelScan(orgId, 'apexlint'), true);
+  assert.equal(runIsLive(orgId, 'apexlint', runA!), false);
+  releaseRun(orgId, 'apexlint', runA!);
+  assert.equal(currentRun(orgId, 'apexlint'), null);
+
+  // Restart during finalization: the new run is live, the old one is not, and
+  // releasing the old one leaves the new one registered.
+  const b1 = await advanceScan('apexlint', ctx, true);
+  assert.equal(b1.status, 'done');
+  const runB = currentRun(orgId, 'apexlint')!;
+  const c1 = await advanceScan('apexlint', ctx, true);
+  assert.equal(c1.status, 'done');
+  const runC = currentRun(orgId, 'apexlint')!;
+  assert.notEqual(runB, runC);
+  assert.equal(runIsLive(orgId, 'apexlint', runB), false, 'the replaced run is dead');
+  assert.equal(runIsLive(orgId, 'apexlint', runC), true);
+  releaseRun(orgId, 'apexlint', runB);
+  assert.equal(currentRun(orgId, 'apexlint'), runC, 'releasing the old run does not drop the new one');
+  releaseRun(orgId, 'apexlint', runC);
+  assert.equal(currentRun(orgId, 'apexlint'), null);
+});
+
+test('the cache refuses the write when the run is no longer wanted', async () => {
+  // The predicate is checked after the previous-entry read and before the
+  // write. Under node there is no IndexedDB: the read fails and is swallowed,
+  // so an abort here proves the check sits ahead of the write.
+  const result = { orgId: '00D000000000000AAA', analyzer: 'apexlint', completedAt: 0, apiVersion: '67.0' } as unknown as Parameters<typeof cachePut>[0];
+  await assert.rejects(cachePut(result, undefined, () => false), (e: unknown) => (e as DOMException).name === 'AbortError');
+});
+
+test('the plan page matches the Government Cloud Lightning tab from the API host the worker holds', () => {
+  // Codex go/no-go 2: the worker held `acme.my.salesforce.mil` as the Lightning
+  // host for a .mil org, and the one-way expansion could not reach the tab.
+  assert.equal(apiLightningHostFor('acme.my.salesforce.mil'), 'acme.lightning.force.mil');
+  assert.equal(apiLightningHostFor('acme.my.eu1.salesforce.com'), 'acme.lightning.eu1.force.com');
+  assert.ok(isLightningHost('acme.lightning.force.mil'));
+  assert.ok(isLightningHost('acme--dev.sandbox.lightning.force.com'));
+  assert.ok(!isLightningHost('acme.my.salesforce.com'));
+  const fromApi = orgHosts('acme.my.salesforce.mil');
+  assert.ok(fromApi.includes('acme.lightning.force.mil'), 'the Lightning tab is matched from the API host');
+  assert.ok(!fromApi.some((h) => h.includes('salesforce-setup')), 'no invented Setup host for .mil');
+  const fromLightning = orgHosts('acme.lightning.force.mil');
+  assert.ok(fromLightning.includes('acme.my.salesforce.mil'));
 });

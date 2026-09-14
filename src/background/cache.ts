@@ -104,6 +104,8 @@ function sizeOf(value: unknown): number {
 export async function put(
   result: ScanResult,
   watermark: OrgWatermark | undefined,
+  /** Checked after the read and immediately before the write; false aborts with nothing written. */
+  stillWanted: () => boolean = () => true,
 ): Promise<CacheEntryMeta> {
   // Read before write so the snapshot being replaced can be kept as a digest.
   // A failure here must not lose the scan: the diff is a convenience, the
@@ -128,6 +130,7 @@ export async function put(
     result,
     previous,
   };
+  if (!stillWanted()) throw new DOMException('Scan cancelled', 'AbortError');
   await tx('readwrite', (store) => store.put(entry));
   return toMeta(entry);
 }

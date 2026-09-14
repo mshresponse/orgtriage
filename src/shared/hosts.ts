@@ -28,14 +28,33 @@ export function normalizeApiHost(host: string): string {
     .replace(/\.my\.salesforce-setup\.com$/, '.my.salesforce.com');
 }
 
+/** True for a Lightning UI host of any family: commercial, sandbox, regional, Government Cloud. */
+export function isLightningHost(host: string): boolean {
+  return /\.lightning\.(?:[^.]+\.)?force\.(?:com|mil)$/.test(host);
+}
+
 /**
- * Every host a tab on this org may be open at: the Lightning host itself, the
- * API host it normalizes to, and the enhanced-domains Setup host where that
- * exists. Commercial, sandbox, regional and Government Cloud hosts all go
- * through the same normalizer, so the list is right wherever the worker is.
+ * The Lightning host for an API host: `acme.my.salesforce.com` →
+ * `acme.lightning.force.com`, `acme.my.salesforce.mil` →
+ * `acme.lightning.force.mil`, `acme.my.eu1.salesforce.com` →
+ * `acme.lightning.eu1.force.com`. A host that fits no pattern comes back as is.
  */
-export function orgHosts(lightningHost: string): string[] {
-  const api = normalizeApiHost(lightningHost);
+export function lightningHostFor(apiHost: string): string {
+  return apiHost
+    .replace(/\.my\.salesforce\.(com|mil)$/, '.lightning.force.$1')
+    .replace(/\.my\.([^.]+)\.salesforce\.com$/, '.lightning.$1.force.com');
+}
+
+/**
+ * Every host a tab on this org may be open at, from whichever host the caller
+ * has: the host itself, the API host, the Lightning host derived from it, and
+ * the enhanced-domains Setup host where one exists. Commercial, sandbox,
+ * regional and Government Cloud hosts all go through the same two functions
+ * in both directions, so the list is right whichever host the worker held.
+ */
+export function orgHosts(host: string): string[] {
+  const api = normalizeApiHost(host);
+  const lightning = lightningHostFor(api);
   const setup = api.replace(/\.my\.salesforce\.com$/, '.my.salesforce-setup.com');
-  return [...new Set([lightningHost, api, setup])];
+  return [...new Set([host, api, lightning, setup])];
 }

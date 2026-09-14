@@ -19,7 +19,8 @@ import { SalesforceClient, SalesforceError } from './sfClient';
 import * as cache from './cache';
 import { comparable, diffAgainst, digestOf, type AreaDiff } from '@/shared/diff';
 
-import { ANALYZERS, advanceScan, cancelScan, commitScan, probeWatermark } from './scanRunner';
+import { isLightningHost, lightningHostFor } from '@/shared/hosts';
+import { ANALYZERS, advanceScan, cancelScan, currentRun, probeWatermark, releaseRun, runIsLive } from './scanRunner';
 import type { ErrorPayload, Request, Response, ResponseData } from '@/shared/messages';
 import { SCAN_PORT, type PortBind } from '@/shared/messages';
 import {
@@ -379,13 +380,11 @@ async function buildOrgContext(
 function deriveLightningHost(tabUrl: string, apiHost: string): string {
   try {
     const host = new URL(tabUrl).hostname;
-    if (host.includes('.lightning.force.com')) return host;
+    if (isLightningHost(host)) return host;
   } catch {
     /* fall through */
   }
-  const derived = apiHost
-    .replace(/\.my\.salesforce\.com$/, '.lightning.force.com')
-    .replace(/\.my\.([^.]+)\.salesforce\.com$/, '.lightning.$1.force.com');
+  const derived = lightningHostFor(apiHost);
   return isAllowedApiHost(derived) ? derived : apiHost;
 }
 
@@ -512,28 +511,37 @@ async function handle(
         return outcome;
       }
 
-      markMidScan(session.context.orgId, request.analyzer, false);
-      const { value: watermark, probed } = await freshWatermark(session, SCAN_WATERMARK_MAX_AGE_MS);
-      // The probe is spent on this org's allowance like any analyzer call, so
-      // it is booked against the area that paid it: the "API calls spent"
-      // tile and the "used today" counter then agree.
-      if (probed) outcome.result.apiCalls += 1;
-      // Read the snapshot being replaced *before* the write, so the diff can be
-      // handed back with the result and the panel does not have to pay a second
-      // watermark probe to fetch it.
-      const superseded = await cache.get(session.context.orgId, request.analyzer);
-      // Last check before the write: a cancel that arrived during the awaits
-      // above must still leave the previous snapshot in place.
-      if (!commitScan(session.context.orgId, request.analyzer)) {
-        throw new DOMException('Scan cancelled', 'AbortError');
+      // Taken before any await: this names the run that just finished, so a
+      // cancel or a restart during finalization is seen as such and this
+      // result is discarded rather than written over the replacement's.
+      const { orgId } = session.context;
+      const run = currentRun(orgId, request.analyzer);
+      markMidScan(orgId, request.analyzer, false);
+      try {
+        const { value: watermark, probed } = await freshWatermark(session, SCAN_WATERMARK_MAX_AGE_MS);
+        // The probe is spent on this org's allowance like any analyzer call, so
+        // it is booked against the area that paid it: the "API calls spent"
+        // tile and the "used today" counter then agree.
+        if (probed) outcome.result.apiCalls += 1;
+        // Read the snapshot being replaced *before* the write, so the diff can be
+        // handed back with the result and the panel does not have to pay a second
+        // watermark probe to fetch it.
+        const superseded = await cache.get(orgId, request.analyzer);
+        const live = () => run !== null && runIsLive(orgId, request.analyzer, run);
+        // Checked here and again inside `put`, immediately before the write:
+        // a cancel that arrives anywhere in this window leaves the previous
+        // snapshot in place.
+        if (!live()) throw new DOMException('Scan cancelled', 'AbortError');
+        await cache.put(outcome.result, watermark ?? undefined, live);
+        const diff =
+          superseded && comparable(superseded.result, outcome.result)
+            ? diffAgainst(digestOf(superseded.result), outcome.result)
+            : undefined;
+        broadcastProgress(orgId, { type: 'done', result: outcome.result });
+        return { ...outcome, diff };
+      } finally {
+        if (run) releaseRun(orgId, request.analyzer, run);
       }
-      await cache.put(outcome.result, watermark ?? undefined);
-      const diff =
-        superseded && comparable(superseded.result, outcome.result)
-          ? diffAgainst(digestOf(superseded.result), outcome.result)
-          : undefined;
-      broadcastProgress(session.context.orgId, { type: 'done', result: outcome.result });
-      return { ...outcome, diff };
     }
 
     case 'scan.cached': {

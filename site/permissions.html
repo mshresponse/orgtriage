@@ -103,8 +103,8 @@ optional permissions requested later, and none requested at runtime.</p>
 <p>These are the only three permissions. None of them produces an install-time warning in
 Chrome, and a read-only diagnostic does not need more.</p>
 <h2>Host access</h2>
-<p>OrgTriage requests fourteen host patterns to cover Salesforce domains across
-commercial, Government Cloud, China and proxied deployments.</p>
+<p>OrgTriage requests thirteen host patterns to cover Salesforce domains across
+commercial, Government Cloud and China deployments.</p>
 <ul>
 <li><strong>Commercial Salesforce</strong> — <code>salesforce.com</code>, <code>force.com</code>,
 <code>salesforce-setup.com</code>, <code>cloudforce.com</code>, <code>visualforce.com</code>,
@@ -159,13 +159,16 @@ instead of <em>&quot;a job is owned by an inactive user id.&quot;</em> A schedul
 silently stopped because its owner left the company is one of the specific
 problems OrgTriage exists to catch, and it cannot be reported usefully without
 the name.</li>
-<li><strong>Ops — <code>ProcessInstance</code> and its work items:</strong> the target record&#39;s id, the
-process name, submission date, and the assigned and original approver ids. So
-a month-old stalled approval can name who it is waiting on and link to the
-record. The record is never opened.</li>
-<li><strong>Ops — <code>FlowInterview</code>:</strong> label, current element, pause label, status, and
-<code>CreatedById</code>. So failed and long-paused flow runs can be grouped.</li>
-<li><strong>Ops — <code>AsyncApexJob</code>:</strong> class, method, type, status, and <code>ExtendedStatus</code>,
+<li><strong>Ops — <code>ProcessInstance</code> and its work items:</strong> the instance&#39;s Id, Status,
+CreatedDate, the target record&#39;s id, the process name, and for each work
+item its Id, ActorId, OriginalActorId and CreatedDate. So a month-old
+stalled approval can name who it is waiting on and link to the record. The
+record is never opened.</li>
+<li><strong>Ops — <code>FlowInterview</code>:</strong> Id, InterviewLabel, CurrentElement, PauseLabel,
+InterviewStatus, CreatedDate and CreatedById. So failed and long-paused
+flow runs can be grouped.</li>
+<li><strong>Ops — <code>AsyncApexJob</code>:</strong> Id, the Apex class name, MethodName, JobType,
+Status, NumberOfErrors, CompletedDate, CreatedDate and <code>ExtendedStatus</code>,
 the error text the failing code produced. The whole field is fetched; the
 first 120 characters are kept in the finding.</li>
 <li><strong>The connection — <code>User</code>: Id and Name of the user running the scan</strong>, one

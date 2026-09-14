@@ -27,8 +27,8 @@ Chrome, and a read-only diagnostic does not need more.
 
 ## Host access
 
-OrgTriage requests fourteen host patterns to cover Salesforce domains across
-commercial, Government Cloud, China and proxied deployments.
+OrgTriage requests thirteen host patterns to cover Salesforce domains across
+commercial, Government Cloud and China deployments.
 
 - **Commercial Salesforce** — `salesforce.com`, `force.com`,
   `salesforce-setup.com`, `cloudforce.com`, `visualforce.com`,
@@ -92,13 +92,16 @@ Here is exactly what is read, and why:
   silently stopped because its owner left the company is one of the specific
   problems OrgTriage exists to catch, and it cannot be reported usefully without
   the name.
-- **Ops — `ProcessInstance` and its work items:** the target record's id, the
-  process name, submission date, and the assigned and original approver ids. So
-  a month-old stalled approval can name who it is waiting on and link to the
-  record. The record is never opened.
-- **Ops — `FlowInterview`:** label, current element, pause label, status, and
-  `CreatedById`. So failed and long-paused flow runs can be grouped.
-- **Ops — `AsyncApexJob`:** class, method, type, status, and `ExtendedStatus`,
+- **Ops — `ProcessInstance` and its work items:** the instance's Id, Status,
+  CreatedDate, the target record's id, the process name, and for each work
+  item its Id, ActorId, OriginalActorId and CreatedDate. So a month-old
+  stalled approval can name who it is waiting on and link to the record. The
+  record is never opened.
+- **Ops — `FlowInterview`:** Id, InterviewLabel, CurrentElement, PauseLabel,
+  InterviewStatus, CreatedDate and CreatedById. So failed and long-paused
+  flow runs can be grouped.
+- **Ops — `AsyncApexJob`:** Id, the Apex class name, MethodName, JobType,
+  Status, NumberOfErrors, CompletedDate, CreatedDate and `ExtendedStatus`,
   the error text the failing code produced. The whole field is fetched; the
   first 120 characters are kept in the finding.
 - **The connection — `User`: Id and Name of the user running the scan**, one

@@ -159,9 +159,10 @@ export async function advanceScan(
     // have finished anyway, but the user asked for it not to count, and the
     // panel has already stopped listening. Nothing is written.
     if (job.isCancelled()) throw new DOMException('Scan cancelled', 'AbortError');
-    // A finished job stays registered until `commitScan` releases it, so a
-    // cancel that lands while the caller is still probing the watermark and
-    // writing the snapshot has something to cancel.
+    // A finished job stays registered until `releaseRun`, so a cancel that
+    // lands while the caller is still probing the watermark and writing the
+    // snapshot has something to cancel, and a restart in that window replaces
+    // it rather than being mistaken for it.
     return outcome;
   } catch (err) {
     jobs.delete(key);
@@ -169,16 +170,31 @@ export async function advanceScan(
   }
 }
 
+/** Opaque handle for one run of one analyzer, held by the caller through finalization. */
+export type ScanRun = { readonly __run: unique symbol };
+
 /**
- * Release a finished job and say whether its result may be written. False
- * means a cancel (or a restart) arrived after the last slice returned and
- * before the caller committed, and the result must be discarded.
+ * The run that just returned `done`. Call it synchronously after `advanceScan`
+ * resolves, before any await, so it cannot name a run that replaced it.
  */
-export function commitScan(orgId: string, analyzer: AnalyzerId): boolean {
+export function currentRun(orgId: string, analyzer: AnalyzerId): ScanRun | null {
+  return (jobs.get(jobKey(orgId, analyzer)) as unknown as ScanRun | undefined) ?? null;
+}
+
+/**
+ * True while this exact run is still the registered one and has not been
+ * cancelled. A cancel removes it; a restart replaces it with a new run; either
+ * makes the result of this run unwritable.
+ */
+export function runIsLive(orgId: string, analyzer: AnalyzerId, run: ScanRun): boolean {
+  const job = jobs.get(jobKey(orgId, analyzer));
+  return job !== undefined && (job as unknown as ScanRun) === run && !job.isCancelled();
+}
+
+/** Forget a run once its result is written or discarded; a newer run is left alone. */
+export function releaseRun(orgId: string, analyzer: AnalyzerId, run: ScanRun): void {
   const key = jobKey(orgId, analyzer);
-  const job = jobs.get(key);
-  jobs.delete(key);
-  return job !== undefined && !job.isCancelled();
+  if ((jobs.get(key) as unknown as ScanRun | undefined) === run) jobs.delete(key);
 }
 
 export function cancelScan(orgId: string, analyzer: AnalyzerId): boolean {

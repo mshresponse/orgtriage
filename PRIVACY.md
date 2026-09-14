@@ -43,14 +43,17 @@ limited amount of user information from your org. This is the complete list:
   deactivated is one of the problems OrgTriage exists to catch, and it cannot be
   reported without the name.
 - **Ops — pending approval requests** (`ProcessInstance` and its work items):
-  the record id the approval is for, the approval process name, when it was
-  submitted, and the assigned and original approver. The record id is kept so
+  the instance's id, status and submission date, the record id the approval is
+  for, the approval process name, and for each work item its id, the assigned
+  and original approver, and when it was created. The record id is kept so
   the finding can link to it; the record itself is never read.
-- **Ops — failed and paused flow runs** (`FlowInterview`): the flow's label,
-  the element it stopped at, the pause label, and who started it.
-- **Ops — failed Apex jobs** (`AsyncApexJob`): the job's class, type, status,
-  and its error message, which can contain whatever the failing code put there.
-  The whole message is fetched; the first 120 characters are kept.
+- **Ops — failed and paused flow runs** (`FlowInterview`): the run's id, the
+  flow's label, the element it stopped at, the pause label, its status, when
+  it started, and who started it.
+- **Ops — failed Apex jobs** (`AsyncApexJob`): the job's id, class and method
+  name, type, status, error count, when it was created and completed, and its
+  error message, which can contain whatever the failing code put there. The
+  whole message is fetched; the first 120 characters are kept.
 - **The connection — your own name** (`User`: Id, Name, one row for the user
   running the scan), so the plan's cover page can say who produced it.
 - **Ops — login counts**, grouped by user, application, and login type over the

@@ -1,6 +1,6 @@
 {
   "name": "orgtriage",
-  "version": "0.8.61",
+  "version": "0.8.62",
   "private": true,
   "description": "OrgTriage \u2014 a Salesforce admin org-health and metadata diagnostics browser extension.",
   "type": "module",
@@ -10,7 +10,7 @@
     "typecheck": "tsc --noEmit",
     "check:contrast": "node tools/contrast-check.mjs",
     "check:palette": "node tools/palette-check.mjs",
-    "zip": "npm run build && node tools/strip-sourcemaps.mjs && cd dist && zip -r ../orgtriage.zip . -x '.*'",
+    "zip": "npm run build && node tools/strip-sourcemaps.mjs && rm -f orgtriage.zip && cd dist && zip -r ../orgtriage.zip . -x '.*'",
     "dev:preview": "vite --port 5178 --strictPort",
     "check:manifest": "node tools/check-manifest.mjs",
     "probe:claims": "esbuild tools/probe/claims.ts --bundle --platform=node --format=esm --outfile=tools/.probe.mjs --log-level=error && node tools/.probe.mjs",

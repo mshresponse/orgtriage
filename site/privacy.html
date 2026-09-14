@@ -101,14 +101,17 @@ waiting on. A nightly process silently failing because its owner was
 deactivated is one of the problems OrgTriage exists to catch, and it cannot be
 reported without the name.</li>
 <li><strong>Ops — pending approval requests</strong> (<code>ProcessInstance</code> and its work items):
-the record id the approval is for, the approval process name, when it was
-submitted, and the assigned and original approver. The record id is kept so
+the instance&#39;s id, status and submission date, the record id the approval is
+for, the approval process name, and for each work item its id, the assigned
+and original approver, and when it was created. The record id is kept so
 the finding can link to it; the record itself is never read.</li>
-<li><strong>Ops — failed and paused flow runs</strong> (<code>FlowInterview</code>): the flow&#39;s label,
-the element it stopped at, the pause label, and who started it.</li>
-<li><strong>Ops — failed Apex jobs</strong> (<code>AsyncApexJob</code>): the job&#39;s class, type, status,
-and its error message, which can contain whatever the failing code put there.
-The whole message is fetched; the first 120 characters are kept.</li>
+<li><strong>Ops — failed and paused flow runs</strong> (<code>FlowInterview</code>): the run&#39;s id, the
+flow&#39;s label, the element it stopped at, the pause label, its status, when
+it started, and who started it.</li>
+<li><strong>Ops — failed Apex jobs</strong> (<code>AsyncApexJob</code>): the job&#39;s id, class and method
+name, type, status, error count, when it was created and completed, and its
+error message, which can contain whatever the failing code put there. The
+whole message is fetched; the first 120 characters are kept.</li>
 <li><strong>The connection — your own name</strong> (<code>User</code>: Id, Name, one row for the user
 running the scan), so the plan&#39;s cover page can say who produced it.</li>
 <li><strong>Ops — login counts</strong>, grouped by user, application, and login type over the

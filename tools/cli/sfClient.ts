@@ -12,6 +12,7 @@
  * file and nowhere else.
  */
 
+import { lightningHostFor as apiLightningHostFor } from '../../src/shared/hosts';
 import { execFileSync } from 'node:child_process';
 
 export interface OrgIdentity {
@@ -173,15 +174,11 @@ export function resolveOrg(alias: string, apiVersionOverride?: string): OrgIdent
  */
 export function lightningHostFor(instanceUrl: string): string {
   const host = instanceUrl.replace(/^https?:\/\//, '').replace(/\/$/, '');
-  if (host.endsWith('.my.salesforce.com')) {
-    return `${host.slice(0, -'.my.salesforce.com'.length)}.lightning.force.com`;
-  }
-  if (host.endsWith('.sandbox.my.salesforce.com')) {
-    return `${host.slice(0, -'.sandbox.my.salesforce.com'.length)}.sandbox.lightning.force.com`;
-  }
-  // An instance-style host (na123.salesforce.com) has no Lightning equivalent
-  // worth guessing at. Returning it unchanged keeps links pointing somewhere real.
-  return host;
+  // The same derivation the extension's worker uses, so Government Cloud and
+  // regional orgs get the same Lightning host from the CLI. An instance-style
+  // host (na123.salesforce.com) has no Lightning equivalent worth guessing at
+  // and comes back unchanged, which keeps links pointing somewhere real.
+  return apiLightningHostFor(host);
 }
 
 export interface CliClientOptions {

@@ -375,12 +375,12 @@ const RULES = {
     id: 'reports.correctness.long-text-filter',
     severity: 'warning',
     title: (n) =>
-      `${n} ${n === 1 ? 'report filters' : 'reports filter'} on a long text field, which a filter searches only to its first 255 characters (custom) or 1,000 (standard)`,
+      `${n} ${n === 1 ? 'report filters' : 'reports filter'} on a long text field, which Salesforce documents as searched only to its first 255 characters (custom) or 1,000 (standard)`,
     rationale:
-      'This is a wrong-answers problem, not a slow-reports problem. A report filter on a custom Long Text ' +
-      'Area or Rich Text Area field searches only the first 255 characters of it (Salesforce\u2019s rich text page ' +
-      'says 254 for "contains"; neither number has been measured by OrgTriage, and the difference does not ' +
-      'change the advice); on a standard long text ' +
+      'This is a wrong-answers problem, not a slow-reports problem. Salesforce\u2019s filter-restrictions article ' +
+      'says a report filter on a custom Long Text Area or Rich Text Area field searches only the first 255 ' +
+      'characters of it (its Rich Text Area page says 254 for "contains"; neither number has been measured by ' +
+      'OrgTriage, and the difference does not change the advice), and on a standard long text ' +
       'field such as Description or Solution Details, the first 1,000. The field itself holds up to 131,072. ' +
       'A record whose match sits past the cut-off is simply absent from the results — no error, no warning, ' +
       'and nothing on the report to suggest the rows exist. Someone builds a report, gets twelve rows, and ' +
