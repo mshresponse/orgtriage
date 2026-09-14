@@ -83,14 +83,21 @@ function tx<T>(mode: IDBTransactionMode, fn: (store: IDBObjectStore) => IDBReque
   return openDb().then(
     (db) =>
       new Promise<T>((resolve, reject) => {
-        const transaction = db.transaction(STORE, mode);
+        // Strict durability for writes: `oncomplete` then fires only after the
+        // browser has flushed the change to storage, not merely committed it
+        // in memory. Reads take the default.
+        const transaction =
+          mode === 'readwrite'
+            ? db.transaction(STORE, mode, { durability: 'strict' })
+            : db.transaction(STORE, mode);
         const request = fn(transaction.objectStore(STORE));
         let result: T;
         request.onsuccess = () => {
           result = request.result;
         };
-        // Resolve on the transaction, not the request: a write is reported
-        // only once it is durable, so "done" is never announced ahead of it.
+        // Resolve on the transaction, not the request: with strict durability
+        // a write is reported only once it is on disk, so "done" is never
+        // announced ahead of it.
         transaction.oncomplete = () => resolve(result);
         request.onerror = () => reject(request.error);
         transaction.onabort = () => reject(transaction.error);

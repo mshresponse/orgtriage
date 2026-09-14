@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "OrgTriage — Salesforce Org Health",
   "short_name": "OrgTriage",
-  "version": "0.8.63",
+  "version": "0.8.64",
   "description": "Turn Salesforce org findings into a prioritized backlog. Read-only org-health checks across ten areas, exported as Jira work items.",
   "minimum_chrome_version": "116",
   "icons": {
