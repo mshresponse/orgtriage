@@ -72,10 +72,16 @@ limited amount of user information from your org. This is the complete list:
   email addresses and passwords are never read. The "Run diagnostics" check
   on the Overview also reads one assignment row's Id, to count assignments
   before a scan.
-- **Access — licence seat counts** (`UserLicense`: name, label, total and used
-  seats, status). These are the numbers on Setup > Company Information. They
+- **Access — licence seat counts** (`UserLicense`: Id, name, label, total and
+  used seats, status). These are the numbers on Setup > Company Information. They
   are joined to the users above to count seats held by people who no longer
   log in; the finding reports counts per licence type, not names.
+- **Access — configuration, not people** (`Profile`: Id, Name, licence name;
+  `PermissionSet`: Id, Name, Label, Type, namespace, whether it is
+  profile-owned, ProfileId, profile name, IsCustom, and the permission flags
+  such as Modify All Data; `PermissionSetGroupComponent`: group id and set
+  id). These describe what a permission set or profile grants, not who holds
+  it; they are listed here so the inventory is complete.
 - **Limits — who owns the debug logs** (`ApexLog` grouped by `LogUserId` and
   `LogUser.Name`: user id, name, total bytes and number of logs per user;
   `TraceFlag`: Id, LogType, TracedEntityId, which is the user or class being

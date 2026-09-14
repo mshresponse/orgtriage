@@ -123,10 +123,16 @@ Here is exactly what is read, and why:
   Usernames are read because that is how assignments identify people. The
   Overview's "Run diagnostics" also reads one assignment row's Id to count
   assignments before a scan.
-- **Access — `UserLicense`: Name, MasterLabel, TotalLicenses, UsedLicenses,
-  Status.** The seat totals from Setup > Company Information, joined to the
+- **Access — `UserLicense`: Id, Name, MasterLabel, TotalLicenses,
+  UsedLicenses, Status.** The seat totals from Setup > Company Information, joined to the
   users above to count seats held by users who no longer log in. The finding
   is per licence type and carries counts only.
+- **Access — configuration, not people: `Profile`: Id, Name,
+  UserLicense.Name; `PermissionSet`: Id, Name, Label, Type, NamespacePrefix,
+  IsOwnedByProfile, ProfileId, Profile.Name, IsCustom, and the
+  `Permissions…` flags the analyzer grades; `PermissionSetGroupComponent`:
+  PermissionSetGroupId, PermissionSetId.** What each set or profile grants,
+  not who holds it; listed so the inventory is complete.
 - **Limits — `ApexLog` grouped by `LogUserId` and `LogUser.Name`:** user id,
   name, bytes and log count per user; **`TraceFlag`: Id, LogType,
   TracedEntityId, StartDate, ExpirationDate, DebugLevel.MasterLabel,
