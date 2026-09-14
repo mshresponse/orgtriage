@@ -1,0 +1,10 @@
+# Cloudflare Pages headers for orgtriage.com. The pages load nothing from
+# anywhere else, so the policy can say so.
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Content-Security-Policy: default-src 'none'; img-src 'self' data:; style-src 'unsafe-inline'; manifest-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'
+/images/*
+  Cache-Control: public, max-age=604800

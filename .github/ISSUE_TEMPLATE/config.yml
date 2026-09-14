@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security concern
+    url: mailto:mike@everythingvirtually.com?subject=OrgTriage%20security
+    about: Email security concerns privately instead of opening a public issue.

@@ -1,0 +1,63 @@
+name: Bug report
+description: Report something OrgTriage got wrong or that did not work.
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Keep confidential information out of this public report.**
+        Do not include org names, user names, record data, session details, or an exported plan.
+        Findings name your users and components; describe them instead.
+        Remove identifying details from screenshots before attaching them.
+  - type: input
+    id: version
+    attributes:
+      label: Extension version
+      description: Find the OrgTriage version at chrome://extensions.
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Which area?
+      options:
+        - Apex
+        - Apex code quality
+        - Flows
+        - Reports & dashboards
+        - Layouts & SLDS
+        - Field usage
+        - Access & permissions
+        - Security settings
+        - Operations
+        - Limits & storage
+        - Overview
+        - Work
+        - Plan page
+        - Options
+    validations:
+      required: true
+  - type: textarea
+    id: happened
+    attributes:
+      label: What happened?
+      description: Describe the problem without identifying users or components.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: List the steps that led to the problem.
+    validations:
+      required: true
+  - type: textarea
+    id: screenshot
+    attributes:
+      label: Screenshot
+      description: Optional. Attach a screenshot only after removing org names, user names, component names, record data and session details. Do not attach an exported plan.

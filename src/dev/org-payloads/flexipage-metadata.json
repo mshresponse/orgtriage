@@ -1,0 +1,2028 @@
+{
+ "id": "0M0iw000000OPaSCAW",
+ "developerName": "DynamicPageForEEF",
+ "metadata": {
+  "description": null,
+  "events": [],
+  "flexiPageRegions": [
+   {
+    "appendable": null,
+    "itemInstances": [
+     {
+      "componentInstance": {
+       "componentInstanceProperties": [
+        {
+         "name": "columns",
+         "type": null,
+         "value": "Facet-8d9ed198-6235-4818-b939-a30575575ebd",
+         "valueList": null
+        },
+        {
+         "name": "horizontalAlignment",
+         "type": null,
+         "value": "false",
+         "valueList": null
+        },
+        {
+         "name": "label",
+         "type": null,
+         "value": "Information",
+         "valueList": null
+        }
+       ],
+       "componentName": "flexipage:fieldSection",
+       "componentType": null,
+       "flexipageDataSources": null,
+       "identifier": "flexipage_fieldSection",
+       "visibilityRule": null
+      },
+      "fieldInstance": null
+     },
+     {
+      "componentInstance": {
+       "componentInstanceProperties": [
+        {
+         "name": "columns",
+         "type": null,
+         "value": "Facet-fea68ef3-b985-4fe6-b2ad-6e6fa0ed366a",
+         "valueList": null
+        },
+        {
+         "name": "horizontalAlignment",
+         "type": null,
+         "value": "false",
+         "valueList": null
+        },
+        {
+         "name": "label",
+         "type": null,
+         "value": "Location Based Emissions Factors",
+         "valueList": null
+        }
+       ],
+       "componentName": "flexipage:fieldSection",
+       "componentType": null,
+       "flexipageDataSources": null,
+       "identifier": "flexipage_fieldSection2",
+       "visibilityRule": {
+        "booleanFilter": null,
+        "criteria": [
+         {
+          "leftValue": "{!Record.EmissionsFactorType}",
+          "operator": "NE",
+          "rightValue": "MarketBased"
+         }
+        ]
+       }
+      },
+      "fieldInstance": null
+     },
+     {
+      "componentInstance": {
+       "componentInstanceProperties": [
+        {
+         "name": "columns",
+         "type": null,
+         "value": "Facet-bde40ee6-b39f-4b8f-964e-040e87ecf839",
+         "valueList": null
+        },
+        {
+         "name": "horizontalAlignment",
+         "type": null,
+         "value": "false",
+         "valueList": null
+        },
+        {
+         "name": "label",
+         "type": null,
+         "value": "Market Based Emissions Factors",
+         "valueList": null
+        }
+       ],
+       "componentName": "flexipage:fieldSection",
+       "componentType": null,
+       "flexipageDataSources": null,
+       "identifier": "flexipage_fieldSection3",
+       "visibilityRule": {
+        "booleanFilter": null,
+        "criteria": [
+         {
+          "leftValue": "{!Record.EmissionsFactorType}",
+          "operator": "NE",
+          "rightValue": "LocationBased"
+         }
+        ]
+       }
+      },
+      "fieldInstance": null
+     },
+     {
+      "componentInstance": {
+       "componentInstanceProperties": [
+        {
+         "name": "columns",
+         "type": null,
+         "value": "Facet-d32d180a-0258-4c06-81ea-af66a4c53f4b",
+         "valueList": null
+        },
+        {
+         "name": "horizontalAlignment",
+         "type": null,
+         "value": "false",
+         "valueList": null
+        },
+        {
+         "name": "label",
+         "type": null,
+         "value": "Converted Emissions Factors",
+         "valueList": null
+        }
+       ],
+       "componentName": "flexipage:fieldSection",
+       "componentType": null,
+       "flexipageDataSources": null,
+       "identifier": "flexipage_fieldSection4",
+       "visibilityRule": null
+      },
+      "fieldInstance": null
+     },
+     {
+      "componentInstance": {
+       "componentInstanceProperties": [
+        {
+         "name": "columns",
+         "type": null,
+         "value": "Facet-27523160-c1bd-4cc7-8704-67adff603d59",
+         "valueList": null
+        },
+        {
+         "name": "horizontalAlignment",
+         "type": null,
+         "value": "false",
+         "valueList": null
+        },
+        {
+         "name": "label",
+         "type": null,
+         "value": "Location Based Percentages",
+         "valueList": null
+        }
+       ],
+       "componentName": "flexipage:fieldSection",
+       "componentType": null,
+       "flexipageDataSources": null,
+       "identifier": "flexipage_fieldSection5",
+       "visibilityRule": {
+        "booleanFilter": null,
+        "criteria": [
+         {
+          "leftValue": "{!Record.EmissionsFactorType}",
+          "operator": "NE",
+          "rightValue": "MarketBased"
+         }
+        ]
+       }
+      },
+      "fieldInstance": null
+     },
+     {
+      "componentInstance": {
+       "componentInstanceProperties": [
+        {
+         "name": "columns",
+         "type": null,
+         "value": "Facet-a15d599f-84a1-439f-961e-e8f961150928",
+         "valueList": null
+        },
+        {
+         "name": "horizontalAlignment",
+         "type": null,
+         "value": "false",
+         "valueList": null
+        },
+        {
+         "name": "label",
+         "type": null,
+         "value": "Market Based Percentages",
+         "valueList": null
+        }
+       ],
+       "componentName": "flexipage:fieldSection",
+       "componentType": null,
+       "flexipageDataSources": null,
+       "identifier": "flexipage_fieldSection7",
+       "visibilityRule": {
+        "booleanFilter": null,
+        "criteria": [
+         {
+          "leftValue": "{!Record.EmissionsFactorType}",
+          "operator": "NE",
+          "rightValue": "LocationBased"
+         }
+        ]
+       }
+      },
+      "fieldInstance": null
+     },
+     {
+      "componentInstance": {
+       "componentInstanceProperties": [
+        {
+         "name": "columns",
+         "type": null,
+         "value": "Facet-f3fae0e3-d88d-4330-94f5-0ed14699e01b",
+         "valueList": null
+        },
+        {
+         "name": "horizontalAlignment",
+         "type": null,
+         "value": "false",
+         "valueList": null
+        },
+        {
+         "name": "label",
+         "type": null,
+         "value": "System Information",
+         "valueList": null
+        }
+       ],
+       "componentName": "flexipage:fieldSection",
+       "componentType": null,
+       "flexipageDataSources": null,
+       "identifier": "flexipage_fieldSection8",
+       "visibilityRule": null
+      },
+      "fieldInstance": null
+     }
+    ],
+    "mode": "Replace",
+    "name": "detailTabContent",
+    "prependable": null,
+    "replaceable": null,
+    "type": "Facet"
+   },
+   {
+    "appendable": null,
+    "itemInstances": [
+     {
+      "componentInstance": {
+       "componentInstanceProperties": [
+        {
+         "name": "collapsed",
+         "type": null,
+         "value": "false",
+         "valueList": null
+        },
+        {
+         "name": "enableActionsConfiguration",
+         "type": null,
+         "value": "false",
+         "valueList": null
+        },
+        {
+         "name": "enableActionsInNative",
+         "type": null,
+         "value": "false",
+         "valueList": null
+        },
+        {
+         "name": "hideChatterActions",
+         "type": null,
+         "value": "false",
+         "valueList": null
+        },
+        {
+         "name": "numVisibleActions",
+         "type": null,
+         "value": "3",
+         "valueList": null
+        }
+       ],
+       "componentName": "force:highlightsPanel",
+       "componentType": null,
+       "flexipageDataSources": null,
+       "identifier": "force_highlightsPanel",
+       "visibilityRule": null
+      },
+      "fieldInstance": null
+     }
+    ],
+    "mode": "Replace",
+    "name": "header",
+    "prependable": null,
+    "replaceable": null,
+    "type": "Region"
+   },
+   {
+    "appendable": null,
+    "itemInstances": [
+     {
+      "componentInstance": {
+       "componentInstanceProperties": [
+        {
+         "name": "relatedListComponentOverride",
+         "type": null,
+         "value": "NONE",
+         "valueList": null
+        },
+        {
+         "name": "rowsToDisplay",
+         "type": null,
+         "value": "10",
+         "valueList": null
+        },
+        {
+         "name": "showActionBar",
+         "type": null,
+         "value": "true",
+         "valueList": null
+        }
+       ],
+       "componentName": "force:relatedListContainer",
+       "componentType": null,
+       "flexipageDataSources": null,
+       "identifier": "force_relatedListContainer",
+       "visibilityRule": null
+      },
+      "fieldInstance": null
+     }
+    ],
+    "mode": "Replace",
+    "name": "relatedTabContent",
+    "prependable": null,
+    "replaceable": null,
+    "type": "Facet"
+   },
+   {
+    "appendable": null,
+    "itemInstances": [
+     {
+      "componentInstance": {
+       "componentInstanceProperties": [
+        {
+         "name": "body",
+         "type": null,
+         "value": "Facet-3951b396-731c-47f1-be59-99fcc180cec1",
+         "valueList": null
+        }
+       ],
+       "componentName": "flexipage:column",
+       "componentType": null,
+       "flexipageDataSources": null,
+       "identifier": "flexipage_column",
+       "visibilityRule": null
+      },
+      "fieldInstance": null
+     },
+     {
+      "componentInstance": {
+       "componentInstanceProperties": [
+        {
+         "name": "body",
+         "type": null,
+         "value": "Facet-acb00b1d-2d9d-4ea6-abd1-5f75817c2087",
+         "valueList": null
+        }
+       ],
+       "componentName": "flexipage:column",
+       "componentType": null,
+       "flexipageDataSources": null,
+       "identifier": "flexipage_column2",
+       "visibilityRule": null
+      },
+      "fieldInstance": null
+     }
+    ],
+    "mode": null,
+    "name": "Facet-8d9ed198-6235-4818-b939-a30575575ebd",
+    "prependable": null,
+    "replaceable": null,
+    "type": "Facet"
+   },
+   {
+    "appendable": null,
+    "itemInstances": [
+     {
+      "componentInstance": {
+       "componentInstanceProperties": [
+        {
+         "name": "body",
+         "type": null,
+         "value": "Facet-5a7d8c78-2265-4c8e-8fd0-075ecf721db9",
+         "valueList": null
+        }
+       ],
+       "componentName": "flexipage:column",
+       "componentType": null,
+       "flexipageDataSources": null,
+       "identifier": "flexipage_column3",
+       "visibilityRule": null
+      },
+      "fieldInstance": null
+     },
+     {
+      "componentInstance": {
+       "componentInstanceProperties": [
+        {
+         "name": "body",
+         "type": null,
+         "value": "Facet-9d2b0da8-61a2-41d2-830a-a8b4b49d9833",
+         "valueList": null
+        }
+       ],
+       "componentName": "flexipage:column",
+       "componentType": null,
+       "flexipageDataSources": null,
+       "identifier": "flexipage_column4",
+       "visibilityRule": null
+      },
+      "fieldInstance": null
+     }
+    ],
+    "mode": null,
+    "name": "Facet-fea68ef3-b985-4fe6-b2ad-6e6fa0ed366a",
+    "prependable": null,
+    "replaceable": null,
+    "type": "Facet"
+   },
+   {
+    "appendable": null,
+    "itemInstances": [
+     {
+      "componentInstance": {
+       "componentInstanceProperties": [
+        {
+         "name": "body",
+         "type": null,
+         "value": "Facet-2d81c9d9-be10-47e8-a2c8-d7b9785c92ab",
+         "valueList": null
+        }
+       ],
+       "componentName": "flexipage:column",
+       "componentType": null,
+       "flexipageDataSources": null,
+       "identifier": "flexipage_column5",
+       "visibilityRule": null
+      },
+      "fieldInstance": null
+     },
+     {
+      "componentInstance": {
+       "componentInstanceProperties": [
+        {
+         "name": "body",
+         "type": null,
+         "value": "Facet-f854a069-41f1-48f2-aaf7-aab7f1d956a4",
+         "valueList": null
+        }
+       ],
+       "componentName": "flexipage:column",
+       "componentType": null,
+       "flexipageDataSources": null,
+       "identifier": "flexipage_column6",
+       "visibilityRule": null
+      },
+      "fieldInstance": null
+     }
+    ],
+    "mode": null,
+    "name": "Facet-bde40ee6-b39f-4b8f-964e-040e87ecf839",
+    "prependable": null,
+    "replaceable": null,
+    "type": "Facet"
+   },
+   {
+    "appendable": null,
+    "itemInstances": [
+     {
+      "componentInstance": {
+       "componentInstanceProperties": [
+        {
+         "name": "body",
+         "type": null,
+         "value": "Facet-20cf7747-9f27-4d64-847e-23511a0688c2",
+         "valueList": null
+        }
+       ],
+       "componentName": "flexipage:column",
+       "componentType": null,
+       "flexipageDataSources": null,
+       "identifier": "flexipage_column7",
+       "visibilityRule": null
+      },
+      "fieldInstance": null
+     },
+     {
+      "componentInstance": {
+       "componentInstanceProperties": [
+        {
+         "name": "body",
+         "type": null,
+         "value": "Facet-ab209566-689f-474f-8bf6-351565c6d6b6",
+         "valueList": null
+        }
+       ],
+       "componentName": "flexipage:column",
+       "componentType": null,
+       "flexipageDataSources": null,
+       "identifier": "flexipage_column8",
+       "visibilityRule": null
+      },
+      "fieldInstance": null
+     }
+    ],
+    "mode": null,
+    "name": "Facet-d32d180a-0258-4c06-81ea-af66a4c53f4b",
+    "prependable": null,
+    "replaceable": null,
+    "type": "Facet"
+   },
+   {
+    "appendable": null,
+    "itemInstances": [
+     {
+      "componentInstance": {
+       "componentInstanceProperties": [
+        {
+         "name": "body",
+         "type": null,
+         "value": "Facet-c8784824-b5e9-4bd8-9d0e-f9c7ca1994ad",
+         "valueList": null
+        }
+       ],
+       "componentName": "flexipage:column",
+       "componentType": null,
+       "flexipageDataSources": null,
+       "identifier": "flexipage_column9",
+       "visibilityRule": null
+      },
+      "fieldInstance": null
+     },
+     {
+      "componentInstance": {
+       "componentInstanceProperties": [
+        {
+         "name": "body",
+         "type": null,
+         "value": "Facet-fe30390b-e4c2-4f2f-8cdd-21d627ea1c51",
+         "valueList": null
+        }
+       ],
+       "componentName": "flexipage:column",
+       "componentType": null,
+       "flexipageDataSources": null,
+       "identifier": "flexipage_column10",
+       "visibilityRule": null
+      },
+      "fieldInstance": null
+     }
+    ],
+    "mode": null,
+    "name": "Facet-27523160-c1bd-4cc7-8704-67adff603d59",
+    "prependable": null,
+    "replaceable": null,
+    "type": "Facet"
+   },
+   {
+    "appendable": null,
+    "itemInstances": [
+     {
+      "componentInstance": {
+       "componentInstanceProperties": [
+        {
+         "name": "body",
+         "type": null,
+         "value": "Facet-283345bd-9802-4645-a2ff-3d5877a63a11",
+         "valueList": null
+        }
+       ],
+       "componentName": "flexipage:column",
+       "componentType": null,
+       "flexipageDataSources": null,
+       "identifier": "flexipage_column13",
+       "visibilityRule": null
+      },
+      "fieldInstance": null
+     },
+     {
+      "componentInstance": {
+       "componentInstanceProperties": [
+        {
+         "name": "body",
+         "type": null,
+         "value": "Facet-cd073504-a7f2-4af2-9bee-2c8102b6e5f4",
+         "valueList": null
+        }
+       ],
+       "componentName": "flexipage:column",
+       "componentType": null,
+       "flexipageDataSources": null,
+       "identifier": "flexipage_column16",
+       "visibilityRule": null
+      },
+      "fieldInstance": null
+     }
+    ],
+    "mode": null,
+    "name": "Facet-a15d599f-84a1-439f-961e-e8f961150928",
+    "prependable": null,
+    "replaceable": null,
+    "type": "Facet"
+   },
+   {
+    "appendable": null,
+    "itemInstances": [
+     {
+      "componentInstance": {
+       "componentInstanceProperties": [
+        {
+         "name": "body",
+         "type": null,
+         "value": "Facet-c0542a4f-fcf2-48ff-9f80-9ec1fc3763c1",
+         "valueList": null
+        }
+       ],
+       "componentName": "flexipage:column",
+       "componentType": null,
+       "flexipageDataSources": null,
+       "identifier": "flexipage_column14",
+       "visibilityRule": null
+      },
+      "fieldInstance": null
+     },
+     {
+      "componentInstance": {
+       "componentInstanceProperties": [
+        {
+         "name": "body",
+         "type": null,
+         "value": "Facet-a8088989-2ddc-4000-ada0-3e570165120e",
+         "valueList": null
+        }
+       ],
+       "componentName": "flexipage:column",
+       "componentType": null,
+       "flexipageDataSources": null,
+       "identifier": "flexipage_column15",
+       "visibilityRule": null
+      },
+      "fieldInstance": null
+     }
+    ],
+    "mode": null,
+    "name": "Facet-f3fae0e3-d88d-4330-94f5-0ed14699e01b",
+    "prependable": null,
+    "replaceable": null,
+    "type": "Facet"
+   },
+   {
+    "appendable": null,
+    "itemInstances": [
+     {
+      "componentInstance": {
+       "componentInstanceProperties": [
+        {
+         "name": "body",
+         "type": null,
+         "value": "relatedTabContent",
+         "valueList": null
+        },
+        {
+         "name": "title",
+         "type": null,
+         "value": "Standard.Tab.relatedLists",
+         "valueList": null
+        }
+       ],
+       "componentName": "flexipage:tab",
+       "componentType": null,
+       "flexipageDataSources": null,
+       "identifier": "relatedListsTab",
+       "visibilityRule": null
+      },
+      "fieldInstance": null
+     },
+     {
+      "componentInstance": {
+       "componentInstanceProperties": [
+        {
+         "name": "active",
+         "type": null,
+         "value": "true",
+         "valueList": null
+        },
+        {
+         "name": "body",
+         "type": null,
+         "value": "detailTabContent",
+         "valueList": null
+        },
+        {
+         "name": "title",
+         "type": null,
+         "value": "Standard.Tab.detail",
+         "valueList": null
+        }
+       ],
+       "componentName": "flexipage:tab",
+       "componentType": null,
+       "flexipageDataSources": null,
+       "identifier": "detailTab",
+       "visibilityRule": null
+      },
+      "fieldInstance": null
+     }
+    ],
+    "mode": "Replace",
+    "name": "maintabs",
+    "prependable": null,
+    "replaceable": null,
+    "type": "Facet"
+   },
+   {
+    "appendable": null,
+    "itemInstances": [
+     {
+      "componentInstance": {
+       "componentInstanceProperties": [
+        {
+         "name": "tabs",
+         "type": null,
+         "value": "maintabs",
+         "valueList": null
+        }
+       ],
+       "componentName": "flexipage:tabset",
+       "componentType": null,
+       "flexipageDataSources": null,
+       "identifier": "flexipage_tabset",
+       "visibilityRule": null
+      },
+      "fieldInstance": null
+     }
+    ],
+    "mode": "Replace",
+    "name": "main",
+    "prependable": null,
+    "replaceable": null,
+    "type": "Region"
+   },
+   {
+    "appendable": null,
+    "itemInstances": [
+     {
+      "componentInstance": {
+       "componentInstanceProperties": [
+        {
+         "name": "showLegacyActivityComposer",
+         "type": null,
+         "value": "false",
+         "valueList": null
+        }
+       ],
+       "componentName": "runtime_sales_activities:activityPanel",
+       "componentType": null,
+       "flexipageDataSources": null,
+       "identifier": "runtime_sales_activities_activityPanel",
+       "visibilityRule": null
+      },
+      "fieldInstance": null
+     }
+    ],
+    "mode": "Replace",
+    "name": "activityTabContent",
+    "prependable": null,
+    "replaceable": null,
+    "type": "Facet"
+   },
+   {
+    "appendable": null,
+    "itemInstances": [
+     {
+      "componentInstance": {
+       "componentInstanceProperties": [
+        {
+         "name": "active",
+         "type": null,
+         "value": "true",
+         "valueList": null
+        },
+        {
+         "name": "body",
+         "type": null,
+         "value": "activityTabContent",
+         "valueList": null
+        },
+        {
+         "name": "title",
+         "type": null,
+         "value": "Standard.Tab.activity",
+         "valueList": null
+        }
+       ],
+       "componentName": "flexipage:tab",
+       "componentType": null,
+       "flexipageDataSources": null,
+       "identifier": "activityTab",
+       "visibilityRule": null
+      },
+      "fieldInstance": null
+     }
+    ],
+    "mode": "Replace",
+    "name": "sidebartabs",
+    "prependable": null,
+    "replaceable": null,
+    "type": "Facet"
+   },
+   {
+    "appendable": null,
+    "itemInstances": [
+     {
+      "componentInstance": {
+       "componentInstanceProperties": [
+        {
+         "name": "tabs",
+         "type": null,
+         "value": "sidebartabs",
+         "valueList": null
+        }
+       ],
+       "componentName": "flexipage:tabset",
+       "componentType": null,
+       "flexipageDataSources": null,
+       "identifier": "flexipage_tabset2",
+       "visibilityRule": null
+      },
+      "fieldInstance": null
+     },
+     {
+      "componentInstance": {
+       "componentInstanceProperties": [],
+       "componentName": "runtime_industries_sustainability:nzmCard",
+       "componentType": null,
+       "flexipageDataSources": null,
+       "identifier": "runtime_industries_sustainability_nzmCard",
+       "visibilityRule": null
+      },
+      "fieldInstance": null
+     }
+    ],
+    "mode": "Replace",
+    "name": "sidebar",
+    "prependable": null,
+    "replaceable": null,
+    "type": "Region"
+   },
+   {
+    "appendable": null,
+    "itemInstances": [
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "required"
+        }
+       ],
+       "fieldItem": "Record.Name",
+       "identifier": "RecordNameField",
+       "visibilityRule": null
+      }
+     },
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.State",
+       "identifier": "RecordStateField",
+       "visibilityRule": null
+      }
+     },
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.City",
+       "identifier": "RecordCityField",
+       "visibilityRule": null
+      }
+     },
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.Country",
+       "identifier": "RecordCountryField",
+       "visibilityRule": null
+      }
+     },
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.GridSubregion",
+       "identifier": "RecordGridSubregionField",
+       "visibilityRule": null
+      }
+     },
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.GenlConversionFctrRevisionDate",
+       "identifier": "RecordGenlConversionFctrRevisionDateField",
+       "visibilityRule": null
+      }
+     },
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.ShouldLockDtastUpdtForRec",
+       "identifier": "RecordShouldLockDtastUpdtForRecField",
+       "visibilityRule": null
+      }
+     },
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "required"
+        }
+       ],
+       "fieldItem": "Record.EmissionsFactorType",
+       "identifier": "RecordEmissionsFactorTypeField",
+       "visibilityRule": null
+      }
+     },
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.ReferenceDataLoadLogId",
+       "identifier": "RecordReferenceDataLoadLogIdField",
+       "visibilityRule": null
+      }
+     }
+    ],
+    "mode": null,
+    "name": "Facet-3951b396-731c-47f1-be59-99fcc180cec1",
+    "prependable": null,
+    "replaceable": null,
+    "type": "Facet"
+   },
+   {
+    "appendable": null,
+    "itemInstances": [
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.OwnerId",
+       "identifier": "RecordOwnerIdField",
+       "visibilityRule": null
+      }
+     },
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.EmissionFactorDataSource",
+       "identifier": "RecordEmissionFactorDataSourceField",
+       "visibilityRule": null
+      }
+     },
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.EmissionFactorUpdateYear",
+       "identifier": "RecordEmissionFactorUpdateYearField",
+       "visibilityRule": null
+      }
+     },
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.OtherEmssnFctrId",
+       "identifier": "RecordOtherEmssnFctrIdField",
+       "visibilityRule": null
+      }
+     }
+    ],
+    "mode": null,
+    "name": "Facet-acb00b1d-2d9d-4ea6-abd1-5f75817c2087",
+    "prependable": null,
+    "replaceable": null,
+    "type": "Facet"
+   },
+   {
+    "appendable": null,
+    "itemInstances": [
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.Co2eEmissionRate",
+       "identifier": "RecordCo2eEmissionRateField",
+       "visibilityRule": null
+      }
+     },
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.Co2EmissionRate",
+       "identifier": "RecordCo2EmissionRateField",
+       "visibilityRule": null
+      }
+     },
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.Ch4EmissionRate",
+       "identifier": "RecordCh4EmissionRateField",
+       "visibilityRule": null
+      }
+     },
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.N2oEmissionRate",
+       "identifier": "RecordN2oEmissionRateField",
+       "visibilityRule": null
+      }
+     }
+    ],
+    "mode": null,
+    "name": "Facet-5a7d8c78-2265-4c8e-8fd0-075ecf721db9",
+    "prependable": null,
+    "replaceable": null,
+    "type": "Facet"
+   },
+   {
+    "appendable": null,
+    "itemInstances": [
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.Co2eEmissionRateUnit",
+       "identifier": "RecordCo2eEmissionRateUnitField",
+       "visibilityRule": null
+      }
+     },
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.Co2EmissionRateUnit",
+       "identifier": "RecordCo2EmissionRateUnitField",
+       "visibilityRule": null
+      }
+     },
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.Ch4EmissionRateUnit",
+       "identifier": "RecordCh4EmissionRateUnitField",
+       "visibilityRule": null
+      }
+     },
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.N2oEmissionRateUnit",
+       "identifier": "RecordN2oEmissionRateUnitField",
+       "visibilityRule": null
+      }
+     }
+    ],
+    "mode": null,
+    "name": "Facet-9d2b0da8-61a2-41d2-830a-a8b4b49d9833",
+    "prependable": null,
+    "replaceable": null,
+    "type": "Facet"
+   },
+   {
+    "appendable": null,
+    "itemInstances": [
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.MktBsdDataSrcType",
+       "identifier": "RecordMktBsdDataSrcTypeField",
+       "visibilityRule": null
+      }
+     },
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.MktBsdCo2eEmissionRate",
+       "identifier": "RecordMktBsdCo2eEmissionRateField",
+       "visibilityRule": null
+      }
+     },
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.MktBsdCo2EmssnRate",
+       "identifier": "RecordMktBsdCo2EmssnRateField",
+       "visibilityRule": null
+      }
+     },
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.MktBsdCh4EmssnRate",
+       "identifier": "RecordMktBsdCh4EmssnRateField",
+       "visibilityRule": null
+      }
+     },
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.MktBsdN2oEmssnRate",
+       "identifier": "RecordMktBsdN2oEmssnRateField",
+       "visibilityRule": null
+      }
+     }
+    ],
+    "mode": null,
+    "name": "Facet-2d81c9d9-be10-47e8-a2c8-d7b9785c92ab",
+    "prependable": null,
+    "replaceable": null,
+    "type": "Facet"
+   },
+   {
+    "appendable": null,
+    "itemInstances": [
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.MktBsdElectrSupplierId",
+       "identifier": "RecordMktBsdElectrSupplierIdField",
+       "visibilityRule": null
+      }
+     },
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.MktBsdCo2eEmissionRateUnit",
+       "identifier": "RecordMktBsdCo2eEmissionRateUnitField",
+       "visibilityRule": null
+      }
+     },
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.MktBsdCo2EmssnRateUnit",
+       "identifier": "RecordMktBsdCo2EmssnRateUnitField",
+       "visibilityRule": null
+      }
+     },
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.MktBsdCh4EmssnRateUnit",
+       "identifier": "RecordMktBsdCh4EmssnRateUnitField",
+       "visibilityRule": null
+      }
+     },
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.MktBsdN2oEmssnRateUnit",
+       "identifier": "RecordMktBsdN2oEmssnRateUnitField",
+       "visibilityRule": null
+      }
+     }
+    ],
+    "mode": null,
+    "name": "Facet-f854a069-41f1-48f2-aaf7-aab7f1d956a4",
+    "prependable": null,
+    "replaceable": null,
+    "type": "Facet"
+   },
+   {
+    "appendable": null,
+    "itemInstances": [
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.Co2eEmissionRateInTmwh",
+       "identifier": "RecordCo2eEmissionRateInTmwhField",
+       "visibilityRule": null
+      }
+     },
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.Co2EmissionRateInTmwh",
+       "identifier": "RecordCo2EmissionRateInTmwhField",
+       "visibilityRule": null
+      }
+     },
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.Ch4EmissionRateInTgwh",
+       "identifier": "RecordCh4EmissionRateInTgwhField",
+       "visibilityRule": null
+      }
+     },
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.N2oEmissionRateInTgwh",
+       "identifier": "RecordN2oEmissionRateInTgwhField",
+       "visibilityRule": null
+      }
+     }
+    ],
+    "mode": null,
+    "name": "Facet-20cf7747-9f27-4d64-847e-23511a0688c2",
+    "prependable": null,
+    "replaceable": null,
+    "type": "Facet"
+   },
+   {
+    "appendable": null,
+    "itemInstances": [
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.MktBsdCo2eEmissionRateInTmwh",
+       "identifier": "RecordMktBsdCo2eEmissionRateInTmwhField",
+       "visibilityRule": null
+      }
+     },
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.MktBsdCo2EmssnRtInTmwh",
+       "identifier": "RecordMktBsdCo2EmssnRtInTmwhField",
+       "visibilityRule": null
+      }
+     },
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.MktBsdCh4EmssnRtInTgwh",
+       "identifier": "RecordMktBsdCh4EmssnRtInTgwhField",
+       "visibilityRule": null
+      }
+     },
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.MktBsdN2oEmssnRtInTgwh",
+       "identifier": "RecordMktBsdN2oEmssnRtInTgwhField",
+       "visibilityRule": null
+      }
+     }
+    ],
+    "mode": null,
+    "name": "Facet-ab209566-689f-474f-8bf6-351565c6d6b6",
+    "prependable": null,
+    "replaceable": null,
+    "type": "Facet"
+   },
+   {
+    "appendable": null,
+    "itemInstances": [
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.LocationBasedBiomassMixPct",
+       "identifier": "RecordLocationBasedBiomassMixPctField",
+       "visibilityRule": null
+      }
+     },
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.LocationBasedCoalMixPct",
+       "identifier": "RecordLocationBasedCoalMixPctField",
+       "visibilityRule": null
+      }
+     },
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.LocationBasedGasMixPct",
+       "identifier": "RecordLocationBasedGasMixPctField",
+       "visibilityRule": null
+      }
+     },
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.LocBasedGeothermalMixPct",
+       "identifier": "RecordLocBasedGeothermalMixPctField",
+       "visibilityRule": null
+      }
+     },
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.LocationBasedHydroMixPct",
+       "identifier": "RecordLocationBasedHydroMixPctField",
+       "visibilityRule": null
+      }
+     },
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.LocationBasedNuclearMixPct",
+       "identifier": "RecordLocationBasedNuclearMixPctField",
+       "visibilityRule": null
+      }
+     },
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.LocationBasedOilMixPct",
+       "identifier": "RecordLocationBasedOilMixPctField",
+       "visibilityRule": null
+      }
+     },
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.LocBasedOtherFossilFuelMixPct",
+       "identifier": "RecordLocBasedOtherFossilFuelMixPctField",
+       "visibilityRule": null
+      }
+     },
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.LocationBasedOtherFuelMixPct",
+       "identifier": "RecordLocationBasedOtherFuelMixPctField",
+       "visibilityRule": null
+      }
+     },
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.LocationBasedSolarMixPct",
+       "identifier": "RecordLocationBasedSolarMixPctField",
+       "visibilityRule": null
+      }
+     },
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.LocationBasedWindMixPct",
+       "identifier": "RecordLocationBasedWindMixPctField",
+       "visibilityRule": null
+      }
+     }
+    ],
+    "mode": null,
+    "name": "Facet-c8784824-b5e9-4bd8-9d0e-f9c7ca1994ad",
+    "prependable": null,
+    "replaceable": null,
+    "type": "Facet"
+   },
+   {
+    "appendable": null,
+    "itemInstances": [
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.LocationBasedMixPct",
+       "identifier": "RecordLocationBasedMixPctField",
+       "visibilityRule": null
+      }
+     },
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.LocBsdRenewableEnrgyNonHydro",
+       "identifier": "RecordLocBsdRenewableEnrgyNonHydroField",
+       "visibilityRule": null
+      }
+     },
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.LocBasedRenewableEnergyPct",
+       "identifier": "RecordLocBasedRenewableEnergyPctField",
+       "visibilityRule": null
+      }
+     }
+    ],
+    "mode": null,
+    "name": "Facet-fe30390b-e4c2-4f2f-8cdd-21d627ea1c51",
+    "prependable": null,
+    "replaceable": null,
+    "type": "Facet"
+   },
+   {
+    "appendable": null,
+    "itemInstances": [
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.MarketBasedBiomassMixPct",
+       "identifier": "RecordMarketBasedBiomassMixPctField",
+       "visibilityRule": null
+      }
+     },
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.MarketBasedCoalMixPct",
+       "identifier": "RecordMarketBasedCoalMixPctField",
+       "visibilityRule": null
+      }
+     },
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.MarketBasedGasMixPct",
+       "identifier": "RecordMarketBasedGasMixPctField",
+       "visibilityRule": null
+      }
+     },
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.MktBasedGeothermalMixPct",
+       "identifier": "RecordMktBasedGeothermalMixPctField",
+       "visibilityRule": null
+      }
+     },
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.MarketBasedHydroMixPct",
+       "identifier": "RecordMarketBasedHydroMixPctField",
+       "visibilityRule": null
+      }
+     },
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.MarketBasedNuclearMixPct",
+       "identifier": "RecordMarketBasedNuclearMixPctField",
+       "visibilityRule": null
+      }
+     },
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.MarketBasedOilMixPct",
+       "identifier": "RecordMarketBasedOilMixPctField",
+       "visibilityRule": null
+      }
+     },
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.MktBasedOtherFossilFuelMixPct",
+       "identifier": "RecordMktBasedOtherFossilFuelMixPctField",
+       "visibilityRule": null
+      }
+     },
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.MarketBasedOtherFuelMixPct",
+       "identifier": "RecordMarketBasedOtherFuelMixPctField",
+       "visibilityRule": null
+      }
+     },
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.MarketBasedSolarMixPct",
+       "identifier": "RecordMarketBasedSolarMixPctField",
+       "visibilityRule": null
+      }
+     },
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.MarketBasedWindMixPct",
+       "identifier": "RecordMarketBasedWindMixPctField",
+       "visibilityRule": null
+      }
+     }
+    ],
+    "mode": null,
+    "name": "Facet-283345bd-9802-4645-a2ff-3d5877a63a11",
+    "prependable": null,
+    "replaceable": null,
+    "type": "Facet"
+   },
+   {
+    "appendable": null,
+    "itemInstances": [
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.MarketBasedMixPct",
+       "identifier": "RecordMarketBasedMixPctField",
+       "visibilityRule": null
+      }
+     },
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.MktBsdRenewableEnrgyNonHydro",
+       "identifier": "RecordMktBsdRenewableEnrgyNonHydroField",
+       "visibilityRule": null
+      }
+     },
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.MktBasedRenewableEnergyPct",
+       "identifier": "RecordMktBasedRenewableEnergyPctField",
+       "visibilityRule": null
+      }
+     }
+    ],
+    "mode": null,
+    "name": "Facet-cd073504-a7f2-4af2-9bee-2c8102b6e5f4",
+    "prependable": null,
+    "replaceable": null,
+    "type": "Facet"
+   },
+   {
+    "appendable": null,
+    "itemInstances": [
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "readonly"
+        }
+       ],
+       "fieldItem": "Record.CreatedById",
+       "identifier": "RecordCreatedByIdField",
+       "visibilityRule": null
+      }
+     },
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "readonly"
+        }
+       ],
+       "fieldItem": "Record.LastModifiedDate",
+       "identifier": "RecordLastModifiedDateField",
+       "visibilityRule": null
+      }
+     }
+    ],
+    "mode": null,
+    "name": "Facet-c0542a4f-fcf2-48ff-9f80-9ec1fc3763c1",
+    "prependable": null,
+    "replaceable": null,
+    "type": "Facet"
+   },
+   {
+    "appendable": null,
+    "itemInstances": [
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "none"
+        }
+       ],
+       "fieldItem": "Record.PostalCodeSet",
+       "identifier": "RecordPostalCodeSetField",
+       "visibilityRule": null
+      }
+     },
+     {
+      "componentInstance": null,
+      "fieldInstance": {
+       "fieldInstanceProperties": [
+        {
+         "name": "uiBehavior",
+         "value": "readonly"
+        }
+       ],
+       "fieldItem": "Record.LastModifiedById",
+       "identifier": "RecordLastModifiedByIdField",
+       "visibilityRule": null
+      }
+     }
+    ],
+    "mode": null,
+    "name": "Facet-a8088989-2ddc-4000-ada0-3e570165120e",
+    "prependable": null,
+    "replaceable": null,
+    "type": "Facet"
+   }
+  ],
+  "masterLabel": "Dynamic Page for EEF",
+  "parentFlexiPage": "sustainability__ElectricityEmssnFctrSet_rec_L",
+  "platformActionlist": null,
+  "quickActionList": null,
+  "sobjectType": "ElectricityEmssnFctrSet",
+  "template": {
+   "componentType": null,
+   "flexipageDataSources": null,
+   "identifier": null,
+   "name": "flexipage:recordHomeTemplateDesktop",
+   "properties": [],
+   "schemaProperties": []
+  },
+  "type": "RecordPage",
+  "urls": null
+ }
+}

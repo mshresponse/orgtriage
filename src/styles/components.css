@@ -1,0 +1,1674 @@
+/* =============================================================================
+   OrgTriage — component layer
+   =============================================================================
+   Dense, SLDS-shaped components for the panel document. Class names mirror SLDS
+   structure (`slds-`-style block/element naming under an `os-` prefix) so the
+   markup reads familiarly to Salesforce developers, while the sizing is tuned
+   for scanning hundreds of metadata rows rather than for a record page.
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--os-bg-canvas);
+  color: var(--os-text-primary);
+  font-family: var(--os-font-sans);
+  font-size: var(--os-font-size-base);
+  line-height: var(--os-line-height-base);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow: hidden; /* the app owns its own scroll regions */
+}
+
+/* Inline icons carry no width/height attributes, and an unsized SVG defaults to
+   filling its container. Anchoring them to the current font size means an icon
+   dropped into running text is always the right size; the component rules below
+   override where a fixed box is wanted. */
+svg {
+  width: 1em;
+  height: 1em;
+  flex: none;
+  vertical-align: -0.125em;
+}
+.os-header__logo svg,
+.os-finding__chevron svg,
+.os-button--icon svg {
+  width: 100%;
+  height: 100%;
+  vertical-align: initial;
+}
+
+:focus-visible {
+  outline: 2px solid var(--os-focus-ring);
+  outline-offset: 1px;
+  border-radius: var(--os-radius-sm);
+}
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Scrollbars: thin and recessive, matching the charcoal ground. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--os-border-strong) transparent;
+}
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--os-border);
+  border: 2px solid transparent;
+  background-clip: content-box;
+  border-radius: var(--os-radius-pill);
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--os-border-strong);
+  background-clip: content-box;
+}
+
+/* -----------------------------------------------------------------------------
+   App shell
+   -------------------------------------------------------------------------- */
+
+/* The panel must fill its window before anything inside it can scroll.
+   `<orgtriage-app>` is a custom element, and an undefined element is
+   `display: inline` with an auto height — so `.os-app { height: 100% }` had no
+   definite parent height to resolve against and silently fell back to its
+   content height. The app then grew past the window instead of the findings
+   list scrolling inside it, and because <body> is `overflow: hidden` the
+   document could not be scrolled with a wheel — only by tabbing, which the
+   browser honours even on a hidden-overflow box. It looked like a width bug
+   because at wide panel widths the content happened to fit. */
+#root:has(> orgtriage-app),
+orgtriage-app {
+  display: block;
+  height: 100%;
+  min-height: 0;
+}
+
+.os-app {
+  display: grid;
+  /* `minmax(0, 1fr)`, not the implicit `auto`: an auto column refuses to shrink
+     below its content's min-content width, which at the 25% sidebar mode made
+     the entire panel wider than its viewport and scrolled horizontally. This
+     constrains every row to the panel width and lets each handle its own
+     overflow (tabs and status bar scroll; text truncates). */
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto auto 1fr auto;
+  height: 100%;
+  min-height: 0;
+}
+
+.os-header {
+  display: flex;
+  align-items: center;
+  gap: var(--os-space-sm);
+  padding: var(--os-space-xs) var(--os-space-md);
+  background: var(--os-bg-surface);
+  border-bottom: 1px solid var(--os-border-subtle);
+  min-height: 40px;
+  min-width: 0;
+}
+
+.os-header__mark {
+  display: flex;
+  align-items: center;
+  gap: var(--os-space-xs);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--os-text-primary);
+  white-space: nowrap;
+  flex: none;
+}
+
+.os-header__logo {
+  /* The mark is 4:5; the loop takes the header text colour, the check is mint. */
+  width: 14px;
+  height: 17px;
+  color: var(--os-text);
+  flex: none;
+}
+
+.os-header__org {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: var(--os-space-2xs);
+  /* Takes the row and centres the org; the theme control stays on the right.
+     Shrinks before the control does — the org name is context, the control
+     is function. */
+  flex: 1 1 auto;
+  min-width: 0;
+  min-width: 0;
+  overflow: hidden;
+  font-size: var(--os-font-size-sm);
+  color: var(--os-text-secondary);
+}
+
+/* Width-mode buttons: never compressed, never wrapped. */
+.os-header__modes {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex: none;
+}
+.os-header__org b {
+  font-weight: 600;
+  color: var(--os-text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.os-header__spacer {
+  flex: 1 1 auto;
+}
+
+/* -----------------------------------------------------------------------------
+   Tabs — SLDS scoped-tab geometry, compressed
+   -------------------------------------------------------------------------- */
+.os-tabs {
+  /* Three tracks, and the outer two share the leftover space equally, so the
+     org label is centred on the *row*. As a flex item between the tabs and the
+     theme button it was centred on whatever space the tabs left over, which
+     put it visibly right of centre. Each outer track keeps its content width
+     as a floor: a narrow panel squeezes the label, never the tabs. */
+  display: grid;
+  grid-template-columns: minmax(max-content, 1fr) minmax(0, auto) minmax(max-content, 1fr);
+  align-items: stretch;
+  background: var(--os-bg-surface);
+  border-bottom: 1px solid var(--os-border);
+  padding: 0 var(--os-space-sm);
+  /* The org label truncates instead of the row scrolling. */
+  overflow: hidden;
+  scrollbar-width: none;
+}
+.os-tabs__list {
+  display: flex;
+  align-items: stretch;
+  min-width: 0;
+}
+.os-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.os-tab {
+  appearance: none;
+  background: none;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  color: var(--os-text-secondary);
+  cursor: pointer;
+  font: inherit;
+  font-size: var(--os-font-size-sm);
+  padding: var(--os-space-xs) var(--os-space-sm) calc(var(--os-space-xs) - 2px);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--os-space-2xs);
+  white-space: nowrap;
+  transition: color var(--os-transition-fast), border-color var(--os-transition-fast);
+}
+.os-tab:hover {
+  color: var(--os-text-primary);
+}
+
+/* Org name, environment and API version, centred in the space the tabs leave.
+   The name is the only thing that shrinks: badges and the version keep their
+   width, the name gets an ellipsis. */
+.os-tabs__org {
+  justify-self: center;
+  min-width: 0;
+  max-width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--os-space-2xs);
+  font-size: var(--os-font-size-sm);
+  padding-inline: var(--os-space-xs);
+  white-space: nowrap;
+}
+.os-tabs__org-name {
+  font-weight: 600;
+  color: var(--os-text-primary);
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.os-tabs__org .os-badge,
+.os-tabs__org .os-muted {
+  flex: none;
+}
+.os-tabs__theme {
+  justify-self: end;
+  align-self: center;
+}
+.os-tab[aria-selected='true'] {
+  color: var(--os-text-accent);
+  border-bottom-color: var(--os-border-accent);
+  font-weight: 600;
+}
+
+/* -----------------------------------------------------------------------------
+   Main scroll region
+   -------------------------------------------------------------------------- */
+.os-main {
+  min-height: 0;
+  overflow: auto;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: var(--os-space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--os-space-md);
+}
+/* Flex items shrink before their container scrolls. In a scrolling flex column
+   that is exactly backwards: the children were compressed to fit the viewport
+   and, because `.os-card` clips, the bottom of each card was cut off instead of
+   `.os-main` growing a scrollbar. Cards that own an internal scroller (the data
+   tables) still do; they just no longer get squeezed to do it. */
+.os-main > * {
+  flex: 0 0 auto;
+}
+
+/* -----------------------------------------------------------------------------
+   Toolbar
+   -------------------------------------------------------------------------- */
+.os-toolbar {
+  display: flex;
+  align-items: center;
+  gap: var(--os-space-xs);
+  flex-wrap: wrap;
+}
+
+.os-input,
+.os-select {
+  appearance: none;
+  background: var(--os-bg-surface-sunken);
+  border: 1px solid var(--os-border-strong);
+  border-radius: var(--os-radius-sm);
+  color: var(--os-text-primary);
+  font: inherit;
+  font-size: var(--os-font-size-sm);
+  padding: var(--os-space-2xs) var(--os-space-xs);
+  min-height: 26px;
+}
+.os-input::placeholder {
+  color: var(--os-text-tertiary);
+}
+.os-input:focus,
+.os-select:focus {
+  border-color: var(--os-border-accent);
+}
+.os-input--search {
+  flex: 1 1 180px;
+  min-width: 140px;
+}
+.os-select {
+  padding-right: var(--os-space-lg);
+  background-image: linear-gradient(45deg, transparent 50%, currentColor 50%),
+    linear-gradient(135deg, currentColor 50%, transparent 50%);
+  background-position: right 10px center, right 6px center;
+  background-size: 4px 4px, 4px 4px;
+  background-repeat: no-repeat;
+}
+
+/* -----------------------------------------------------------------------------
+   Buttons
+   -------------------------------------------------------------------------- */
+.os-button {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--os-space-2xs);
+  border-radius: var(--os-radius-sm);
+  border: 1px solid var(--os-border-strong);
+  background: transparent;
+  color: var(--os-text-primary);
+  cursor: pointer;
+  font: inherit;
+  font-size: var(--os-font-size-sm);
+  line-height: 1;
+  min-height: 26px;
+  padding: 0 var(--os-space-sm);
+  white-space: nowrap;
+  transition: background var(--os-transition-fast), border-color var(--os-transition-fast),
+    color var(--os-transition-fast);
+}
+.os-button:hover:not(:disabled) {
+  background: var(--os-bg-hover);
+  border-color: var(--os-border-accent);
+}
+.os-button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.os-button--brand {
+  background: var(--os-bg-accent);
+  border-color: var(--os-bg-accent);
+  color: var(--os-text-on-accent);
+  font-weight: 600;
+}
+.os-button--brand:hover:not(:disabled) {
+  background: var(--os-bg-accent-hover);
+  border-color: var(--os-bg-accent-hover);
+  color: var(--os-text-on-accent);
+}
+.os-button--subtle {
+  border-color: transparent;
+  color: var(--os-text-secondary);
+  padding: 0 var(--os-space-xs);
+}
+.os-button--icon {
+  border-color: transparent;
+  color: var(--os-text-secondary);
+  width: 26px;
+  padding: 0;
+}
+.os-button--icon:hover:not(:disabled) {
+  color: var(--os-text-primary);
+}
+/* The new-tab arrow beside a component name is grey on purpose: the name
+   beside it is blue and opens in this tab, and a click a few pixels to the
+   right must not look like the same action. A documentation link's arrow is
+   blue because there the arrow and the text do the same thing. */
+.os-item__go {
+  color: var(--os-text-tertiary);
+}
+.os-item__go:hover:not(:disabled) {
+  color: var(--os-text-primary);
+  background: var(--os-bg-surface-sunken);
+}
+.os-button:not(.os-button--icon) svg {
+  width: 13px;
+  height: 13px;
+  vertical-align: initial;
+}
+.os-button--icon svg {
+  width: 13px;
+  height: 13px;
+}
+
+/* -----------------------------------------------------------------------------
+   Cards / sections
+   -------------------------------------------------------------------------- */
+.os-card {
+  background: var(--os-bg-surface);
+  border: 1px solid var(--os-border-subtle);
+  border-radius: var(--os-radius-md);
+  overflow: hidden;
+}
+.os-card__header {
+  display: flex;
+  align-items: center;
+  gap: var(--os-space-xs);
+  padding: var(--os-space-xs) var(--os-space-md);
+  border-bottom: 1px solid var(--os-border-subtle);
+  background: var(--os-bg-surface-raised);
+}
+/* The as-is line under a card header: same voice as the plan's legend note. */
+.os-card__note {
+  margin: 0;
+  padding: var(--os-space-2xs) var(--os-space-md);
+  border-bottom: 1px solid var(--os-border-subtle);
+}
+.os-card__title {
+  font-size: var(--os-font-size-sm);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--os-text-secondary);
+  margin: 0;
+}
+.os-card__body {
+  padding: var(--os-space-md);
+}
+.os-card__body--flush {
+  padding: 0;
+}
+
+/* -----------------------------------------------------------------------------
+   Data table — the workhorse. Sticky header, compact rows, monospace API names.
+   -------------------------------------------------------------------------- */
+.os-table-wrap {
+  overflow: auto;
+  max-height: 100%;
+}
+
+.os-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: var(--os-font-size-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+.os-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--os-bg-surface-raised);
+  border-bottom: 1px solid var(--os-border);
+  color: var(--os-text-secondary);
+  font-size: var(--os-font-size-xs);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-align: left;
+  padding: var(--os-space-2xs) var(--os-space-sm);
+  height: 24px;
+  white-space: nowrap;
+  user-select: none;
+}
+.os-table thead th[aria-sort] {
+  cursor: pointer;
+}
+.os-table thead th[aria-sort]:hover {
+  color: var(--os-text-primary);
+}
+.os-table thead th[aria-sort='ascending']::after {
+  content: ' ▲';
+  font-size: 8px;
+  color: var(--os-text-accent);
+}
+.os-table thead th[aria-sort='descending']::after {
+  content: ' ▼';
+  font-size: 8px;
+  color: var(--os-text-accent);
+}
+
+.os-table tbody td {
+  border-bottom: 1px solid var(--os-border-subtle);
+  padding: 0 var(--os-space-sm);
+  height: var(--os-row-height);
+  vertical-align: middle;
+  color: var(--os-text-primary);
+  max-width: 0; /* lets `width` + ellipsis actually apply in a table layout */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.os-table tbody tr:hover td {
+  background: var(--os-bg-hover);
+}
+.os-table tbody tr[aria-selected='true'] td {
+  background: var(--os-bg-selected);
+}
+.os-table--cozy tbody td {
+  height: var(--os-row-height-cozy);
+}
+
+.os-table .os-num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.os-table .os-api-name {
+  font-family: var(--os-font-mono);
+  font-size: var(--os-font-size-xs);
+  color: var(--os-text-secondary);
+}
+/* Component names link straight to the record or Setup page in a new tab; the
+   icon beside them navigates the current Salesforce tab instead. Both sit at
+   the left of the row so they are reachable without scrolling the table. */
+.os-table a.os-item__link {
+  color: var(--os-text-accent);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+.os-table a.os-item__link:hover {
+  border-bottom-color: currentColor;
+}
+.os-table .os-item__go {
+  width: 18px;
+  min-height: 18px;
+  margin-left: var(--os-space-3xs);
+  vertical-align: middle;
+}
+.os-table .os-item__go svg {
+  width: 11px;
+  height: 11px;
+}
+.os-table .os-muted {
+  color: var(--os-text-tertiary);
+}
+
+/* -----------------------------------------------------------------------------
+   Severity system — one visual language across every analyzer
+   -------------------------------------------------------------------------- */
+.os-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--os-space-3xs);
+  border-radius: var(--os-radius-sm);
+  font-size: var(--os-font-size-xs);
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  line-height: 1;
+  padding: 3px var(--os-space-2xs);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.os-badge--critical {
+  background: var(--os-status-critical-bg);
+  color: var(--os-status-critical);
+}
+.os-badge--warning {
+  background: var(--os-status-warning-bg);
+  color: var(--os-status-warning);
+}
+.os-badge--info {
+  background: var(--os-status-info-bg);
+  color: var(--os-status-info);
+}
+.os-badge--success {
+  background: var(--os-status-success-bg);
+  color: var(--os-status-success);
+}
+.os-badge--neutral {
+  background: var(--os-bg-surface-raised);
+  color: var(--os-text-secondary);
+}
+
+/* A 3px severity rail at the row's leading edge — readable without colour alone
+   because the badge text carries the same meaning. */
+.os-sev-rail {
+  border-left: 3px solid transparent;
+  padding-left: calc(var(--os-space-sm) - 3px) !important;
+}
+.os-sev-rail--critical {
+  border-left-color: var(--os-status-critical);
+}
+.os-sev-rail--warning {
+  border-left-color: var(--os-status-warning);
+}
+.os-sev-rail--info {
+  border-left-color: var(--os-status-info);
+}
+.os-sev-rail--success {
+  border-left-color: var(--os-status-success);
+}
+
+/* -----------------------------------------------------------------------------
+   Score + metric tiles
+   -------------------------------------------------------------------------- */
+.os-metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(118px, 1fr));
+  gap: var(--os-space-sm);
+  min-width: 0;
+}
+
+/* Score tile beside the metric grid. At the 25% sidebar width the two stack;
+   `flex: 999` on the metrics keeps them on one line whenever there is room. */
+.os-summary {
+  display: flex;
+  align-items: stretch;
+  gap: var(--os-space-md);
+  flex-wrap: wrap;
+  min-width: 0;
+}
+.os-summary__score {
+  flex: 1 1 150px;
+  min-width: 0;
+}
+.os-summary__metrics {
+  flex: 999 1 230px;
+  min-width: 0;
+}
+
+.os-metric {
+  background: var(--os-bg-surface);
+  border: 1px solid var(--os-border-subtle);
+  border-radius: var(--os-radius-md);
+  padding: var(--os-space-sm) var(--os-space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--os-space-3xs);
+  min-width: 0;
+}
+.os-metric__label {
+  font-size: var(--os-font-size-xs);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--os-text-tertiary);
+  /* Wrap rather than truncate: "NOT RUN IN A…" said nothing, and a second
+     line costs less than a label nobody can read. */
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+.os-metric__value {
+  font-size: var(--os-font-size-xl);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+  color: var(--os-text-primary);
+}
+.os-metric__sub {
+  font-size: var(--os-font-size-xs);
+  color: var(--os-text-secondary);
+}
+/* Where this figure lives in Salesforce. Sits at the foot of the tile so
+   every tile's link lines up, and stays quiet until hovered. */
+.os-metric__link {
+  margin-top: auto;
+  padding-top: var(--os-space-3xs);
+  font-size: var(--os-font-size-xs);
+  color: var(--os-text-accent);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  align-self: flex-start;
+}
+.os-metric__link svg {
+  width: 14px;
+  height: 14px;
+  flex: none;
+}
+.os-metric__link:hover {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* Horizontal meter used for coverage / limit consumption. */
+.os-meter {
+  height: 4px;
+  border-radius: var(--os-radius-pill);
+  background: var(--os-bg-surface-sunken);
+  overflow: hidden;
+}
+.os-meter__fill {
+  height: 100%;
+  background: var(--os-status-success);
+  transition: width var(--os-transition-panel);
+}
+.os-meter__fill--warning {
+  background: var(--os-status-warning);
+}
+.os-meter__fill--critical {
+  background: var(--os-status-critical);
+}
+
+/* -----------------------------------------------------------------------------
+   Finding rows — expandable evidence
+   -------------------------------------------------------------------------- */
+.os-finding {
+  border-bottom: 1px solid var(--os-border-subtle);
+}
+.os-finding__summary {
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  align-items: center;
+  gap: var(--os-space-sm);
+  padding: var(--os-space-xs) var(--os-space-md);
+  cursor: pointer;
+  list-style: none;
+  min-height: var(--os-row-height-cozy);
+}
+.os-finding__summary::-webkit-details-marker {
+  display: none;
+}
+.os-finding__summary:hover {
+  background: var(--os-bg-hover);
+}
+.os-finding__title {
+  font-size: var(--os-font-size-sm);
+  font-weight: 500;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.os-finding__count {
+  font-size: var(--os-font-size-xs);
+  color: var(--os-text-tertiary);
+  font-variant-numeric: tabular-nums;
+}
+.os-finding__chevron {
+  width: 12px;
+  height: 12px;
+  color: var(--os-text-tertiary);
+  transition: transform var(--os-transition-fast);
+}
+.os-finding[open] .os-finding__chevron {
+  transform: rotate(90deg);
+}
+.os-finding__body {
+  padding: 0 var(--os-space-md) var(--os-space-md) var(--os-space-xl);
+  font-size: var(--os-font-size-sm);
+  color: var(--os-text-secondary);
+  display: flex;
+  flex-direction: column;
+  gap: var(--os-space-sm);
+}
+.os-finding__why {
+  border-left: 2px solid var(--os-border);
+  padding-left: var(--os-space-sm);
+  color: var(--os-text-secondary);
+}
+.os-finding__fix {
+  color: var(--os-text-primary);
+}
+.os-finding__steps > summary {
+  cursor: pointer;
+  color: var(--os-text-accent);
+  font-size: var(--os-font-size-xs);
+  font-weight: 600;
+  list-style: none;
+}
+.os-finding__steps > summary::-webkit-details-marker {
+  display: none;
+}
+.os-finding__steps > summary::before {
+  content: '▸ ';
+}
+.os-finding__steps[open] > summary::before {
+  content: '▾ ';
+}
+.os-finding__steps ol {
+  margin: var(--os-space-xs) 0 0;
+  padding-left: var(--os-space-lg);
+  color: var(--os-text-primary);
+}
+.os-finding__steps li {
+  margin-bottom: var(--os-space-2xs);
+}
+.os-finding__done {
+  margin-top: var(--os-space-xs);
+  color: var(--os-text-secondary);
+}
+
+/* -----------------------------------------------------------------------------
+   Code / evidence blocks
+   -------------------------------------------------------------------------- */
+.os-code {
+  font-family: var(--os-font-mono);
+  font-size: var(--os-font-size-xs);
+  background: var(--os-bg-surface-sunken);
+  border: 1px solid var(--os-border-subtle);
+  border-radius: var(--os-radius-sm);
+  padding: var(--os-space-xs) var(--os-space-sm);
+  overflow-x: auto;
+  white-space: pre;
+  color: var(--os-text-secondary);
+  margin: 0;
+}
+code.os-inline {
+  font-family: var(--os-font-mono);
+  font-size: 0.92em;
+  background: var(--os-bg-surface-sunken);
+  border-radius: 2px;
+  padding: 1px 4px;
+  color: var(--os-text-accent);
+}
+
+a.os-link {
+  color: var(--os-text-accent);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+a.os-link:hover {
+  border-bottom-color: currentColor;
+}
+
+/* -----------------------------------------------------------------------------
+   States
+   -------------------------------------------------------------------------- */
+.os-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--os-space-sm);
+  padding: var(--os-space-xl) var(--os-space-md);
+  text-align: center;
+  color: var(--os-text-tertiary);
+  font-size: var(--os-font-size-sm);
+}
+.os-empty__title {
+  color: var(--os-text-secondary);
+  font-weight: 600;
+}
+
+.os-skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--os-bg-surface-raised) 25%,
+    var(--os-bg-hover) 37%,
+    var(--os-bg-surface-raised) 63%
+  );
+  background-size: 400% 100%;
+  animation: os-shimmer 1.4s ease-in-out infinite;
+  border-radius: var(--os-radius-sm);
+  height: 10px;
+}
+@keyframes os-shimmer {
+  0% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0 50%;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .os-skeleton {
+    animation: none;
+  }
+}
+
+.os-alert {
+  display: flex;
+  gap: var(--os-space-sm);
+  align-items: flex-start;
+  border-radius: var(--os-radius-md);
+  padding: var(--os-space-sm) var(--os-space-md);
+  font-size: var(--os-font-size-sm);
+  border: 1px solid transparent;
+}
+.os-alert--critical {
+  background: var(--os-status-critical-bg);
+  color: var(--os-status-critical);
+  border-color: color-mix(in srgb, var(--os-status-critical) 35%, transparent);
+}
+.os-alert--warning {
+  background: var(--os-status-warning-bg);
+  color: var(--os-status-warning);
+  border-color: color-mix(in srgb, var(--os-status-warning) 35%, transparent);
+}
+.os-alert--info {
+  background: var(--os-status-info-bg);
+  color: var(--os-status-info);
+  border-color: color-mix(in srgb, var(--os-status-info) 35%, transparent);
+}
+
+/* -----------------------------------------------------------------------------
+   Status bar — cache age, API budget, scan progress
+   -------------------------------------------------------------------------- */
+.os-statusbar {
+  display: flex;
+  align-items: center;
+  gap: var(--os-space-md);
+  padding: var(--os-space-3xs) var(--os-space-md);
+  border-top: 1px solid var(--os-border-subtle);
+  background: var(--os-bg-surface);
+  font-size: var(--os-font-size-xs);
+  color: var(--os-text-tertiary);
+  min-height: 24px;
+  white-space: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.os-statusbar::-webkit-scrollbar {
+  display: none;
+}
+.os-statusbar__item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--os-space-3xs);
+}
+.os-statusbar__link {
+  appearance: none;
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.os-statusbar__link:hover {
+  color: var(--os-text-primary);
+}
+.os-statusbar__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--os-status-success);
+  flex: none;
+}
+.os-statusbar__dot--stale {
+  background: var(--os-status-warning);
+}
+.os-statusbar__dot--offline {
+  background: var(--os-text-tertiary);
+}
+.os-statusbar__spacer {
+  flex: 1 1 auto;
+}
+
+/* Utilities kept deliberately few. */
+.os-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+.os-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.os-row {
+  display: flex;
+  align-items: center;
+  gap: var(--os-space-xs);
+  min-width: 0;
+}
+.os-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--os-space-xs);
+  min-width: 0;
+}
+
+/* -----------------------------------------------------------------------------
+   Narrow panel (the 25% width mode on a typical laptop is ~320–380px).
+   Context drops away before controls do.
+   -------------------------------------------------------------------------- */
+@media (max-width: 430px) {
+  .os-header {
+    padding-inline: var(--os-space-sm);
+    gap: var(--os-space-xs);
+  }
+  /* Below this width the version string is the first thing to go; the
+     environment badge stays, since "is this production" is the point of it. */
+  .os-tabs__org .os-muted {
+    display: none;
+  }
+  .os-main {
+    padding: var(--os-space-sm);
+  }
+  .os-tab {
+    padding-inline: var(--os-space-xs);
+  }
+  .os-card__body {
+    padding: var(--os-space-sm);
+  }
+  .os-finding__body {
+    padding-left: var(--os-space-md);
+  }
+}
+
+/* =============================================================================
+   Overview: hero, KPI tiles, area cards, fix-first queue
+   -----------------------------------------------------------------------------
+   Everything below has to survive a 360px-wide column, because the sidebar's
+   narrowest dock is 25% of a laptop viewport. That rules out fixed multi-column
+   layouts: the grids below are `auto-fill` with a min track, so they reflow to
+   one column without a media query — the panel's width is not the window's, so
+   media queries would measure the wrong box.
+   ========================================================================== */
+
+.os-hero {
+  display: flex;
+  align-items: center;
+  gap: var(--os-space-lg);
+  flex-wrap: wrap;
+  padding: var(--os-space-lg);
+  border: 1px solid var(--os-border);
+  border-radius: var(--os-radius-md);
+  background:
+    radial-gradient(120% 140% at 100% 0%, var(--os-bg-selected) 0%, transparent 60%),
+    var(--os-bg-surface-raised);
+}
+.os-hero__dial {
+  flex: 0 0 auto;
+}
+.os-hero__body {
+  flex: 1 1 200px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--os-space-sm);
+}
+.os-hero__headline {
+  display: flex;
+  align-items: center;
+  gap: var(--os-space-sm);
+  flex-wrap: wrap;
+}
+.os-hero__title {
+  margin: 0;
+  font-size: var(--os-font-size-lg);
+  font-weight: 600;
+  color: var(--os-text-primary);
+}
+.os-hero__sub {
+  margin: 0;
+  font-size: var(--os-font-size-sm);
+  color: var(--os-text-secondary);
+}
+
+/* The dial's number is drawn as SVG text, so it inherits none of the page's
+   type styles and has to be set here. The size override matters too: the global
+   `svg { width: 1em }` rule exists so an icon dropped into running text is
+   always the right size, and it would otherwise shrink a 104px dial to 13px. */
+.os-dial {
+  display: block;
+  width: auto;
+  height: auto;
+  vertical-align: initial;
+}
+.os-dial__value {
+  fill: var(--os-text-primary);
+  font-family: var(--os-font-sans);
+  font-size: 26px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.os-areacard .os-dial__value {
+  font-size: 20px;
+}
+
+/* --- KPI tiles ------------------------------------------------------------ */
+.os-kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: var(--os-space-sm);
+}
+.os-kpi {
+  display: flex;
+  flex-direction: column;
+  gap: var(--os-space-3xs);
+  padding: var(--os-space-sm) var(--os-space-md);
+  background: var(--os-bg-surface);
+  border: 1px solid var(--os-border-subtle);
+  /* A 3px rail rather than a tinted fill: at this density a filled card in four
+     different tints turns the row into a traffic light and the numbers stop
+     being the thing you read first. */
+  border-left: 3px solid var(--os-status-info);
+  border-radius: var(--os-radius-md);
+  min-width: 0;
+}
+.os-kpi--critical { border-left-color: var(--os-status-critical); }
+.os-kpi--warning { border-left-color: var(--os-status-warning); }
+.os-kpi--info { border-left-color: var(--os-status-info); }
+.os-kpi--success { border-left-color: var(--os-status-success); }
+.os-kpi__value {
+  font-size: var(--os-font-size-xl);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+  color: var(--os-text-primary);
+}
+.os-kpi__label {
+  font-size: var(--os-font-size-xs);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--os-text-tertiary);
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+/* --- Proportion bar + legend ---------------------------------------------- */
+.os-propbar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--os-space-xs);
+  min-width: 0;
+}
+.os-propbar__track {
+  display: flex;
+  width: 100%;
+  border-radius: var(--os-radius-pill);
+  overflow: hidden;
+  background: var(--os-chart-track);
+}
+.os-propbar__seg {
+  height: 100%;
+  min-width: 2px;
+}
+.os-propbar__empty {
+  width: 100%;
+  height: 100%;
+  background: var(--os-chart-track);
+}
+.os-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--os-space-2xs) var(--os-space-md);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.os-legend__item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--os-space-2xs);
+  font-size: var(--os-font-size-xs);
+  color: var(--os-text-secondary);
+}
+.os-legend__swatch {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  flex: 0 0 auto;
+}
+.os-legend__value {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  color: var(--os-text-primary);
+}
+
+/* --- Sparkline columns ---------------------------------------------------- */
+.os-spark {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+}
+.os-spark__col {
+  flex: 1 1 4px;
+  min-width: 3px;
+  border-radius: 1px 1px 0 0;
+  opacity: 0.55;
+}
+.os-spark__col--now {
+  opacity: 1;
+}
+
+/* --- Ranked bars ---------------------------------------------------------- */
+.os-ranked {
+  display: grid;
+  /* Label column sizes to the longest label but never past a third of the
+     card, so a long area name cannot squeeze the bars to nothing. */
+  grid-template-columns: minmax(0, max-content) 1fr max-content;
+  align-items: center;
+  gap: var(--os-space-2xs) var(--os-space-sm);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.os-ranked__row {
+  display: contents;
+}
+.os-ranked__label {
+  font-size: var(--os-font-size-sm);
+  color: var(--os-text-secondary);
+  white-space: nowrap;
+  max-width: 12ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.os-ranked__label--link {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  color: var(--os-text-accent);
+  cursor: pointer;
+  text-align: left;
+}
+.os-ranked__label--link:hover {
+  text-decoration: underline;
+}
+.os-ranked__track {
+  height: 10px;
+  border-radius: var(--os-radius-pill);
+  background: var(--os-chart-track);
+  overflow: hidden;
+}
+.os-ranked__fill {
+  display: block;
+  height: 100%;
+  border-radius: var(--os-radius-pill);
+}
+.os-ranked__value {
+  font-size: var(--os-font-size-sm);
+  font-variant-numeric: tabular-nums;
+  color: var(--os-text-primary);
+}
+
+/* --- Fix-first queue ------------------------------------------------------ */
+.os-queue {
+  list-style: none;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--os-space-sm);
+}
+.os-queue__item {
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  gap: var(--os-space-2xs) var(--os-space-sm);
+  align-items: baseline;
+}
+.os-queue__rank {
+  font-size: var(--os-font-size-sm);
+  font-variant-numeric: tabular-nums;
+  color: var(--os-text-tertiary);
+  text-align: right;
+}
+.os-queue__title {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  font-weight: 600;
+  color: var(--os-text-primary);
+  text-align: left;
+  cursor: pointer;
+  min-width: 0;
+}
+.os-queue__title:hover {
+  color: var(--os-text-accent);
+  text-decoration: underline;
+}
+.os-queue__meta {
+  grid-column: 2;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--os-space-2xs) var(--os-space-xs);
+  font-size: var(--os-font-size-xs);
+}
+
+/* --- Area cards ----------------------------------------------------------- */
+.os-areagrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: var(--os-space-sm);
+}
+.os-areacard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--os-space-sm);
+  padding: var(--os-space-md);
+  background: var(--os-bg-surface-raised);
+  border: 1px solid var(--os-border);
+  /* The area's own colour appears once, as a top rule — enough to tell the
+     cards apart in a grid without tinting six cards six different shades. */
+  border-top: 2px solid var(--os-areacard-hue, var(--os-border));
+  border-radius: var(--os-radius-md);
+  min-width: 0;
+}
+.os-areacard__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--os-space-xs);
+  min-width: 0;
+}
+.os-areacard__name {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  font-size: var(--os-font-size-md);
+  font-weight: 600;
+  color: var(--os-text-primary);
+  cursor: pointer;
+  text-align: left;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.os-areacard__name:hover {
+  color: var(--os-text-accent);
+}
+.os-areacard__body {
+  display: flex;
+  align-items: center;
+  gap: var(--os-space-md);
+  min-width: 0;
+}
+.os-areacard__dial {
+  flex: 0 0 auto;
+}
+.os-areacard__facts {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--os-space-2xs);
+}
+.os-areacard__count {
+  font-size: var(--os-font-size-sm);
+  font-weight: 600;
+  color: var(--os-text-primary);
+}
+.os-areacard__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--os-space-xs);
+  padding-top: var(--os-space-xs);
+  border-top: 1px solid var(--os-border-subtle);
+  font-size: var(--os-font-size-xs);
+  color: var(--os-text-secondary);
+  flex-wrap: wrap;
+}
+
+/* The dial arc animates on load; honour the reduced-motion preference the way
+   the rest of the panel does — the token collapses to 1ms, but the transition
+   is declared here rather than inline so it can be found. */
+.os-dial circle {
+  transition: stroke-dasharray var(--os-transition-panel);
+}
+
+/* --- Change since the previous scan --------------------------------------- */
+.os-delta {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 0 var(--os-space-2xs);
+  border-radius: var(--os-radius-sm);
+  font-size: var(--os-font-size-xs);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+/* Up is good on a score and bad on a count, so the arrow and the sign carry the
+   meaning and the colour only reinforces it. */
+.os-delta--up {
+  color: var(--os-status-success);
+  background: var(--os-status-success-bg);
+}
+.os-delta--down {
+  color: var(--os-status-critical);
+  background: var(--os-status-critical-bg);
+}
+.os-delta--flat {
+  color: var(--os-text-tertiary);
+}
+
+.os-changes {
+  display: flex;
+  flex-direction: column;
+  gap: var(--os-space-md);
+}
+.os-changes__group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--os-space-xs);
+}
+.os-changes__heading {
+  margin: 0;
+  font-size: var(--os-font-size-xs);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.os-changes__heading--good {
+  color: var(--os-status-success);
+}
+.os-changes__heading--bad {
+  color: var(--os-status-critical);
+}
+.os-changes__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--os-space-xs);
+}
+.os-changes__item {
+  display: grid;
+  grid-template-columns: 34px 1fr;
+  gap: var(--os-space-3xs) var(--os-space-sm);
+  align-items: baseline;
+}
+.os-changes__count {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  text-align: right;
+  color: var(--os-text-secondary);
+}
+.os-changes__title {
+  min-width: 0;
+}
+.os-changes__names {
+  grid-column: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--os-space-2xs);
+  font-size: var(--os-font-size-xs);
+}
+
+/* --- Area card: what a scan of this area costs ---------------------------- */
+.os-areacard__cost {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0 var(--os-space-xs);
+  align-items: center;
+  font-size: var(--os-font-size-xs);
+  color: var(--os-text-secondary);
+  cursor: pointer;
+}
+.os-areacard__cost input {
+  accent-color: var(--os-bg-accent);
+  margin: 0;
+}
+.os-areacard__costnum {
+  grid-column: 2;
+  color: var(--os-text-tertiary);
+  /* The estimate is a second line under the label rather than beside it: at
+     360px there is no room for both, and the number is the part that gets
+     read. */
+  line-height: 1.25;
+}
+
+/* --- On-demand tools list ------------------------------------------------- */
+.os-tools {
+  list-style: none;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--os-space-sm);
+}
+.os-tools__item {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--os-space-md);
+  flex-wrap: wrap;
+}
+
+/* =============================================================================
+   Work list and area breadcrumb
+   ========================================================================== */
+
+.os-worklist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--os-space-sm);
+}
+.os-work {
+  border: 1px solid var(--os-border-subtle);
+  border-radius: var(--os-radius-md);
+  background: var(--os-bg-surface);
+  padding: var(--os-space-sm) var(--os-space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--os-space-2xs);
+  min-width: 0;
+}
+.os-work__head {
+  display: grid;
+  grid-template-columns: 26px 1fr 16px;
+  align-items: baseline;
+  gap: var(--os-space-sm);
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  color: var(--os-text-primary);
+  min-width: 0;
+}
+.os-work__rank {
+  font-size: var(--os-font-size-sm);
+  font-variant-numeric: tabular-nums;
+  color: var(--os-text-tertiary);
+  text-align: right;
+}
+.os-work__title {
+  font-weight: 600;
+  min-width: 0;
+}
+.os-work__head:hover .os-work__title {
+  color: var(--os-text-accent);
+}
+.os-work__chevron {
+  color: var(--os-text-tertiary);
+  transition: transform var(--os-transition-fast);
+}
+.os-work__chevron--open {
+  transform: rotate(90deg);
+}
+.os-work__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--os-space-2xs) var(--os-space-xs);
+  font-size: var(--os-font-size-xs);
+  /* Aligned under the title, past the rank column. */
+  padding-left: calc(26px + var(--os-space-sm));
+}
+.os-work__area {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  color: var(--os-text-accent);
+  cursor: pointer;
+}
+.os-work__area:hover {
+  text-decoration: underline;
+}
+.os-work__body {
+  padding-left: calc(26px + var(--os-space-sm));
+  padding-top: var(--os-space-2xs);
+  display: flex;
+  flex-direction: column;
+  gap: var(--os-space-2xs);
+  min-width: 0;
+}
+.os-work__why {
+  margin: 0;
+  font-size: var(--os-font-size-sm);
+  color: var(--os-text-secondary);
+}
+.os-work__heading {
+  margin: var(--os-space-xs) 0 0;
+  font-size: var(--os-font-size-xs);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--os-text-tertiary);
+}
+.os-work__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--os-space-md);
+  margin-top: var(--os-space-xs);
+  font-size: var(--os-font-size-xs);
+}
+
+/* Filter pills, shared shape with the report page's. */
+.os-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border: 1px solid var(--os-border);
+  border-radius: var(--os-radius-pill);
+  background: var(--os-bg-surface-raised);
+  color: var(--os-text-secondary);
+  font: inherit;
+  font-size: var(--os-font-size-xs);
+  cursor: pointer;
+}
+.os-pill:hover {
+  border-color: var(--os-border-strong);
+}
+.os-pill--on {
+  background: var(--os-bg-accent);
+  border-color: var(--os-bg-accent);
+  color: var(--os-text-on-accent);
+}
+.os-pill__count {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+.os-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: var(--os-space-xs);
+  font-size: var(--os-font-size-sm);
+}
+.os-breadcrumb__back {
+  display: inline-block;
+  transform: rotate(180deg);
+}
+.os-breadcrumb__here {
+  font-weight: 600;
+  color: var(--os-text-primary);
+}
+
+/* A key under the area card's severity bar.
+   The bar alone was three unlabelled colours, which is the state that prompted
+   "what do these mean" — and on the light theme it also breaks the relief rule
+   the palette depends on, since two of those hues sit under 3:1 and are only
+   permitted when a direct label carries the meaning. */
+.os-areacard__key {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px var(--os-space-sm);
+  font-size: var(--os-font-size-xs);
+  color: var(--os-text-secondary);
+}
+.os-areacard__keyitem {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+.os-areacard__swatch {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  flex: none;
+}
+
+/* Segments are separated by a hairline of the track, so two adjacent hues are
+   distinguishable by edge as well as by colour — the documented secondary
+   encoding, and what keeps red beside amber readable. */
+.os-propbar__seg + .os-propbar__seg {
+  border-left: 2px solid var(--os-bg-surface-raised);
+}
+
+.os-dial__caption {
+  fill: var(--os-text-tertiary);
+  font-family: var(--os-font-sans);
+  font-size: 9px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.os-areacard .os-dial__caption {
+  font-size: 7px;
+}

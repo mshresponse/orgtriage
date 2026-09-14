@@ -1,0 +1,20 @@
+node_modules/
+dist/
+orgtriage.zip
+*.log
+.DS_Store
+
+# Build artefacts from the regression and live-check bundles
+tools/.regression.mjs
+tools/live-check/runner.mjs
+
+# Scan output — a real org's findings, never committed
+orgtriage-out/
+tools/.scan.mjs
+tools/.probe.mjs
+check-docs-debug.png
+docs/sources/*
+!docs/sources/README.md
+
+# Reviewer bundle for chat apps that cannot open a folder
+review-bundle.txt

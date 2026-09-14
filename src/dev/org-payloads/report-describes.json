@@ -1,0 +1,419 @@
+{
+ "00Oiw000000N63FEAS": {
+  "crossFilters": [],
+  "detailColumns": [
+   "SUBJECT",
+   "DUE_DATE",
+   "PRIORITY",
+   "TASK",
+   "ACCOUNT",
+   "CONTACT",
+   "LEAD",
+   "OPPORTUNITY"
+  ],
+  "groupingsAcross": [
+   {
+    "dateGranularity": "None",
+    "name": "STATUS",
+    "sortAggregate": null,
+    "sortOrder": "Asc"
+   }
+  ],
+  "groupingsDown": [
+   {
+    "dateGranularity": "None",
+    "name": "ASSIGNED",
+    "sortAggregate": null,
+    "sortOrder": "Asc"
+   }
+  ],
+  "hasDetailRows": true,
+  "id": "00Oiw000000N63FEAS",
+  "name": "Sample Report: # of Open Tasks",
+  "reportBooleanFilter": null,
+  "reportFilters": [],
+  "reportFormat": "MATRIX",
+  "reportType": {
+   "label": "Tasks and Events",
+   "type": "Activity"
+  },
+  "scope": "organization",
+  "standardDateFilter": {
+   "column": "DUE_DATE",
+   "durationValue": "CUSTOM",
+   "endDate": null,
+   "startDate": null
+  },
+  "standardFilters": [
+   {
+    "name": "closed",
+    "value": "open"
+   },
+   {
+    "name": "type",
+    "value": "te"
+   }
+  ],
+  "topRows": null,
+  "userOrHierarchyFilterId": null
+ },
+ "00Oiw000000N63NEAS": {
+  "crossFilters": [],
+  "detailColumns": [
+   "OWNER",
+   "SUBJECT",
+   "AGE",
+   "OPEN",
+   "CLOSED",
+   "ACCOUNT.NAME"
+  ],
+  "groupingsAcross": [],
+  "groupingsDown": [
+   {
+    "dateGranularity": "Month",
+    "name": "CREATED_DATE",
+    "sortAggregate": null,
+    "sortOrder": "Asc"
+   }
+  ],
+  "hasDetailRows": false,
+  "id": "00Oiw000000N63NEAS",
+  "name": "Sample Report: # of Cases",
+  "reportBooleanFilter": null,
+  "reportFilters": [],
+  "reportFormat": "SUMMARY",
+  "reportType": {
+   "label": "Cases",
+   "type": "CaseList"
+  },
+  "scope": "organization",
+  "standardDateFilter": {
+   "column": "CREATED_DATEONLY",
+   "durationValue": "CUSTOM",
+   "endDate": null,
+   "startDate": null
+  },
+  "standardFilters": [
+   {
+    "name": "units",
+    "value": "h"
+   }
+  ],
+  "topRows": null,
+  "userOrHierarchyFilterId": null
+ },
+ "00Oiw000000N63QEAS": {
+  "crossFilters": [],
+  "detailColumns": [
+   "OWNER",
+   "FIRST_NAME",
+   "LAST_NAME",
+   "TITLE",
+   "COMPANY",
+   "LEAD_SOURCE",
+   "RATING",
+   "STREET",
+   "EMAIL"
+  ],
+  "groupingsAcross": [],
+  "groupingsDown": [
+   {
+    "dateGranularity": "Month",
+    "name": "CREATED_DATE",
+    "sortAggregate": null,
+    "sortOrder": "Asc"
+   }
+  ],
+  "hasDetailRows": true,
+  "id": "00Oiw000000N63QEAS",
+  "name": "Sample Report: # of Leads",
+  "reportBooleanFilter": null,
+  "reportFilters": [],
+  "reportFormat": "SUMMARY",
+  "reportType": {
+   "label": "Leads",
+   "type": "LeadList"
+  },
+  "scope": "org",
+  "standardDateFilter": {
+   "column": "CREATED_DATE",
+   "durationValue": "CUSTOM",
+   "endDate": null,
+   "startDate": null
+  },
+  "standardFilters": null,
+  "topRows": null,
+  "userOrHierarchyFilterId": null
+ },
+ "00Oiw000000N63TEAS": {
+  "crossFilters": [],
+  "detailColumns": [
+   "FULL_NAME",
+   "OPPORTUNITY_NAME",
+   "TYPE",
+   "LEAD_SOURCE",
+   "AMOUNT",
+   "CLOSE_DATE",
+   "NEXT_STEP",
+   "STAGE_NAME",
+   "PROBABILITY",
+   "FISCAL_QUARTER",
+   "AGE",
+   "ROLLUP_DESCRIPTION",
+   "ACCOUNT_NAME"
+  ],
+  "groupingsAcross": [],
+  "groupingsDown": [
+   {
+    "dateGranularity": "Month",
+    "name": "CREATED_DATE",
+    "sortAggregate": null,
+    "sortOrder": "Asc"
+   }
+  ],
+  "hasDetailRows": false,
+  "id": "00Oiw000000N63TEAS",
+  "name": "Sample Report: # of Opportunities",
+  "reportBooleanFilter": null,
+  "reportFilters": [],
+  "reportFormat": "SUMMARY",
+  "reportType": {
+   "label": "Opportunities",
+   "type": "Opportunity"
+  },
+  "scope": "organization",
+  "standardDateFilter": {
+   "column": "CLOSE_DATE",
+   "durationValue": "THIS_FISCAL_QUARTER",
+   "endDate": "2026-09-30",
+   "startDate": "2026-07-01"
+  },
+  "standardFilters": [
+   {
+    "name": "open",
+    "value": "all"
+   },
+   {
+    "name": "probability",
+    "value": ">0"
+   }
+  ],
+  "topRows": null,
+  "userOrHierarchyFilterId": null
+ },
+ "00Oiw000000N63ZEAS": {
+  "crossFilters": [],
+  "detailColumns": [
+   "FULL_NAME",
+   "TYPE",
+   "LEAD_SOURCE",
+   "EXP_AMOUNT",
+   "CLOSE_DATE",
+   "NEXT_STEP",
+   "STAGE_NAME",
+   "PROBABILITY",
+   "FISCAL_QUARTER",
+   "AGE",
+   "ROLLUP_DESCRIPTION",
+   "CREATED_DATE",
+   "ACCOUNT_NAME"
+  ],
+  "groupingsAcross": [],
+  "groupingsDown": [
+   {
+    "dateGranularity": "None",
+    "name": "OPPORTUNITY_NAME",
+    "sortAggregate": null,
+    "sortOrder": "Asc"
+   }
+  ],
+  "hasDetailRows": true,
+  "id": "00Oiw000000N63ZEAS",
+  "name": "Sample Report: Open Deals",
+  "reportBooleanFilter": null,
+  "reportFilters": [],
+  "reportFormat": "SUMMARY",
+  "reportType": {
+   "label": "Opportunities",
+   "type": "Opportunity"
+  },
+  "scope": "organization",
+  "standardDateFilter": {
+   "column": "CLOSE_DATE",
+   "durationValue": "THIS_AND_NEXT_FISCAL_QUARTER",
+   "endDate": "2026-12-31",
+   "startDate": "2026-07-01"
+  },
+  "standardFilters": [
+   {
+    "name": "open",
+    "value": "open"
+   },
+   {
+    "name": "probability",
+    "value": ">0"
+   }
+  ],
+  "topRows": null,
+  "userOrHierarchyFilterId": null
+ },
+ "00Oiw000000NhMlEAK": {
+  "crossFilters": [],
+  "detailColumns": [
+   "StnryAssetEnvrSrc.Name",
+   "StnryAssetEnvrSrc.StationaryAssetType",
+   "StnryAssetEnvrSrc.BusinessRegion",
+   "StnryAssetEnvrSrc.City",
+   "StnryAssetEnvrSrc.Country"
+  ],
+  "groupingsAcross": [],
+  "groupingsDown": [],
+  "hasDetailRows": true,
+  "id": "00Oiw000000NhMlEAK",
+  "name": "Asset Names and Locations",
+  "reportBooleanFilter": null,
+  "reportFilters": [],
+  "reportFormat": "TABULAR",
+  "reportType": {
+   "label": "NZC: Assets (all)",
+   "type": "Standalone_Stationary_Assets__c"
+  },
+  "scope": "organization",
+  "standardDateFilter": {
+   "column": "StnryAssetEnvrSrc.CreatedDate",
+   "durationValue": "CUSTOM",
+   "endDate": null,
+   "startDate": null
+  },
+  "standardFilters": null,
+  "topRows": null,
+  "userOrHierarchyFilterId": null
+ },
+ "00Oiw000000NhMmEAK": {
+  "crossFilters": [],
+  "detailColumns": [
+   "StnryAssetCrbnFtprnt.Name",
+   "StnryAssetCrbnFtprnt.FootprintStage",
+   "StnryAssetCrbnFtprnt.TotScope1EmissionsInTco2e",
+   "StnryAssetCrbnFtprnt.TotScope2LocBasedEmissions",
+   "StnryAssetCrbnFtprnt.TotScope2MktBasedEmissions"
+  ],
+  "groupingsAcross": [],
+  "groupingsDown": [
+   {
+    "dateGranularity": "None",
+    "name": "StnryAssetCrbnFtprnt.ReportingYear",
+    "sortAggregate": null,
+    "sortOrder": "Asc"
+   }
+  ],
+  "hasDetailRows": true,
+  "id": "00Oiw000000NhMmEAK",
+  "name": "Emissions by Reporting Year",
+  "reportBooleanFilter": null,
+  "reportFilters": [],
+  "reportFormat": "SUMMARY",
+  "reportType": {
+   "label": "NZC: Footprints (all)",
+   "type": "Standalone_Carbon_Footprints__c"
+  },
+  "scope": "organization",
+  "standardDateFilter": {
+   "column": "StnryAssetCrbnFtprnt.CreatedDate",
+   "durationValue": "CUSTOM",
+   "endDate": null,
+   "startDate": null
+  },
+  "standardFilters": null,
+  "topRows": null,
+  "userOrHierarchyFilterId": null
+ },
+ "00Oiw000000NhMoEAK": {
+  "crossFilters": [],
+  "detailColumns": [
+   "VehicleAssetEmssnSrc.Name",
+   "VehicleAssetEmssnSrc.FleetVehicleType"
+  ],
+  "groupingsAcross": [],
+  "groupingsDown": [
+   {
+    "dateGranularity": "None",
+    "name": "VehicleAssetEmssnSrc.VehicleType",
+    "sortAggregate": null,
+    "sortOrder": "Asc"
+   }
+  ],
+  "hasDetailRows": true,
+  "id": "00Oiw000000NhMoEAK",
+  "name": "Fleet Assets Missing Energy Use",
+  "reportBooleanFilter": null,
+  "reportFilters": [
+   {
+    "column": "VehicleAssetEnrgyUse.Id",
+    "filterType": "fieldValue",
+    "isRunPageEditable": true,
+    "operator": "equals",
+    "value": ""
+   }
+  ],
+  "reportFormat": "SUMMARY",
+  "reportType": {
+   "label": "NZC: Fleet with/without Energy Use",
+   "type": "Vehicle_Assets_with_without_Energy_Use__c"
+  },
+  "scope": "organization",
+  "standardDateFilter": {
+   "column": "VehicleAssetEmssnSrc.CreatedDate",
+   "durationValue": "CUSTOM",
+   "endDate": null,
+   "startDate": null
+  },
+  "standardFilters": null,
+  "topRows": null,
+  "userOrHierarchyFilterId": null
+ },
+ "00Oiw000000YB7VEAW": {
+  "crossFilters": [],
+  "detailColumns": [
+   "StnryAssetCrbnFtprnt.TotScope1EmissionsInTco2e",
+   "StnryAssetCrbnFtprnt.TotScope2LocBasedEmissions",
+   "StnryAssetCrbnFtprnt.TotScope2MktBasedEmissions"
+  ],
+  "groupingsAcross": [
+   {
+    "dateGranularity": "None",
+    "name": "StnryAssetCrbnFtprnt.ReportingYear",
+    "sortAggregate": null,
+    "sortOrder": "Asc"
+   }
+  ],
+  "groupingsDown": [
+   {
+    "dateGranularity": "None",
+    "name": "StnryAssetCrbnFtprnt.StnryAssetEnvrSrc.Name",
+    "sortAggregate": null,
+    "sortOrder": "Asc"
+   }
+  ],
+  "hasDetailRows": false,
+  "id": "00Oiw000000YB7VEAW",
+  "name": "Emissions by Asset and Year",
+  "reportBooleanFilter": null,
+  "reportFilters": [],
+  "reportFormat": "MATRIX",
+  "reportType": {
+   "label": "NZC: Footprints (all)",
+   "type": "Standalone_Carbon_Footprints__c"
+  },
+  "scope": "organization",
+  "standardDateFilter": {
+   "column": "StnryAssetCrbnFtprnt.CreatedDate",
+   "durationValue": "CUSTOM",
+   "endDate": null,
+   "startDate": null
+  },
+  "standardFilters": null,
+  "topRows": null,
+  "userOrHierarchyFilterId": null
+ }
+}

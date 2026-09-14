@@ -1,0 +1,38 @@
+name: Feature request
+description: Suggest a metadata-based check or improvement to OrgTriage.
+body:
+  - type: markdown
+    attributes:
+      value: |
+        OrgTriage reads no business records and never executes a report.
+        Requests that need business records or report execution are out of scope.
+        Keep org names, user names, record data, session details and exported plans out of this public request.
+  - type: textarea
+    id: goal
+    attributes:
+      label: What are you trying to do?
+    validations:
+      required: true
+  - type: textarea
+    id: today
+    attributes:
+      label: What does the extension show today?
+    validations:
+      required: true
+  - type: textarea
+    id: proposed
+    attributes:
+      label: What would you want it to show?
+    validations:
+      required: true
+  - type: dropdown
+    id: metadata
+    attributes:
+      label: Can this be answered from metadata alone?
+      description: The extension reads no business records and never executes a report; anything that needs those is out of scope.
+      options:
+        - "Yes"
+        - "No — this needs business records or report execution"
+        - "Not sure"
+    validations:
+      required: true

@@ -1,0 +1,886 @@
+/* =============================================================================
+   OrgTriage — remediation plan (document layer)
+   =============================================================================
+   The report is a document, not a panel: it scrolls as a page, prints on A4 or
+   Letter, and reads in black on white. It shares the theme tokens with the
+   sidebar so the badges and rails mean the same thing in both places, but it
+   does not load components.css, whose `body { overflow: hidden }` exists for
+   the panel's own scroll regions and would stop this page scrolling at all.
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--os-bg-surface);
+}
+
+body {
+  margin: 0;
+  color: var(--os-text-primary);
+  font-family: var(--os-font-sans);
+  font-size: 13px;
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--os-text-accent);
+}
+
+code,
+.rp-api {
+  font-family: var(--os-font-mono);
+  font-size: 0.92em;
+}
+
+/* --- Toolbar (screen only) ------------------------------------------------ */
+.rp-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 8px 16px;
+  background: var(--os-bg-surface-raised);
+  border-bottom: 1px solid var(--os-border);
+  font-size: 12px;
+}
+.rp-toolbar__mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  color: var(--os-text);
+  margin-right: 8px;
+}
+/* Inline glyph beside a link, such as the new-tab arrow on Open. */
+.rp-story a svg,
+.rp-table a svg {
+  width: 12px;
+  height: 12px;
+  vertical-align: -1px;
+}
+.rp-toolbar__mark svg {
+  width: 14px;
+  height: 17px;
+}
+.rp-toolbar__spacer {
+  flex: 1 1 auto;
+}
+.rp-button {
+  appearance: none;
+  font: inherit;
+  font-size: 12px;
+  border: 1px solid var(--os-border-strong);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--os-text-primary);
+  padding: 4px 10px;
+  cursor: pointer;
+}
+.rp-button:hover {
+  background: var(--os-bg-hover);
+  border-color: var(--os-border-accent);
+}
+.rp-button--brand {
+  background: var(--os-bg-accent);
+  border-color: var(--os-bg-accent);
+  color: var(--os-text-on-accent);
+  font-weight: 600;
+}
+.rp-button--brand:hover {
+  background: var(--os-bg-accent-hover);
+  border-color: var(--os-bg-accent-hover);
+}
+.rp-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--os-text-secondary);
+  white-space: nowrap;
+}
+.rp-input {
+  font: inherit;
+  font-size: 12px;
+  border: 1px solid var(--os-border-strong);
+  border-radius: 4px;
+  padding: 3px 6px;
+  background: var(--os-bg-canvas);
+  color: var(--os-text-primary);
+  width: 200px;
+}
+
+/* --- Page ----------------------------------------------------------------- */
+.rp-page {
+  /* Wider than the old 960px: the cover strip is four tiles and the breakdown
+     matrix is ten columns, and at 960 both wrapped into something that read as
+     an accident. Still bounded — an unbounded measure is unreadable prose. */
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 32px 32px 64px;
+  background: var(--os-bg-canvas);
+  min-height: 100vh;
+}
+
+.rp-empty {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 64px 0;
+  text-align: center;
+  color: var(--os-text-secondary);
+}
+
+.rp-section {
+  margin-top: 36px;
+}
+.rp-section > h2 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 12px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid var(--os-border-accent);
+}
+.rp-section h3 {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--os-text-secondary);
+  margin: 18px 0 6px;
+}
+
+/* --- Cover ---------------------------------------------------------------- */
+.rp-cover {
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--os-border);
+}
+.rp-cover__eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--os-text-accent);
+  font-weight: 600;
+}
+.rp-cover h1 {
+  font-size: 30px;
+  font-weight: 700;
+  margin: 4px 0 0;
+  letter-spacing: -0.01em;
+}
+.rp-cover__org {
+  font-size: 18px;
+  color: var(--os-text-secondary);
+  margin: 2px 0 16px;
+}
+.rp-facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 8px 16px;
+  margin: 0;
+}
+.rp-facts > div {
+  display: flex;
+  flex-direction: column;
+}
+.rp-facts dt {
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--os-text-tertiary);
+}
+.rp-facts dd {
+  margin: 0;
+  font-weight: 500;
+}
+
+/* --- Tiles ---------------------------------------------------------------- */
+.rp-tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.rp-tile {
+  border: 1px solid var(--os-border);
+  border-radius: 6px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: var(--os-bg-surface);
+}
+.rp-tile__label {
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--os-text-tertiary);
+}
+.rp-tile__value {
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+.rp-tile__sub {
+  font-size: 11px;
+  color: var(--os-text-secondary);
+}
+
+/* --- Tables --------------------------------------------------------------- */
+.rp-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+.rp-table th,
+.rp-table td {
+  text-align: left;
+  padding: 5px 8px;
+  border-bottom: 1px solid var(--os-border-subtle);
+  vertical-align: top;
+}
+.rp-table thead th {
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--os-text-secondary);
+  border-bottom: 1px solid var(--os-border);
+  background: var(--os-bg-surface);
+}
+.rp-table tfoot td {
+  font-weight: 600;
+  border-top: 1px solid var(--os-border);
+  border-bottom: 0;
+}
+.rp-table .rp-num,
+.rp-table th.rp-num {
+  text-align: right;
+  white-space: nowrap;
+}
+.rp-table--items {
+  margin-top: 4px;
+}
+.rp-table--items td {
+  word-break: break-word;
+}
+.rp-table--backlog td:nth-child(2) {
+  min-width: 260px;
+}
+.rp-key {
+  font-family: var(--os-font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--os-text-accent);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+/* --- Badges and grades ---------------------------------------------------- */
+.rp-badge {
+  display: inline-block;
+  border-radius: 3px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  padding: 2px 6px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.rp-badge--critical {
+  background: var(--os-status-critical-bg);
+  color: var(--os-status-critical);
+}
+.rp-badge--warning {
+  background: var(--os-status-warning-bg);
+  color: var(--os-status-warning);
+}
+.rp-badge--info {
+  background: var(--os-status-info-bg);
+  color: var(--os-status-info);
+}
+.rp-badge--success {
+  background: var(--os-status-success-bg);
+  color: var(--os-status-success);
+}
+.rp-badge--neutral {
+  background: var(--os-bg-surface-sunken);
+  color: var(--os-text-secondary);
+  text-transform: none;
+  letter-spacing: 0;
+}
+.rp-grade {
+  display: inline-block;
+  min-width: 18px;
+  text-align: center;
+  border-radius: 3px;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 1px 4px;
+  margin-left: 4px;
+}
+.rp-grade--A {
+  background: var(--os-status-success-bg);
+  color: var(--os-status-success);
+}
+.rp-grade--B {
+  background: var(--os-status-info-bg);
+  color: var(--os-status-info);
+}
+.rp-grade--C {
+  background: var(--os-status-warning-bg);
+  color: var(--os-status-warning);
+}
+.rp-grade--D,
+.rp-grade--F {
+  background: var(--os-status-critical-bg);
+  color: var(--os-status-critical);
+}
+
+/* --- Legend --------------------------------------------------------------- */
+.rp-legend__note {
+  margin: 1rem 0 0;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--os-border);
+  color: var(--os-text-tertiary);
+  font-size: 0.85rem;
+  max-width: 92ch;
+}
+.rp-legend__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  font-size: 12px;
+}
+.rp-legend__grid h3 {
+  margin-top: 0;
+}
+.rp-legend__grid p {
+  margin: 0 0 4px;
+}
+
+/* --- Stories -------------------------------------------------------------- */
+.rp-story {
+  border: 1px solid var(--os-border);
+  border-radius: 6px;
+  padding: 14px 18px 12px;
+  margin: 0 0 16px;
+  background: var(--os-bg-surface);
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+.rp-story__head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.rp-story__head h3 {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--os-text-primary);
+}
+.rp-story__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 8px 0 10px;
+}
+.rp-story__why {
+  margin: 0 0 8px;
+  padding-left: 10px;
+  border-left: 3px solid var(--os-border-accent);
+  color: var(--os-text-secondary);
+}
+.rp-story h4 {
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--os-text-tertiary);
+  margin: 12px 0 4px;
+}
+.rp-steps,
+.rp-acceptance {
+  margin: 0;
+  padding-left: 22px;
+}
+.rp-steps li,
+.rp-acceptance li {
+  margin: 0 0 4px;
+}
+.rp-story__foot {
+  display: flex;
+  gap: 16px;
+  margin-top: 12px;
+  padding-top: 8px;
+  border-top: 1px solid var(--os-border-subtle);
+  font-size: 11px;
+  color: var(--os-text-tertiary);
+}
+
+/* --- Review and method ---------------------------------------------------- */
+.rp-review {
+  margin: 0;
+  padding-left: 18px;
+}
+.rp-review > li {
+  margin-bottom: 6px;
+}
+.rp-review ul {
+  margin: 4px 0 0;
+  padding-left: 18px;
+  color: var(--os-text-secondary);
+}
+.rp-method p {
+  color: var(--os-text-secondary);
+}
+.rp-note {
+  font-size: 11px;
+  color: var(--os-text-secondary);
+  margin: 8px 0 0;
+}
+.rp-muted {
+  color: var(--os-text-tertiary);
+}
+
+/* --- Print ---------------------------------------------------------------- */
+@page {
+  size: auto;
+  margin: 16mm 14mm;
+}
+@media print {
+  /* Print is always the light theme. A dark page prints as a wall of toner and
+     an off-white ground wastes ink for nothing, so the document reverts to
+     black on white however it is being read on screen. The tokens are restated
+     rather than toggled because the theme attribute lives on <html> and a print
+     stylesheet cannot change it. */
+  :root {
+    --os-bg-canvas: #ffffff;
+    --os-bg-surface: #f7f5f2;
+    --os-bg-surface-raised: #ffffff;
+    --os-bg-surface-sunken: #eeebe7;
+    --os-text-primary: #111111;
+    --os-text-secondary: #333333;
+    --os-text-tertiary: #555555;
+    --os-border: #bbbbbb;
+    --os-border-subtle: #dddddd;
+    --os-chart-track: #dddddd;
+  }
+  html,
+  body {
+    background: #fff;
+  }
+  .rp-noprint {
+    display: none !important;
+  }
+  .rp-page {
+    max-width: none;
+    padding: 0;
+    min-height: 0;
+  }
+  .rp-section {
+    margin-top: 24px;
+  }
+  .rp-section > h2 {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+  /* An epic heading stays with its first card; a card may split between
+     rows rather than never, since a whole-card avoid on a tall card leaves
+     the heading orphaned above a two-thirds-empty page. */
+  .rp-epic__head {
+    break-after: avoid;
+    page-break-after: avoid;
+    break-inside: avoid;
+  }
+  .rp-story {
+    border-color: #bbb;
+    box-shadow: none;
+    break-inside: auto;
+  }
+  .rp-story__head,
+  .rp-story h4 {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+  .rp-story tr,
+  .rp-story li {
+    break-inside: avoid;
+  }
+  .rp-table thead {
+    display: table-header-group;
+  }
+  .rp-table tr {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .rp-story__foot a[href]::after {
+    content: ' (' attr(href) ')';
+    font-size: 9px;
+    word-break: break-all;
+  }
+  .rp-tile,
+  .rp-badge,
+  .rp-grade {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
+
+/* =============================================================================
+   Cover tiles, breakdown matrix, filters, epics
+   ========================================================================== */
+
+.rp-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.rp-section__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* --- Export menu ---------------------------------------------------------- */
+.rp-menu {
+  position: relative;
+}
+.rp-menu__list {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  z-index: 10;
+  min-width: 280px;
+  display: flex;
+  flex-direction: column;
+  background: var(--os-bg-surface-raised);
+  border: 1px solid var(--os-border);
+  border-radius: var(--os-radius-md);
+  box-shadow: 0 4px 12px rgb(0 0 0 / 0.12);
+  overflow: hidden;
+}
+.rp-menu__item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 12px;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid var(--os-border-subtle);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  color: var(--os-text-primary);
+}
+.rp-menu__item:last-child {
+  border-bottom: 0;
+}
+.rp-menu__item:hover {
+  background: var(--os-bg-hover);
+}
+.rp-menu__label {
+  font-weight: 600;
+}
+.rp-menu__hint {
+  font-size: 11px;
+  color: var(--os-text-secondary);
+}
+.rp-button--icon {
+  width: 30px;
+  padding: 0;
+  text-align: center;
+}
+
+/* --- Cover tiles ---------------------------------------------------------- */
+.rp-tile__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.rp-tile__figure {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+.rp-tile__unit {
+  font-size: 12px;
+  color: var(--os-text-secondary);
+}
+/* The dial sits at the end of the row, so the number stays the first thing
+   read and the ring is a corroboration rather than a decoration. */
+.rp-dial {
+  margin-left: auto;
+}
+.rp-tile__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 8px;
+  font-size: 11px;
+  color: var(--os-text-secondary);
+}
+.rp-tile__foot--legend {
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 4px 10px;
+}
+
+.rp-delta {
+  font-weight: 600;
+  white-space: nowrap;
+}
+.rp-delta--up {
+  color: var(--os-status-success);
+}
+.rp-delta--down {
+  color: var(--os-status-critical);
+}
+
+/* --- Priority mix bar ----------------------------------------------------- */
+.rp-prio {
+  display: flex;
+  height: 6px;
+  margin-top: 10px;
+  border-radius: 3px;
+  overflow: hidden;
+  background: var(--os-chart-track);
+}
+.rp-prio__seg--p1 { background: var(--rp-bar-critical); }
+.rp-prio__seg--p2 { background: var(--rp-bar-warning); }
+.rp-prio__seg--p3 { background: var(--rp-bar-info); }
+
+/* Named `rp-keylegend`, not `rp-legend`: the "How to read the stories" section
+   already owns `.rp-legend`, and reusing the name turned that section into a
+   row of inline flex items with a bullet glued to the heading. */
+.rp-keylegend {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.rp-keylegend::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+}
+.rp-keylegend--p1::before { background: var(--rp-bar-critical); }
+.rp-keylegend--p2::before { background: var(--rp-bar-warning); }
+.rp-keylegend--p3::before { background: var(--rp-bar-info); }
+.rp-keylegend--bug::before { background: var(--rp-bar-critical); }
+.rp-keylegend--debt::before { background: var(--rp-bar-warning); }
+.rp-keylegend--hygiene::before { background: var(--os-text-secondary); }
+
+/* Bar fills are a step brighter than the status *text* colours. Those are
+   darkened to clear 4.5:1 as text, which reads as mud in a 5px bar; a bar is
+   non-text and always sits beside the number it depicts, so it takes the
+   brighter step from the chart palette instead. */
+:root {
+  --rp-bar-success: #2e844a;
+  --rp-bar-info: #2a78d6;
+  --rp-bar-warning: #eda100;
+  --rp-bar-critical: #ea001e;
+}
+:root[data-os-theme='dark'] {
+  --rp-bar-success: #199e70;
+  --rp-bar-info: #3987e5;
+  --rp-bar-warning: #c98500;
+  --rp-bar-critical: #e66767;
+}
+
+/* --- Breakdown matrix ----------------------------------------------------- */
+.rp-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  margin-right: 6px;
+  background: var(--os-text-tertiary);
+}
+.rp-dot--success { background: var(--os-status-success); }
+.rp-dot--info { background: var(--os-status-info); }
+.rp-dot--warning { background: var(--os-status-warning); }
+.rp-dot--critical { background: var(--os-status-critical); }
+
+.rp-scorecell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.rp-scorebar {
+  flex: 1 1 60px;
+  min-width: 40px;
+  height: 5px;
+  border-radius: 3px;
+  background: var(--os-chart-track);
+  overflow: hidden;
+}
+.rp-scorebar__fill {
+  display: block;
+  height: 100%;
+}
+.rp-scorebar__fill--success { background: var(--rp-bar-success); }
+.rp-scorebar__fill--info { background: var(--rp-bar-info); }
+.rp-scorebar__fill--warning { background: var(--rp-bar-warning); }
+.rp-scorebar__fill--critical { background: var(--rp-bar-critical); }
+
+.rp-count {
+  display: inline-block;
+  min-width: 20px;
+  padding: 0 5px;
+  border-radius: var(--os-radius-sm);
+  font-weight: 600;
+}
+.rp-count--critical {
+  color: var(--os-status-critical);
+  background: var(--os-status-critical-bg);
+}
+.rp-count--warning {
+  color: var(--os-status-warning);
+  background: var(--os-status-warning-bg);
+}
+.rp-pass {
+  color: var(--os-status-success);
+  font-weight: 600;
+}
+.rp-linkbutton {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  color: var(--os-text-accent);
+  cursor: pointer;
+}
+.rp-linkbutton:hover {
+  text-decoration: underline;
+}
+
+/* --- Filters -------------------------------------------------------------- */
+.rp-filters {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin: 12px 0 16px;
+}
+.rp-filters__spacer {
+  flex: 1 1 auto;
+}
+.rp-filters__label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--os-text-tertiary);
+}
+.rp-input--search {
+  flex: 1 1 260px;
+  min-width: 180px;
+}
+.rp-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border: 1px solid var(--os-border);
+  border-radius: var(--os-radius-pill);
+  background: var(--os-bg-surface-raised);
+  color: var(--os-text-secondary);
+  font: inherit;
+  font-size: 11px;
+  cursor: pointer;
+}
+.rp-pill:hover {
+  border-color: var(--os-border-strong);
+}
+.rp-pill--on {
+  background: var(--os-bg-accent);
+  border-color: var(--os-bg-accent);
+  color: var(--os-text-on-accent);
+}
+.rp-pill__count {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+/* --- Epics ---------------------------------------------------------------- */
+.rp-epic {
+  margin-top: 20px;
+}
+.rp-epic__head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding-bottom: 6px;
+  margin-bottom: 10px;
+  border-bottom: 2px solid var(--os-border);
+}
+.rp-epic__name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--os-text-primary);
+}
+.rp-badge--epic {
+  color: var(--os-text-accent);
+  background: var(--os-status-info-bg);
+}
+
+/* --- Story card ----------------------------------------------------------- */
+.rp-story__head {
+  flex-wrap: wrap;
+  gap: 8px;
+}
+/* `.rp-section h3` uppercases sub-headings, which is right for "Steps" and
+   wrong for a story title: the title moved out of the story header when the
+   card was rebuilt and inherited that rule, turning every story into a shout.
+   Titles are sentence case, at reading size. */
+.rp-story__title {
+  margin: 6px 0 4px;
+  font-size: 15px;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--os-text-primary);
+}
+.rp-story__points {
+  margin-left: auto;
+  font-size: 11px;
+  color: var(--os-text-secondary);
+  white-space: nowrap;
+}
+.rp-accept {
+  margin-top: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--os-border-subtle);
+  border-radius: var(--os-radius-md);
+  background: var(--os-bg-surface);
+}
+.rp-accept__head {
+  margin: 0 0 6px;
+  font-size: 12px;
+}

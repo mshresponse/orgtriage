@@ -1,0 +1,110 @@
+[
+ {
+  "filePath": "lwc/generateDisclosureCompliance/generateDisclosureCompliance.css",
+  "managed": false,
+  "source": ".c-container {\n    border: 1px solid #d8dde6;\n    margin: 5px 0 20px 0;\n    background-color: #f4f6f9;\n    padding: 10px 10px 10px;\n}\n.custom-box {\n    text-align: left;\n    padding: 1rem;\n    border: 1px solid #d8dde6;\n    font-size: 18px;\n}\n.slds-text-heading_medium {\n    padding: 0px 20px 0px;\n}\n.c-description {\n    padding: 0px 0px 15px;\n    font-size: 15px;\n    font-weight:bold;\n}\n.c-footer {\n    margin: 0px 10px 0px 0px;\n    text-align: right;\n}",
+  "exercises": [
+   "classOverrides",
+   "hardcodedColors"
+  ]
+ },
+ {
+  "filePath": "lwc/inAppLanding/inAppLanding.css",
+  "managed": false,
+  "source": ".c-container {\n    border: 1px solid #d8dde6;\n    margin: 10px 0 20px 0;\n    background-color: #f0f0f0;\n    padding: 10px 10px 10px;\n}\n.custom-box {\n    text-align: left;\n    padding: 1rem;\n    border: 1px solid #d8dde6;\n    font-size: 18px;\n}\n.slds-text-heading_medium {\n    padding: 0px 20px 10px;\n}\n.c-description {\n    padding: 0px 0px 15px;\n    font-size: 15px;\n}\n.slds-box{\n    text-align: center;\n    padding: 1rem;\n    border-style: none;\n}\n.slds-left{\n    text-align: left;\n    padding: 1rem;\n}",
+  "exercises": [
+   "classOverrides",
+   "hardcodedColors"
+  ]
+ },
+ {
+  "filePath": "lwc/carbonAccountingLanding/carbonAccountingLanding.css",
+  "managed": false,
+  "source": ".c-container {\n    border: 1px solid #d8dde6;\n    margin: 5px 0 20px 0;\n    background-color: #f4f6f9;\n    padding: 10px 10px 10px;\n}\n.custom-box {\n    text-align: left;\n    padding: 1rem;\n    border: 1px solid #d8dde6;\n    font-size: 18px;\n}\n.slds-text-heading_medium {\n    padding: 0px 20px 0px;\n}\n.c-description {\n    padding: 0px 0px 15px;\n    font-size: 15px;\n    font-weight:bold;\n}\n.c-footer {\n    margin: 0px 10px 0px 0px;\n    text-align: right;\n}",
+  "exercises": [
+   "classOverrides",
+   "hardcodedColors"
+  ]
+ },
+ {
+  "filePath": "lwc/configureNetZeroCloud/configureNetZeroCloud.css",
+  "managed": false,
+  "source": ".c-container {\n    border: 1px solid #d8dde6;\n    margin: 5px 0 20px 0;\n    background-color: #f4f6f9;\n    padding: 10px 10px 10px;\n}\n.custom-box {\n    text-align: left;\n    padding: 1rem;\n    border: 1px solid #d8dde6;\n    font-size: 18px;\n}\n.slds-text-heading_medium {\n    padding: 0px 20px 0px;\n}\n.c-description {\n    padding: 0px 0px 15px;\n    font-size: 15px;\n    font-weight:bold;\n}\n.c-footer {\n    margin: 0px 10px 0px 0px;\n    text-align: right;\n}",
+  "exercises": [
+   "classOverrides",
+   "hardcodedColors"
+  ]
+ },
+ {
+  "filePath": "lwc/esgLanding/esgLanding.css",
+  "managed": false,
+  "source": ".c-container {\n    border: 1px solid #d8dde6;\n    margin: 5px 0 20px 0;\n    background-color: #f4f6f9;\n    padding: 10px 10px 10px;\n}\n.custom-box {\n    text-align: left;\n    padding: 1rem;\n    border: 1px solid #d8dde6;\n    font-size: 18px;\n}\n.slds-text-heading_medium {\n    padding: 0px 20px 0px;\n}\n.c-description {\n    padding: 0px 0px 15px;\n    font-size: 15px;\n    font-weight:bold;\n}\n.c-footer {\n    margin: 0px 10px 0px 0px;\n    text-align: right;\n}",
+  "exercises": [
+   "classOverrides",
+   "hardcodedColors"
+  ]
+ },
+ {
+  "filePath": "lwc/carbonAccounting/carbonAccounting.css",
+  "managed": false,
+  "source": ".c-container {\n    border: 1px solid #d8dde6;\n    margin: 5px 0 20px 0;\n    background-color: #f4f6f9;\n    padding: 10px 10px 10px;\n}\n.custom-box {\n    text-align: left;\n    padding: 1rem;\n    border: 1px solid #d8dde6;\n    font-size: 18px;\n}\n.slds-text-heading_medium {\n    padding: 0px 20px 0px;\n}\n.c-description {\n    padding: 0px 0px 15px;\n    font-size: 15px;\n    font-weight:bold;\n}\n.c-footer {\n    margin: 0px 10px 0px 0px;\n    text-align: right;\n}",
+  "exercises": [
+   "classOverrides",
+   "hardcodedColors"
+  ]
+ },
+ {
+  "filePath": "lwc/scope3ProcurementAnalysis/scope3ProcurementAnalysis.css",
+  "managed": false,
+  "source": ".c-container {\n    border: 1px solid #d8dde6;\n    margin: 5px 0 20px 0;\n    background-color: #f4f6f9;\n    padding: 10px 10px 10px;\n}\n.custom-box {\n    text-align: left;\n    padding: 1rem;\n    border: 1px solid #d8dde6;\n    font-size: 18px;\n}\n.slds-text-heading_medium {\n    padding: 0px 20px 0px;\n}\n.c-description {\n    padding: 0px 0px 15px;\n    font-size: 15px;\n    font-weight:bold;\n}\n.c-footer {\n    margin: 0px 10px 0px 0px;\n    text-align: right;\n}",
+  "exercises": [
+   "classOverrides",
+   "hardcodedColors"
+  ]
+ },
+ {
+  "filePath": "lwc/nzcAnalytics/nzcAnalytics.css",
+  "managed": false,
+  "source": ".c-container {\n    border: 1px solid #d8dde6;\n    margin: 5px 0 20px 0;\n    background-color: #f4f6f9;\n    padding: 10px 10px 10px;\n}\n.custom-box {\n    text-align: left;\n    padding: 1rem;\n    border: 1px solid #d8dde6;\n    font-size: 18px;\n}\n.slds-text-heading_medium {\n    padding: 0px 20px 0px;\n}\n.c-description {\n    padding: 0px 0px 15px;\n    font-size: 15px;\n    font-weight:bold;\n}\n.c-footer {\n    margin: 0px 10px 0px 0px;\n    text-align: right;\n}",
+  "exercises": [
+   "classOverrides",
+   "hardcodedColors"
+  ]
+ },
+ {
+  "filePath": "lwc/targetSetting/targetSetting.css",
+  "managed": false,
+  "source": ".c-container {\n    border: 1px solid #d8dde6;\n    margin: 5px 0 20px 0;\n    background-color: #f4f6f9;\n    padding: 10px 10px 10px;\n}\n.custom-box {\n    text-align: left;\n    padding: 1rem;\n    border: 1px solid #d8dde6;\n    font-size: 18px;\n}\n.slds-text-heading_medium {\n    padding: 0px 20px 0px;\n}\n.c-description {\n    padding: 0px 0px 15px;\n    font-size: 15px;\n    font-weight:bold;\n}\n.c-footer {\n    margin: 0px 10px 0px 0px;\n    text-align: right;\n}",
+  "exercises": [
+   "classOverrides",
+   "hardcodedColors"
+  ]
+ },
+ {
+  "filePath": "lwc/whatsNewInNZC/whatsNewInNZC.css",
+  "managed": false,
+  "source": ".c-container {\n    border: 1px solid #d8dde6;\n    margin: 5px 0 20px 0;\n    background-color: #f4f6f9;\n    padding: 10px 10px 10px;\n}\n.custom-box {\n    text-align: left;\n    padding: 1rem;\n    border: 1px solid #d8dde6;\n    font-size: 18px;\n}\n.slds-text-heading_medium {\n    padding: 0px 20px 0px;\n}\n.c-description {\n    padding: 0px 0px 15px;\n    font-size: 15px;\n    font-weight:bold;\n}\n.c-footer {\n    margin: 0px 10px 0px 0px;\n    text-align: right;\n}",
+  "exercises": [
+   "classOverrides",
+   "hardcodedColors"
+  ]
+ },
+ {
+  "filePath": "lwc/carbonCredits/carbonCredits.css",
+  "managed": false,
+  "source": ".c-container {\n    border: 1px solid #d8dde6;\n    margin: 5px 0 20px 0;\n    background-color: #f4f6f9;\n    padding: 10px 10px 10px;\n}\n.custom-box {\n    text-align: left;\n    padding: 1rem;\n    border: 1px solid #d8dde6;\n    font-size: 18px;\n}\n.slds-text-heading_medium {\n    padding: 0px 20px 0px;\n}\n.c-description {\n    padding: 0px 0px 15px;\n    font-size: 15px;\n    font-weight:bold;\n}\n.c-footer {\n    margin: 0px 10px 0px 0px;\n    text-align: right;\n}",
+  "exercises": [
+   "classOverrides",
+   "hardcodedColors"
+  ]
+ },
+ {
+  "filePath": "lwc/carbonAccountingScope3/carbonAccountingScope3.css",
+  "managed": false,
+  "source": ".c-container {\n    border: 1px solid #d8dde6;\n    margin: 5px 0 20px 0;\n    background-color: #f4f6f9;\n    padding: 10px 10px 10px;\n}\n.custom-box {\n    text-align: left;\n    padding: 1rem;\n    border: 1px solid #d8dde6;\n    font-size: 18px;\n}\n.slds-text-heading_medium {\n    padding: 0px 20px 0px;\n}\n.c-description {\n    padding: 0px 0px 15px;\n    font-size: 15px;\n    font-weight:bold;\n}\n.c-footer {\n    margin: 0px 10px 0px 0px;\n    text-align: right;\n}",
+  "exercises": [
+   "classOverrides",
+   "hardcodedColors"
+  ]
+ }
+]

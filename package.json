@@ -1,0 +1,39 @@
+{
+  "name": "orgtriage",
+  "version": "0.8.60",
+  "private": true,
+  "description": "OrgTriage \u2014 a Salesforce admin org-health and metadata diagnostics browser extension.",
+  "type": "module",
+  "scripts": {
+    "build": "npm run build:pages && npm run check:manifest",
+    "build:pages": "vite build",
+    "typecheck": "tsc --noEmit",
+    "check:contrast": "node tools/contrast-check.mjs",
+    "check:palette": "node tools/palette-check.mjs",
+    "zip": "npm run build && node tools/strip-sourcemaps.mjs && cd dist && zip -r ../orgtriage.zip . -x '.*'",
+    "dev:preview": "vite --port 5178 --strictPort",
+    "check:manifest": "node tools/check-manifest.mjs",
+    "probe:claims": "esbuild tools/probe/claims.ts --bundle --platform=node --format=esm --outfile=tools/.probe.mjs --log-level=error && node tools/.probe.mjs",
+    "scan": "esbuild tools/cli/scan.ts --bundle --platform=node --format=esm --alias:@=./src --alias:path=./src/shims/path.ts --alias:fs=./src/shims/fs.ts --loader:.json=json --outfile=tools/.scan.mjs --log-level=error && node tools/.scan.mjs",
+    "test": "esbuild tools/regression.ts --bundle --platform=node --format=esm --alias:@=./src --alias:path=./src/shims/path.ts --alias:fs=./src/shims/fs.ts --loader:.json=json --outfile=tools/.regression.mjs && node --test tools/.regression.mjs",
+    "build:site": "node tools/build-site.mjs",
+    "check:docs": "node tools/check-docs.mjs",
+    "fetch:sources": "node tools/fetch-sources.mjs",
+    "capture:site": "node tools/capture-site.mjs",
+    "review:bundle": "node tools/review-bundle.mjs",
+    "publish:public": "node tools/publish-public.mjs"
+  },
+  "dependencies": {
+    "@flow-scanner/lightning-flow-scanner-core": "6.19.4",
+    "lit": "^3.2.1"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.287",
+    "@types/node": "^26.1.2",
+    "esbuild": "^0.24.0",
+    "marked": "15.0.12",
+    "playwright": "1.56.1",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.5"
+  }
+}

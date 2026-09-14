@@ -1,0 +1,128 @@
+[
+ {
+  "Id": "01piw0000014Y96AAE",
+  "Name": "GetItems",
+  "SymbolTable": {
+   "tableDeclaration": {
+    "annotations": [],
+    "modifiers": [
+     "public",
+     "without sharing"
+    ]
+   }
+  }
+ },
+ {
+  "Id": "01piw0000014Y9GAAU",
+  "Name": "SectionBlockController",
+  "SymbolTable": {
+   "tableDeclaration": {
+    "annotations": [],
+    "modifiers": [
+     "public",
+     "with sharing"
+    ]
+   }
+  }
+ },
+ {
+  "Id": "01piw0000014Y9HAAU",
+  "Name": "DynamicLinkHelper",
+  "SymbolTable": {
+   "tableDeclaration": {
+    "annotations": [],
+    "modifiers": [
+     "public",
+     "with sharing"
+    ]
+   }
+  }
+ },
+ {
+  "Id": "01piw0000014Y9IAAU",
+  "Name": "SectionBlockSequence",
+  "SymbolTable": {
+   "tableDeclaration": {
+    "annotations": [],
+    "modifiers": [
+     "public",
+     "with sharing"
+    ]
+   }
+  }
+ },
+ {
+  "Id": "01piw0000014Y9JAAU",
+  "Name": "UserInformation",
+  "SymbolTable": {
+   "tableDeclaration": {
+    "annotations": [],
+    "modifiers": [
+     "public",
+     "with sharing"
+    ]
+   }
+  }
+ },
+ {
+  "Id": "01piw0000014Y9KAAU",
+  "Name": "CustomWrapper",
+  "SymbolTable": {
+   "tableDeclaration": {
+    "annotations": [],
+    "modifiers": [
+     "public",
+     "with sharing"
+    ]
+   }
+  }
+ },
+ {
+  "Id": "01piw0000014Y9LAAU",
+  "Name": "GetRecordId",
+  "SymbolTable": {
+   "tableDeclaration": {
+    "annotations": [],
+    "modifiers": [
+     "public",
+     "without sharing"
+    ]
+   }
+  }
+ },
+ {
+  "Id": "01piw0000014YCPAA2",
+  "Name": "AutocreatedRegHandler1720421924288",
+  "SymbolTable": {
+   "tableDeclaration": {
+    "annotations": [],
+    "modifiers": [
+     "global"
+    ]
+   }
+  }
+ },
+ {
+  "Id": "MANAGED_TEST_CLASS",
+  "Name": "CustomTokenDataExtractorTest",
+  "SymbolTable": {
+   "tableDeclaration": {
+    "annotations": [
+     {
+      "name": "IsTest"
+     }
+    ],
+    "modifiers": [
+     "testMethod",
+     "global",
+     "with sharing"
+    ]
+   }
+  }
+ },
+ {
+  "Id": "MANAGED_NULL_TABLE",
+  "Name": "FlexCardController",
+  "SymbolTable": null
+ }
+]

@@ -1,0 +1,344 @@
+/* =============================================================================
+   OrgTriage — Azure & Charcoal
+   =============================================================================
+   A theme layer expressed as SLDS *styling hooks* (`--slds-g-*`, `--slds-c-*`)
+   plus a private `--os-*` token set for the parts of the UI that are denser
+   than anything SLDS ships, and a six-slot categorical palette for the charts.
+
+   Why styling hooks rather than overriding SLDS selectors: hooks are the
+   supported SLDS theming surface, they survive SLDS upgrades, and they let the
+   same markup render correctly whether it sits on SLDS global styles or on the
+   trimmed subset this extension bundles.
+
+   Contrast: every foreground/background pair used for text is checked by
+   `npm run check:contrast` against WCAG 2.2 AA (4.5:1 body, 3:1 large/UI).
+   Do not hand-edit a colour here without re-running that check.
+   ========================================================================== */
+
+:root {
+  color-scheme: dark light;
+
+  /* --- Ramp: Azure (the accent family) ------------------------------------
+     Salesforce blue. It is deliberately the same hue the charts lead with in
+     slot 1, so buttons, links, the active tab and the first chart series read
+     as one system rather than three unrelated accents. The steps come from the
+     validated sequential blue ramp; nothing here is hand-picked. */
+  --os-azure-50: #f1f6fd;
+  --os-azure-100: #cde2fb;
+  --os-azure-200: #9ec5f4;
+  --os-azure-300: #6da7ec;
+  --os-azure-400: #3987e5;
+  --os-azure-500: #2a78d6;
+  --os-azure-600: #256abf;
+  --os-azure-700: #1c5cab;
+  --os-azure-800: #184f95;
+  --os-azure-900: #12243a;
+
+  /* --- Ramp: Charcoal (neutral with a faint green cast, for cohesion) ----- */
+  --os-charcoal-50: #f7f8f7;
+  --os-charcoal-100: #edefed;
+  --os-charcoal-200: #dcdfdb;
+  --os-charcoal-300: #bfc4bd;
+  --os-charcoal-400: #949a92;
+  --os-charcoal-500: #6b716a;
+  --os-charcoal-600: #4c524b;
+  --os-charcoal-700: #363a35;
+  --os-charcoal-800: #242723;
+  --os-charcoal-900: #161815;
+  --os-charcoal-950: #0e100e;
+
+  /* --- Status ramp --------------------------------------------------------
+     Retuned from the earlier earthen set into the same family the charts use,
+     so a warning rail and a warning bar segment are the same colour. Every
+     value is held to WCAG AA on both grounds by `npm run check:contrast`. */
+  --os-success-300: #6fd6a4;  /* success on dark  */
+  --os-success-600: #0f7a4e;  /* success on light */
+  --os-warning-300: #f0b95c;  /* warning on dark  */
+  --os-warning-600: #8a5a00;  /* warning on light */
+  --os-danger-300: #ffb4ab;   /* critical on dark  */
+  --os-danger-600: #ba1a1a;   /* critical on light */
+  --os-info-300: #6da7ec;     /* info on dark  */
+  --os-info-600: #1c5cab;     /* info on light */
+
+  /* --- Categorical chart palette ------------------------------------------
+     One slot per analyzer area; declared per theme below. The ORDER is the
+     colour-vision-deficiency safety mechanism, not a preference: adjacent
+     slots are the pairs a stacked bar puts side by side, and this order is one
+     that clears the OKLab ΔE gates under simulated protan and deutan vision in
+     both themes. Do not reorder or substitute a hex without re-running
+     `npm run check:palette`.
+
+     On the light ground three of the six sit below 3:1 against white. That is
+     legal only under the relief rule, so every chart here carries a direct
+     label or a legend with the value — colour is never the only key. */
+
+  /* --- Density scale ------------------------------------------------------
+     The whole point of this tool is scanning hundreds of metadata rows, so the
+     vertical rhythm is tighter than SLDS defaults (SLDS row height is 2rem).  */
+  --os-font-size-xs: 11px;
+  --os-font-size-sm: 12px;
+  --os-font-size-base: 13px;
+  --os-font-size-md: 14px;
+  --os-font-size-lg: 16px;
+  --os-font-size-xl: 20px;
+
+  --os-line-height-tight: 1.25;
+  --os-line-height-base: 1.4;
+
+  --os-space-3xs: 2px;
+  --os-space-2xs: 4px;
+  --os-space-xs: 6px;
+  --os-space-sm: 8px;
+  --os-space-md: 12px;
+  --os-space-lg: 16px;
+  --os-space-xl: 24px;
+
+  --os-row-height: 28px;      /* compact  */
+  --os-row-height-cozy: 34px; /* comfortable — user toggleable */
+
+  --os-radius-sm: 3px;
+  --os-radius-md: 5px;
+  --os-radius-pill: 999px;
+
+  --os-font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
+  --os-font-mono: ui-monospace, 'SF Mono', SFMono-Regular, 'Cascadia Mono',
+    'Roboto Mono', Menlo, Consolas, monospace;
+
+  --os-transition-fast: 120ms cubic-bezier(0.2, 0, 0.2, 1);
+  --os-transition-panel: 180ms cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+/* -----------------------------------------------------------------------------
+   Dark (default). Charcoal ground, azure as the interface accent.
+   -------------------------------------------------------------------------- */
+:root,
+[data-os-theme='dark'] {
+  --os-bg-canvas: var(--os-charcoal-950);
+  --os-bg-surface: var(--os-charcoal-900);
+  --os-bg-surface-raised: var(--os-charcoal-800);
+  --os-bg-surface-sunken: #0a0c0a;
+  --os-bg-hover: #1d201c;
+  --os-bg-selected: var(--os-azure-900);
+  --os-bg-accent: var(--os-azure-700);
+  --os-bg-accent-hover: var(--os-azure-600);
+
+  --os-border-subtle: #23261f;   /* decorative row rules */
+  --os-border: #30352e;          /* container edges */
+  --os-border-strong: #6b716a;   /* inputs & controls — WCAG 1.4.11, >=3:1 */
+  --os-border-accent: var(--os-azure-400);
+
+  --os-text-primary: #e9ece7;
+  --os-text-secondary: #b3b9b0;
+  --os-text-tertiary: #8b918a;
+  --os-text-accent: var(--os-azure-300);
+  --os-text-inverse: var(--os-charcoal-950);
+  --os-text-on-accent: #ffffff;
+
+  --os-status-success: var(--os-success-300);
+  --os-status-warning: var(--os-warning-300);
+  --os-status-critical: var(--os-danger-300);
+  --os-status-info: var(--os-info-300);
+
+  --os-status-success-bg: #12301f;
+  --os-status-warning-bg: #33280f;
+  --os-status-critical-bg: #3a1a16;
+  --os-status-info-bg: #12243a;
+
+  /* Severity as a *bar segment*, which is a different job from severity as
+     text. The `--os-status-*` values below are tuned for reading against a
+     background; these are tuned for being told apart from each other, because
+     in a proportion bar they sit edge to edge. Validated as an adjacent set by
+     `npm run check:palette`. */
+  --os-sev-critical: #dd4a6b;
+  --os-sev-warning: #c98500;
+  --os-sev-info: #3987e5;
+  --os-sev-success: #199e70;
+
+  /* Chart series, stepped for the dark card surface. */
+  --os-chart-1: #3987e5;
+  --os-chart-2: #d95926;
+  --os-chart-3: #199e70;
+  --os-chart-4: #c98500;
+  --os-chart-5: #d55181;
+  --os-chart-6: #008300;
+  --os-chart-7: #9085e9;
+  --os-chart-track: #33372f;
+
+  --os-focus-ring: var(--os-azure-300);
+  --os-shadow-panel: 0 0 0 1px #000, -8px 0 28px rgb(0 0 0 / 0.55);
+  --os-scrim: rgb(6 8 6 / 0.62);
+}
+
+/* -----------------------------------------------------------------------------
+   Light. Same hues, inverted ground; azure darkens to hold contrast on white.
+   -------------------------------------------------------------------------- */
+[data-os-theme='light'] {
+  /* A warm off-white ground rather than pure white. Salesforce's own chrome is
+     `#ffffff`, and a tool sitting beside it in the same viewport that is also
+     pure white reads as part of the page it is auditing. The half-step of warmth
+     separates the two without a border, and the cards stay white so the
+     hierarchy is still surface-over-ground. Neutrals here are warm rather than
+     the green-cast charcoal ramp, which the dark theme keeps. */
+  --os-bg-canvas: #fdf9f5;
+  --os-bg-surface: #f6f2ed;
+  --os-bg-surface-raised: #ffffff;
+  --os-bg-surface-sunken: #ebe6e0;
+  --os-bg-hover: var(--os-azure-50);
+  --os-bg-selected: #e2edfb;
+  --os-bg-accent: var(--os-azure-700);
+  --os-bg-accent-hover: var(--os-azure-800);
+
+  --os-border-subtle: #ece7e1;
+  --os-border: #ddd6cd;
+  --os-border-strong: #6f6a63; /* inputs & controls — >=3:1 */
+  --os-border-accent: var(--os-azure-700);
+
+  --os-text-primary: #1c1b19;
+  /* Darker than the dark theme's inverse would suggest: 12px body text on a
+     light ground needs more than the AA minimum to read comfortably. */
+  --os-text-secondary: #3a3733;
+  --os-text-tertiary: #57534d;
+  --os-text-accent: var(--os-azure-700);
+  --os-text-inverse: #ffffff;
+  --os-text-on-accent: #ffffff;
+
+  --os-status-success: var(--os-success-600);
+  --os-status-warning: var(--os-warning-600);
+  --os-status-critical: var(--os-danger-600);
+  --os-status-info: var(--os-info-600);
+
+  --os-status-success-bg: #e6f5ec;
+  --os-status-warning-bg: #fdf2dd;
+  --os-status-critical-bg: #fdecea;
+  --os-status-info-bg: #e7f0fb;
+
+  /* Severity bar segments — see the dark block. */
+  --os-sev-critical: #ea001e;
+  --os-sev-warning: #eda100;
+  --os-sev-info: #2a78d6;
+  --os-sev-success: #008300;
+
+  /* Chart series on the light card surface. */
+  --os-chart-1: #2a78d6;
+  --os-chart-2: #eb6834;
+  --os-chart-3: #1baf7a;
+  --os-chart-4: #eda100;
+  --os-chart-5: #e87ba4;
+  --os-chart-6: #008300;
+  --os-chart-7: #4a3aa7;
+  --os-chart-track: #e3ded7;
+
+  --os-focus-ring: var(--os-azure-700);
+  --os-shadow-panel: 0 0 0 1px #ddd6cd, -8px 0 24px rgb(28 27 25 / 0.14);
+  --os-scrim: rgb(28 27 25 / 0.34);
+}
+
+/* =============================================================================
+   SLDS 2 global styling-hook bridge
+   -----------------------------------------------------------------------------
+   Only `--slds-g-*` global hooks are set here, and only names that appear in the
+   published global-hooks reference. Three deliberate exclusions:
+
+     --slds-c-*   component hooks — SLDS 1 only. Salesforce: "Component styling
+                  hooks are available only in SLDS 1 as of Summer '25", and they
+                  do not work under SLDS 2 / Cosmos (GA Winter '26).
+     --slds-s-*   and --_slds-* — private. Their use is explicitly prohibited.
+     --lwc-*      design tokens — unsupported in SLDS 2; the official SLDS linter
+                  flags them as errors (`lwc-token-to-slds-hook`).
+
+   Custom properties inherit across shadow boundaries, so these are re-declared
+   at :root of the panel document rather than inherited from the org's theme.
+
+   Reference: https://v1.lightningdesignsystem.com/platforms/lightning/new-global-styling-hooks-guidance/
+   ========================================================================== */
+:root {
+  /* Surfaces and the text that sits on them */
+  --slds-g-color-surface-1: var(--os-bg-canvas);
+  --slds-g-color-surface-2: var(--os-bg-surface);
+  --slds-g-color-surface-container-1: var(--os-bg-surface);
+  --slds-g-color-surface-container-2: var(--os-bg-surface-raised);
+  --slds-g-color-surface-container-3: var(--os-bg-surface-sunken);
+  --slds-g-color-on-surface-1: var(--os-text-primary);
+  --slds-g-color-on-surface-2: var(--os-text-secondary);
+  --slds-g-color-on-surface-3: var(--os-text-tertiary);
+  --slds-g-color-border-1: var(--os-border-subtle);
+  --slds-g-color-border-2: var(--os-border);
+
+  /* Accent */
+  --slds-g-color-accent-1: var(--os-azure-400);
+  --slds-g-color-accent-2: var(--os-azure-500);
+  --slds-g-color-accent-3: var(--os-azure-600);
+  --slds-g-color-accent-container-1: var(--os-bg-accent);
+  --slds-g-color-accent-container-2: var(--os-bg-accent-hover);
+  --slds-g-color-border-accent-1: var(--os-border-accent);
+  --slds-g-color-border-accent-2: var(--os-azure-600);
+
+  /* Feedback families */
+  --slds-g-color-error-1: var(--os-status-critical);
+  --slds-g-color-error-container-1: var(--os-status-critical-bg);
+  --slds-g-color-on-error-1: var(--os-status-critical);
+  --slds-g-color-border-error-1: var(--os-status-critical);
+  --slds-g-color-success-1: var(--os-status-success);
+  --slds-g-color-success-container-1: var(--os-status-success-bg);
+  --slds-g-color-on-success-1: var(--os-status-success);
+  --slds-g-color-border-success-1: var(--os-status-success);
+  --slds-g-color-warning-1: var(--os-status-warning);
+  --slds-g-color-warning-container-1: var(--os-status-warning-bg);
+  --slds-g-color-on-warning-1: var(--os-status-warning);
+  --slds-g-color-border-warning-1: var(--os-status-warning);
+  --slds-g-color-info-1: var(--os-status-info);
+  --slds-g-color-info-container-1: var(--os-status-info-bg);
+  --slds-g-color-on-info-1: var(--os-status-info);
+  --slds-g-color-border-info-1: var(--os-status-info);
+  --slds-g-color-disabled-1: var(--os-text-tertiary);
+  --slds-g-color-disabled-container-1: var(--os-bg-surface-raised);
+
+  /* Non-colour hooks. Font sizes follow the documented 1..15 ramp, smallest
+     first; only the steps this UI actually uses are declared. */
+  --slds-g-font-size-1: var(--os-font-size-xs);
+  --slds-g-font-size-2: var(--os-font-size-sm);
+  --slds-g-font-size-3: var(--os-font-size-base);
+  --slds-g-font-size-4: var(--os-font-size-md);
+  --slds-g-font-size-5: var(--os-font-size-lg);
+  --slds-g-font-size-7: var(--os-font-size-xl);
+  --slds-g-font-weight-4: 400;
+  --slds-g-font-weight-6: 600;
+  --slds-g-line-height-2: var(--os-line-height-tight);
+  --slds-g-line-height-3: var(--os-line-height-base);
+  --slds-g-radius-border-1: var(--os-radius-sm);
+  --slds-g-radius-border-2: var(--os-radius-md);
+  --slds-g-radius-border-pill: var(--os-radius-pill);
+  --slds-g-spacing-1: var(--os-space-2xs);
+  --slds-g-spacing-2: var(--os-space-xs);
+  --slds-g-spacing-3: var(--os-space-sm);
+  --slds-g-spacing-4: var(--os-space-md);
+  --slds-g-spacing-5: var(--os-space-lg);
+  --slds-g-sizing-border-1: 1px;
+  --slds-g-sizing-border-2: 2px;
+}
+
+/* -----------------------------------------------------------------------------
+   Motion & contrast preferences.
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --os-transition-fast: 1ms;
+    --os-transition-panel: 1ms;
+  }
+}
+
+@media (prefers-contrast: more) {
+  :root,
+  [data-os-theme='dark'] {
+    --os-text-secondary: #d2d7cf;
+    --os-text-tertiary: #b6bcb4;
+    --os-border: #4d534b;
+    --os-border-subtle: #3a4038;
+  }
+  [data-os-theme='light'] {
+    --os-text-secondary: #2b2926;
+    --os-text-tertiary: #3d3a36;
+    --os-border: #b8b0a6;
+  }
+}

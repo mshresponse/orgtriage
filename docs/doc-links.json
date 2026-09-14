@@ -1,0 +1,853 @@
+{
+  "https://help.salesforce.com/s/articleView?id=platform.admin_delegate.htm&type=5": {
+    "ok": true,
+    "heading": "Delegate Administrative Duties",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=platform.admin_delegate.htm&type=5",
+    "where": [
+      "src/analyzers/access.ts:258"
+    ],
+    "checkedAt": "2026-09-09"
+  },
+  "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_apexclass.htm": {
+    "ok": true,
+    "heading": "ApexClass",
+    "finalUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_apexclass.htm",
+    "where": [
+      "src/analyzers/apex.ts:14",
+      "src/analyzers/apex.ts:228"
+    ],
+    "checkedAt": "2026-09-09"
+  },
+  "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_apextrigger.htm": {
+    "ok": true,
+    "heading": "ApexTrigger",
+    "finalUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_apextrigger.htm",
+    "where": [
+      "src/analyzers/apex.ts:15",
+      "src/analyzers/apex.ts:240"
+    ],
+    "checkedAt": "2026-09-09"
+  },
+  "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_apexcodecoverageaggregate.htm": {
+    "ok": true,
+    "heading": "ApexCodeCoverageAggregate",
+    "finalUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_apexcodecoverageaggregate.htm",
+    "where": [
+      "src/analyzers/apex.ts:16"
+    ],
+    "checkedAt": "2026-09-09"
+  },
+  "https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_triggers_bestpract.htm": {
+    "ok": true,
+    "heading": "Trigger and Bulk Request Best Practices",
+    "finalUrl": "https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_triggers_bestpract.htm",
+    "where": [
+      "src/analyzers/apex.ts:180"
+    ],
+    "checkedAt": "2026-09-09"
+  },
+  "https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/api_rest_eol.htm": {
+    "ok": true,
+    "heading": "API End-of-Life Policy",
+    "finalUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/api_rest_eol.htm",
+    "where": [
+      "src/analyzers/apex.ts:197"
+    ],
+    "checkedAt": "2026-09-09"
+  },
+  "https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_code_coverage_intro.htm": {
+    "ok": true,
+    "heading": "Testing and Code Coverage",
+    "finalUrl": "https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_code_coverage_intro.htm",
+    "where": [
+      "src/analyzers/apex.ts:132",
+      "src/analyzers/apex.ts:145",
+      "src/analyzers/apex.ts:156",
+      "src/analyzers/apex.ts:212",
+      "src/analyzers/apex.ts:274",
+      "src/analyzers/apex.ts:285"
+    ],
+    "checkedAt": "2026-09-09"
+  },
+  "https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/langCon_apex_loops.htm": {
+    "ok": true,
+    "heading": "Loops",
+    "finalUrl": "https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/langCon_apex_loops.htm",
+    "where": [
+      "src/analyzers/apexlint.ts:69"
+    ],
+    "checkedAt": "2026-09-09"
+  },
+  "https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_classes_keywords_sharing.htm": {
+    "ok": true,
+    "heading": "Use the with sharing, without sharing, and inherited sharing Keywords",
+    "finalUrl": "https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_classes_keywords_sharing.htm",
+    "where": [
+      "src/analyzers/apexlint.ts:88"
+    ],
+    "checkedAt": "2026-09-09"
+  },
+  "https://help.salesforce.com/s/articleView?id=platform.fields_manage_deleted_fields_lex.htm&type=5": {
+    "ok": true,
+    "heading": "Manage Deleted Fields in Lightning Experience",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=platform.fields_manage_deleted_fields_lex.htm&type=5",
+    "where": [
+      "src/analyzers/fields.ts:111"
+    ],
+    "checkedAt": "2026-09-09"
+  },
+  "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_flowdefinitionview.htm": {
+    "ok": true,
+    "heading": "FlowDefinitionView",
+    "finalUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_flowdefinitionview.htm",
+    "where": [
+      "src/analyzers/flows.ts:20"
+    ],
+    "checkedAt": "2026-09-09"
+  },
+  "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_flow.htm": {
+    "ok": true,
+    "heading": "Flow",
+    "finalUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_flow.htm",
+    "where": [
+      "src/analyzers/flows.ts:21"
+    ],
+    "checkedAt": "2026-09-09"
+  },
+  "https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_visual_workflow.htm": {
+    "ok": true,
+    "heading": "Flow",
+    "finalUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_visual_workflow.htm",
+    "where": [
+      "src/analyzers/flows.ts:22"
+    ],
+    "checkedAt": "2026-09-09"
+  },
+  "https://help.salesforce.com/s/articleView?id=000389396&language=en_US&type=1": {
+    "ok": true,
+    "heading": "Salesforce Workflow Rules & Process Builder End of Support",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=000389396&type=1",
+    "where": [
+      "src/analyzers/flows.ts:204",
+      "src/analyzers/flows.ts:221"
+    ],
+    "checkedAt": "2026-09-09"
+  },
+  "https://help.salesforce.com/s/articleView?id=platform.flow_distribute_context.htm&type=5": {
+    "ok": true,
+    "heading": "Flow Run Context",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=platform.flow_distribute_context.htm&type=5",
+    "where": [
+      "src/analyzers/flowscan.ts:180"
+    ],
+    "checkedAt": "2026-09-09"
+  },
+  "https://help.salesforce.com/s/articleView?id=platform.flow_ref_elements_transform.htm&type=5": {
+    "ok": true,
+    "heading": "Transform Element",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=platform.flow_ref_elements_transform.htm&type=5",
+    "where": [
+      "src/analyzers/flowscan.ts:319"
+    ],
+    "checkedAt": "2026-09-09"
+  },
+  "https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flexipage.htm": {
+    "ok": true,
+    "heading": "FlexiPage",
+    "finalUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flexipage.htm",
+    "where": [
+      "src/analyzers/layouts.ts:182"
+    ],
+    "checkedAt": "2026-09-09"
+  },
+  "https://help.salesforce.com/s/articleView?id=000390330&type=1": {
+    "ok": true,
+    "heading": "Optimize Lightning Experience Performance — Checklist and Troubleshooting Guide",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=000390330&type=1",
+    "where": [
+      "src/analyzers/layouts.ts:212",
+      "src/analyzers/layouts.ts:226"
+    ],
+    "checkedAt": "2026-09-09"
+  },
+  "https://help.salesforce.com/s/articleView?id=sf.technical_requirements_measuring_ept.htm&type=5": {
+    "ok": true,
+    "heading": "Measure Performance for Your Salesforce Org",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=sf.technical_requirements_measuring_ept.htm&type=5",
+    "where": [
+      "src/analyzers/layouts.ts:240"
+    ],
+    "checkedAt": "2026-09-09"
+  },
+  "https://help.salesforce.com/s/articleView?id=platform.customize_layoutcustomize_ple.htm&language=en_US&type=5": {
+    "ok": true,
+    "heading": "Customize Page Layouts with the Original Page Layout Editor",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=platform.customize_layoutcustomize_ple.htm&type=5",
+    "where": [
+      "src/analyzers/layouts.ts:279"
+    ],
+    "checkedAt": "2026-09-09"
+  },
+  "https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/resources_lightning_usagebyflexipagemetrics.htm": {
+    "ok": true,
+    "heading": "Lightning Usage by FlexiPage",
+    "finalUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/resources_lightning_usagebyflexipagemetrics.htm",
+    "where": [
+      "src/analyzers/layouts.ts:293"
+    ],
+    "checkedAt": "2026-09-09"
+  },
+  "https://help.salesforce.com/s/articleView?id=sf.reports_embed_limits.htm&type=5": {
+    "ok": true,
+    "heading": "Limits on Report Charts in Pages",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=sf.reports_embed_limits.htm&type=5",
+    "where": [
+      "src/analyzers/layouts.ts:309"
+    ],
+    "checkedAt": "2026-09-09"
+  },
+  "https://developer.salesforce.com/docs/platform/lwc/guide/create-components-css-slds1-slds2.html": {
+    "ok": true,
+    "heading": "Compare SLDS Versions | Create Lightning Web Components | Lightning Web Components Developer Guide",
+    "finalUrl": "https://developer.salesforce.com/docs/platform/lwc/guide/create-components-css-slds1-slds2.html",
+    "where": [
+      "src/analyzers/layouts.ts:326"
+    ],
+    "checkedAt": "2026-09-09"
+  },
+  "https://v1.lightningdesignsystem.com/platforms/lightning/new-global-styling-hooks-guidance/": {
+    "ok": true,
+    "heading": "New Global Styling Hooks Guidance - Lightning Design System",
+    "finalUrl": "https://v1.lightningdesignsystem.com/platforms/lightning/new-global-styling-hooks-guidance/",
+    "where": [],
+    "checkedAt": "2026-09-09"
+  },
+  "https://developer.salesforce.com/docs/platform/slds-linter/guide/reference-rules.html": {
+    "ok": true,
+    "heading": "Rules | Reference | SLDS Linter",
+    "finalUrl": "https://developer.salesforce.com/docs/platform/slds-linter/guide/reference-rules.html",
+    "where": [
+      "src/analyzers/layouts.ts:349",
+      "src/analyzers/layouts.ts:360",
+      "src/analyzers/layouts.ts:383",
+      "src/analyzers/layouts.ts:394"
+    ],
+    "checkedAt": "2026-09-09"
+  },
+  "https://help.salesforce.com/s/articleView?id=000318951&type=1": {
+    "ok": true,
+    "heading": "Salesforce Data Storage: Estimated Record Size by Object Type",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=000318951&type=1",
+    "where": [
+      "src/analyzers/limits.ts:17",
+      "src/analyzers/limits.ts:250"
+    ],
+    "checkedAt": "2026-09-09"
+  },
+  "https://help.salesforce.com/s/articleView?id=platform.code_debug_log_delete.htm": {
+    "ok": true,
+    "heading": "Delete Debug Logs",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=platform.code_debug_log_delete.htm",
+    "where": [
+      "src/analyzers/limits.ts:63"
+    ],
+    "checkedAt": "2026-09-09"
+  },
+  "https://help.salesforce.com/s/articleView?id=xcloud.overview_storage.htm&type=5": {
+    "ok": true,
+    "heading": "Data and File Storage Allocations",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=xcloud.overview_storage.htm&type=5",
+    "where": [
+      "src/analyzers/limits.ts:146",
+      "src/analyzers/limits.ts:160"
+    ],
+    "checkedAt": "2026-09-09"
+  },
+  "https://developer.salesforce.com/docs/atlas.en-us.salesforce_app_limits_cheatsheet.meta/salesforce_app_limits_cheatsheet/salesforce_app_limits_platform_api.htm": {
+    "ok": true,
+    "heading": "API Request Limits and Allocations",
+    "finalUrl": "https://developer.salesforce.com/docs/atlas.en-us.salesforce_app_limits_cheatsheet.meta/salesforce_app_limits_cheatsheet/salesforce_app_limits_platform_api.htm",
+    "where": [
+      "src/analyzers/limits.ts:178"
+    ],
+    "checkedAt": "2026-09-09"
+  },
+  "https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/resources_limits.htm": {
+    "ok": true,
+    "heading": "Limits",
+    "finalUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/resources_limits.htm",
+    "where": [
+      "src/analyzers/limits.ts:192"
+    ],
+    "checkedAt": "2026-09-09"
+  },
+  "https://help.salesforce.com/s/articleView?id=platform.code_debug_log_delete.htm&type=5": {
+    "ok": true,
+    "heading": "Delete Debug Logs",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=platform.code_debug_log_delete.htm&type=5",
+    "where": [
+      "src/analyzers/limits.ts:208"
+    ],
+    "checkedAt": "2026-09-09"
+  },
+  "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_asyncapexjob.htm": {
+    "ok": true,
+    "heading": "AsyncApexJob",
+    "finalUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_asyncapexjob.htm",
+    "where": [
+      "src/analyzers/ops.ts:159"
+    ],
+    "checkedAt": "2026-09-09"
+  },
+  "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_crontrigger.htm": {
+    "ok": true,
+    "heading": "CronTrigger",
+    "finalUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_crontrigger.htm",
+    "where": [
+      "src/analyzers/ops.ts:174"
+    ],
+    "checkedAt": "2026-09-09"
+  },
+  "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_loginhistory.htm": {
+    "ok": true,
+    "heading": "LoginHistory",
+    "finalUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_loginhistory.htm",
+    "where": [
+      "src/analyzers/ops.ts:311"
+    ],
+    "checkedAt": "2026-09-09"
+  },
+  "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_report.htm": {
+    "ok": true,
+    "heading": "Report",
+    "finalUrl": "https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_report.htm",
+    "where": [
+      "src/analyzers/reports.ts:20",
+      "src/analyzers/reports.ts:169"
+    ],
+    "checkedAt": "2026-09-09"
+  },
+  "https://help.salesforce.com/s/articleView?id=analytics.improving_report_performance.htm&type=5": {
+    "ok": true,
+    "heading": "Improve Report Performance",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=analytics.improving_report_performance.htm&type=5",
+    "where": [
+      "src/analyzers/reports.ts:149",
+      "src/analyzers/reports.ts:193"
+    ],
+    "checkedAt": "2026-09-09"
+  },
+  "https://help.salesforce.com/s/articleView?id=000386801&language=en_US&type=1": {
+    "ok": true,
+    "heading": "Filter Restrictions for Text Area (Long) Fields in Salesforce",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=000386801&type=1",
+    "where": [
+      "src/analyzers/reports.ts:394"
+    ],
+    "checkedAt": "2026-09-09"
+  },
+  "https://help.salesforce.com/s/articleView?id=000385213&language=en_US&type=1": {
+    "ok": true,
+    "heading": "Improve Performance of SOQL Queries using a Custom Index",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=000385213&type=1",
+    "where": [],
+    "checkedAt": "2026-09-09"
+  },
+  "https://developer.salesforce.com/docs/atlas.en-us.salesforce_large_data_volumes_bp.meta/salesforce_large_data_volumes_bp/ldv_deployments_introduction.htm": {
+    "ok": true,
+    "heading": "Introduction",
+    "finalUrl": "https://developer.salesforce.com/docs/atlas.en-us.salesforce_large_data_volumes_bp.meta/salesforce_large_data_volumes_bp/ldv_deployments_introduction.htm",
+    "where": [
+      "src/analyzers/reports.ts:506"
+    ],
+    "checkedAt": "2026-09-09"
+  },
+  "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_securityhealthcheckrisks.htm": {
+    "ok": true,
+    "heading": "SecurityHealthCheckRisks",
+    "finalUrl": "https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_securityhealthcheckrisks.htm",
+    "where": [
+      "src/analyzers/security.ts:19"
+    ],
+    "checkedAt": "2026-09-09"
+  },
+  "https://help.salesforce.com/s/articleView?id=sf.security_health_check.htm&type=5": {
+    "ok": true,
+    "heading": "Security Health Check",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=sf.security_health_check.htm&type=5",
+    "where": [
+      "src/analyzers/security.ts:129",
+      "src/analyzers/security.ts:143"
+    ],
+    "checkedAt": "2026-09-09"
+  },
+  "https://help.salesforce.com/s/articleView?id=platform.users_profiles_view_all_mod_all.htm&type=5": {
+    "ok": true,
+    "heading": "“View All” and “Modify All” Permissions Overview",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=platform.users_profiles_view_all_mod_all.htm&type=5",
+    "where": [
+      "src/analyzers/access.ts:168",
+      "src/analyzers/access.ts:215"
+    ],
+    "checkedAt": "2026-09-09"
+  },
+  "https://help.salesforce.com/s/articleView?id=analytics.dashboard_filters_overview.htm&type=5": {
+    "ok": true,
+    "heading": "Filter a Dashboard",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=analytics.dashboard_filters_overview.htm&type=5",
+    "where": [
+      "src/analyzers/reports.ts:541"
+    ],
+    "checkedAt": "2026-09-09"
+  },
+  "https://help.salesforce.com/s/articleView?id=xcloud.code_add_users_debug_log.htm&type=5": {
+    "ok": true,
+    "heading": "Set Up Debug Logging",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=xcloud.code_add_users_debug_log.htm&type=5",
+    "where": [
+      "src/analyzers/limits.ts:222"
+    ],
+    "checkedAt": "2026-09-09"
+  },
+  "https://help.salesforce.com/s/articleView?id=platform.automate_flow_build_working_with_conditions_record_triggered_flows.htm&type=5": {
+    "ok": true,
+    "heading": "How Entry Conditions Work in Record-Triggered Flows",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=platform.automate_flow_build_working_with_conditions_record_triggered_flows.htm&type=5",
+    "where": [
+      "src/analyzers/flowscan.ts:223"
+    ],
+    "checkedAt": "2026-09-09"
+  },
+  "https://help.salesforce.com/s/articleView?id=platform.flow_concepts_trigger_record.htm&type=5": {
+    "ok": true,
+    "heading": "Before-Save Record-Triggered Flows",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=platform.flow_concepts_trigger_record.htm&type=5",
+    "where": [
+      "src/analyzers/flowscan.ts:237",
+      "src/analyzers/flowscan.ts:251"
+    ],
+    "checkedAt": "2026-09-09"
+  },
+  "https://help.salesforce.com/s/articleView?id=platform.flow_considerations_limit_transaction.htm&type=5": {
+    "ok": true,
+    "heading": "Per-Transaction Flow Limits",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=platform.flow_considerations_limit_transaction.htm&type=5",
+    "where": [
+      "src/analyzers/flowscan.ts:136",
+      "src/analyzers/flowscan.ts:150",
+      "src/analyzers/flowscan.ts:164"
+    ],
+    "checkedAt": "2026-09-09"
+  },
+  "https://help.salesforce.com/s/articleView?id=000380596&type=1": {
+    "ok": true,
+    "heading": "Salesforce Flow Variables Lose Values When Navigating to Previous Screen (Working as Designed)",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=000380596&type=1",
+    "where": [
+      "src/analyzers/flowscan.ts:279"
+    ],
+    "checkedAt": "2026-09-09"
+  },
+  "https://help.salesforce.com/s/articleView?id=platform.automate_ala_monitor.htm&type=5": {
+    "ok": true,
+    "heading": "Monitoring and Managing Paused and Failed Flow Interviews",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=platform.automate_ala_monitor.htm&type=5",
+    "where": [
+      "src/analyzers/ops.ts:216"
+    ],
+    "checkedAt": "2026-09-09"
+  },
+  "https://help.salesforce.com/s/articleView?id=platform.flow_build_logic_fault.htm&type=5": {
+    "ok": true,
+    "heading": "Customize What Happens When a Flow Fails",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=platform.flow_build_logic_fault.htm&type=5",
+    "where": [
+      "src/analyzers/flowscan.ts:209"
+    ],
+    "checkedAt": "2026-09-09"
+  },
+  "https://help.salesforce.com/s/articleView?id=platform.flow_ref_elements_data_get.htm&type=5": {
+    "ok": true,
+    "heading": "Get Records Element",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=platform.flow_ref_elements_data_get.htm&type=5",
+    "where": [
+      "src/analyzers/flowscan.ts:265",
+      "src/analyzers/flowscan.ts:305"
+    ],
+    "checkedAt": "2026-09-09"
+  },
+  "https://help.salesforce.com/s/articleView?id=xcloud.named_credentials_about.htm&type=5": {
+    "ok": true,
+    "heading": "Named Credentials",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=xcloud.named_credentials_about.htm&type=5",
+    "where": [
+      "src/analyzers/flowscan.ts:194"
+    ],
+    "checkedAt": "2026-09-09"
+  },
+  "https://help.salesforce.com/s/articleView?id=analytics.dashboards_view_as.htm&type=5": {
+    "ok": true,
+    "heading": "Configure Dashboard Data Visibility in Lightning Experience",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=analytics.dashboards_view_as.htm&type=5",
+    "where": [
+      "src/analyzers/reports.ts:278",
+      "src/analyzers/reports.ts:524"
+    ],
+    "checkedAt": "2026-09-09"
+  },
+  "https://help.salesforce.com/s/articleView?id=xcloud.release_updates.htm&type=5": {
+    "ok": true,
+    "heading": "Release Updates",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=xcloud.release_updates.htm&type=5",
+    "where": [
+      "src/analyzers/ops.ts:277"
+    ],
+    "checkedAt": "2026-09-10"
+  },
+  "https://help.salesforce.com/s/articleView?id=platform.how_to_deactivate_users.htm&type=5": {
+    "ok": true,
+    "heading": "Deactivate Users",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=platform.how_to_deactivate_users.htm&type=5",
+    "where": [
+      "src/analyzers/access.ts:184",
+      "src/analyzers/ops.ts:259"
+    ],
+    "checkedAt": "2026-09-10"
+  },
+  "https://help.salesforce.com/s/articleView?id=000386101&type=1": {
+    "ok": true,
+    "heading": "Password Policies and the 'Password Never Expires' permission",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=000386101&type=1",
+    "where": [
+      "src/analyzers/access.ts:198"
+    ],
+    "checkedAt": "2026-09-10"
+  },
+  "https://help.salesforce.com/s/articleView?id=000386957&type=1": {
+    "ok": true,
+    "heading": "\"Author Apex\" Permission Required to Execute Salesforce Apex Code via SOAP API",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=000386957&type=1",
+    "where": [
+      "src/analyzers/access.ts:229"
+    ],
+    "checkedAt": "2026-09-10"
+  },
+  "https://help.salesforce.com/s/articleView?id=000386451&type=1": {
+    "ok": true,
+    "heading": "Salesforce User Capabilities When 'Customize Application' Profile Permission is Granted",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=000386451&type=1",
+    "where": [
+      "src/analyzers/access.ts:242"
+    ],
+    "checkedAt": "2026-09-10"
+  },
+  "https://help.salesforce.com/s/articleView?id=platform.perm_sets_manage_assignments.htm&type=5": {
+    "ok": true,
+    "heading": "Manage Permission Set Assignments",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=platform.perm_sets_manage_assignments.htm&type=5",
+    "where": [
+      "src/analyzers/access.ts:272"
+    ],
+    "checkedAt": "2026-09-10"
+  },
+  "https://help.salesforce.com/s/articleView?id=platform.users_profiles_cloning.htm&type=5": {
+    "ok": true,
+    "heading": "Create or Clone Profiles",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=platform.users_profiles_cloning.htm&type=5",
+    "where": [
+      "src/analyzers/access.ts:318"
+    ],
+    "checkedAt": "2026-09-10"
+  },
+  "https://help.salesforce.com/s/articleView?id=000385650&type=1": {
+    "ok": true,
+    "heading": "Salesforce Apex Unit Testing Best Practices and Code Coverage Requirements",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=000385650&type=1",
+    "where": [
+      "src/analyzers/apex.ts:167"
+    ],
+    "checkedAt": "2026-09-10"
+  },
+  "https://help.salesforce.com/s/articleView?id=platform.code_apex_exceptions.htm&type=5": {
+    "ok": true,
+    "heading": "What Happens When an Apex Exception Occurs?",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=platform.code_apex_exceptions.htm&type=5",
+    "where": [
+      "src/analyzers/apex.ts:262"
+    ],
+    "checkedAt": "2026-09-10"
+  },
+  "https://help.salesforce.com/s/articleView?id=platform.flow_prep_bestpractices.htm&type=5": {
+    "ok": true,
+    "heading": "Plan for Success with Flow Builder Best Practices",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=platform.flow_prep_bestpractices.htm&type=5",
+    "where": [
+      "src/analyzers/apexlint.ts:118",
+      "src/analyzers/fields.ts:130",
+      "src/analyzers/flows.ts:305",
+      "src/analyzers/flowscan.ts:388",
+      "src/analyzers/flowscan.ts:417"
+    ],
+    "checkedAt": "2026-09-10"
+  },
+  "https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_gov_limits.htm": {
+    "ok": true,
+    "heading": "Execution Governors and Limits",
+    "finalUrl": "https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_gov_limits.htm",
+    "where": [
+      "src/analyzers/apexlint.ts:134"
+    ],
+    "checkedAt": "2026-09-10"
+  },
+  "https://help.salesforce.com/s/articleView?id=platform.flow_task_trigger_run_order.htm&type=5": {
+    "ok": true,
+    "heading": "Define the Run Order of Record-Triggered Flows for an Object",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=platform.flow_task_trigger_run_order.htm&type=5",
+    "where": [
+      "src/analyzers/flows.ts:234"
+    ],
+    "checkedAt": "2026-09-10"
+  },
+  "https://help.salesforce.com/s/articleView?id=platform.flow_distribute_activate.htm&type=5": {
+    "ok": true,
+    "heading": "Activate or Deactivate a Flow",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=platform.flow_distribute_activate.htm&type=5",
+    "where": [
+      "src/analyzers/flows.ts:245",
+      "src/analyzers/flows.ts:267"
+    ],
+    "checkedAt": "2026-09-10"
+  },
+  "https://help.salesforce.com/s/articleView?id=platform.flow_considerations_limit.htm&type=5": {
+    "ok": true,
+    "heading": "General Flow Limits",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=platform.flow_considerations_limit.htm&type=5",
+    "where": [
+      "src/analyzers/flows.ts:256"
+    ],
+    "checkedAt": "2026-09-10"
+  },
+  "https://help.salesforce.com/s/articleView?id=platform.flow_concepts_runtime_api_version.htm&type=5": {
+    "ok": true,
+    "heading": "API Version for Running a Flow",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=platform.flow_concepts_runtime_api_version.htm&type=5",
+    "where": [
+      "src/analyzers/flows.ts:279"
+    ],
+    "checkedAt": "2026-09-10"
+  },
+  "https://help.salesforce.com/s/articleView?id=platform.flow_considerations_design_fb.htm&type=5": {
+    "ok": true,
+    "heading": "Flow Builder Considerations",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=platform.flow_considerations_design_fb.htm&type=5",
+    "where": [
+      "src/analyzers/flows.ts:290"
+    ],
+    "checkedAt": "2026-09-10"
+  },
+  "https://help.salesforce.com/s/articleView?id=platform.flow_considerations_manage_install.htm&type=5": {
+    "ok": true,
+    "heading": "Considerations for Flows Installed from Packages",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=platform.flow_considerations_manage_install.htm&type=5",
+    "where": [
+      "src/analyzers/flows.ts:316"
+    ],
+    "checkedAt": "2026-09-10"
+  },
+  "https://help.salesforce.com/s/articleView?id=platform.flow_ref_elements_start.htm&type=5": {
+    "ok": true,
+    "heading": "Start Element",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=platform.flow_ref_elements_start.htm&type=5",
+    "where": [
+      "src/analyzers/flowscan.ts:292"
+    ],
+    "checkedAt": "2026-09-10"
+  },
+  "https://help.salesforce.com/s/articleView?id=000387070&type=1": {
+    "ok": true,
+    "heading": "Updating Hard-Coded References",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=000387070&type=1",
+    "where": [
+      "src/analyzers/flowscan.ts:347",
+      "src/analyzers/ops.ts:295"
+    ],
+    "checkedAt": "2026-09-10"
+  },
+  "https://help.salesforce.com/s/articleView?id=platform.flow_ref_connectors.htm&type=5": {
+    "ok": true,
+    "heading": "Flow Element Connectors",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=platform.flow_ref_connectors.htm&type=5",
+    "where": [
+      "src/analyzers/flowscan.ts:361"
+    ],
+    "checkedAt": "2026-09-10"
+  },
+  "https://help.salesforce.com/s/articleView?id=platform.lightning_app_builder_limitations.htm&type=5": {
+    "ok": true,
+    "heading": "Lightning App Builder Limits and Limitations",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=platform.lightning_app_builder_limitations.htm&type=5",
+    "where": [
+      "src/analyzers/layouts.ts:193"
+    ],
+    "checkedAt": "2026-09-10"
+  },
+  "https://developer.salesforce.com/docs/platform/lwc/guide/create-components-css-antipatterns.html": {
+    "ok": true,
+    "heading": "Anti-Patterns for Styling Components",
+    "finalUrl": "https://developer.salesforce.com/docs/platform/lwc/guide/create-components-css-antipatterns.html",
+    "where": [
+      "src/analyzers/layouts.ts:372"
+    ],
+    "checkedAt": "2026-09-10"
+  },
+  "https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_debugging_debug_log.htm": {
+    "ok": true,
+    "heading": "Debug Log",
+    "finalUrl": "https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_debugging_debug_log.htm",
+    "where": [
+      "src/analyzers/limits.ts:236"
+    ],
+    "checkedAt": "2026-09-10"
+  },
+  "https://help.salesforce.com/s/articleView?id=000385764&type=1": {
+    "ok": true,
+    "heading": "Apex Job Error '[INACTIVE_OWNER_OR_USER] owner or user is inactive' in Salesforce Scheduled Jobs",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=000385764&type=1",
+    "where": [
+      "src/analyzers/ops.ts:190"
+    ],
+    "checkedAt": "2026-09-10"
+  },
+  "https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_scheduler.htm": {
+    "ok": true,
+    "heading": "Apex Scheduler",
+    "finalUrl": "https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_scheduler.htm",
+    "where": [
+      "src/analyzers/ops.ts:203"
+    ],
+    "checkedAt": "2026-09-10"
+  },
+  "https://help.salesforce.com/s/articleView?id=platform.flow_considerations_design_pause.htm&type=5": {
+    "ok": true,
+    "heading": "Paused Flow Interview Considerations",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=platform.flow_considerations_design_pause.htm&type=5",
+    "where": [
+      "src/analyzers/ops.ts:232"
+    ],
+    "checkedAt": "2026-09-10"
+  },
+  "https://help.salesforce.com/s/articleView?id=platform.approvals_create_recordeditability.htm&type=5": {
+    "ok": true,
+    "heading": "Specify Who Can Edit Locked Records in a Classic Approval Process",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=platform.approvals_create_recordeditability.htm&type=5",
+    "where": [
+      "src/analyzers/ops.ts:246"
+    ],
+    "checkedAt": "2026-09-10"
+  },
+  "https://help.salesforce.com/s/articleView?id=000384824&type=1": {
+    "ok": true,
+    "heading": "Find Old Or Inactive Reports And Dashboards To Delete",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=000384824&type=1",
+    "where": [
+      "src/analyzers/reports.ts:180"
+    ],
+    "checkedAt": "2026-09-10"
+  },
+  "https://help.salesforce.com/s/articleView?id=analytics.reports_hide_report_types.htm&type=5": {
+    "ok": true,
+    "heading": "Hide Unused Report Types",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=analytics.reports_hide_report_types.htm&type=5",
+    "where": [
+      "src/analyzers/reports.ts:205"
+    ],
+    "checkedAt": "2026-09-10"
+  },
+  "https://help.salesforce.com/s/articleView?id=analytics.analytics_sharing.htm&type=5": {
+    "ok": true,
+    "heading": "Report and Dashboard Folders",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=analytics.analytics_sharing.htm&type=5",
+    "where": [
+      "src/analyzers/reports.ts:216"
+    ],
+    "checkedAt": "2026-09-10"
+  },
+  "https://help.salesforce.com/s/articleView?id=000385538&type=1": {
+    "ok": true,
+    "heading": "Salesforce Unified Public Reports Folder Overview (Lightning Experience)",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=000385538&type=1",
+    "where": [
+      "src/analyzers/reports.ts:227"
+    ],
+    "checkedAt": "2026-09-10"
+  },
+  "https://help.salesforce.com/s/articleView?id=analytics.dashboards_refresh.htm&type=5": {
+    "ok": true,
+    "heading": "Refresh Dashboard Data",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=analytics.dashboards_refresh.htm&type=5",
+    "where": [
+      "src/analyzers/reports.ts:266"
+    ],
+    "checkedAt": "2026-09-10"
+  },
+  "https://help.salesforce.com/s/articleView?id=analytics.reports_joined_format_concepts.htm&type=5": {
+    "ok": true,
+    "heading": "How Joined Reports Work",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=analytics.reports_joined_format_concepts.htm&type=5",
+    "where": [
+      "src/analyzers/reports.ts:298"
+    ],
+    "checkedAt": "2026-09-10"
+  },
+  "https://help.salesforce.com/s/articleView?id=xcloud.security_health_check_score.htm&type=5": {
+    "ok": true,
+    "heading": "How Is the Health Check Score Calculated?",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=xcloud.security_health_check_score.htm&type=5",
+    "where": [
+      "src/analyzers/security.ts:154"
+    ],
+    "checkedAt": "2026-09-10"
+  },
+  "https://help.salesforce.com/s/articleView?id=platform.users_license_types_view.htm&type=5": {
+    "ok": true,
+    "heading": "View Your Org’s User Licenses",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=platform.users_license_types_view.htm&type=5",
+    "where": [
+      "src/analyzers/access.ts:305"
+    ],
+    "checkedAt": "2026-09-10"
+  },
+  "https://flow-scanner.github.io/lightning-flow-scanner/#excessive-cyclomatic-complexity": {
+    "ok": true,
+    "heading": "Lightning Flow Scanner",
+    "finalUrl": "https://flow-scanner.github.io/lightning-flow-scanner/#excessive-cyclomatic-complexity",
+    "where": [],
+    "checkedAt": "2026-09-10",
+    "note": "Opened by the owner in a browser 2026-09-10; the anchor lands on the rule."
+  },
+  "https://docs.pmd-code.org/latest/pmd_rules_apex_errorprone.html#emptycatchblock": {
+    "ok": true,
+    "heading": "Apex Rules: Error Prone — EmptyCatchBlock",
+    "finalUrl": "https://docs.pmd-code.org/latest/pmd_rules_apex_errorprone.html#emptycatchblock",
+    "where": [],
+    "checkedAt": "2026-09-10",
+    "note": "Opened by the owner in a browser 2026-09-10; the anchor lands on the rule."
+  },
+  "https://flow-scanner.github.io/lightning-flow-scanner/": {
+    "ok": true,
+    "heading": "Lightning Flow Scanner",
+    "finalUrl": "https://flow-scanner.github.io/lightning-flow-scanner/",
+    "where": [],
+    "checkedAt": "2026-09-10",
+    "note": "Opened by the owner in a browser 2026-09-10. Two rules link the page top on purpose: the Unused Variable and Record ID as String headings carry badge images, and the site gives them no usable anchor."
+  },
+  "https://help.salesforce.com/s/articleView?id=platform.lightning_page_performance.htm&type=5": {
+    "ok": true,
+    "heading": "Lightning Page Performance",
+    "finalUrl": "https://help.salesforce.com/s/articleView?id=platform.lightning_page_performance.htm&type=5",
+    "where": [
+      "src/analyzers/layouts.ts:253"
+    ],
+    "checkedAt": "2026-09-10"
+  }
+}

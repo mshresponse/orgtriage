@@ -1,0 +1,20 @@
+{
+ "analytics_report_describe": {
+  "r0": 404,
+  "r1": 404
+ },
+ "mixed": {
+  "q0": 200,
+  "l0": 200,
+  "l1": 200,
+  "lim": 404
+ },
+ "legend": {
+  "q0": "/query/",
+  "l0": "Account describe/layouts",
+  "l1": "Case describe/layouts",
+  "lim": "/limits/",
+  "r0": "analytics report describe",
+  "r1": "analytics report describe"
+ }
+}
