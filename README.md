@@ -59,8 +59,8 @@ iframe in the page, and no CSS applied to Lightning.
 ### The ten analyzers
 
 Each produces a 0–100 score, headline metrics, and findings with evidence,
-rationale, remediation, and a link to the documentation behind the
-rule.
+rationale, remediation, and, for the rules that rest on one, a link to the
+documentation behind the rule.
 
 **Apex** — org-wide and per-class coverage against the 75% deployment gate,
 components with no coverage, triggers at 0%, multiple active triggers on one

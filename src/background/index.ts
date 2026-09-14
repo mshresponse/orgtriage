@@ -19,7 +19,7 @@ import { SalesforceClient, SalesforceError } from './sfClient';
 import * as cache from './cache';
 import { comparable, diffAgainst, digestOf, type AreaDiff } from '@/shared/diff';
 
-import { ANALYZERS, advanceScan, cancelScan, probeWatermark } from './scanRunner';
+import { ANALYZERS, advanceScan, cancelScan, commitScan, probeWatermark } from './scanRunner';
 import type { ErrorPayload, Request, Response, ResponseData } from '@/shared/messages';
 import { SCAN_PORT, type PortBind } from '@/shared/messages';
 import {
@@ -522,6 +522,11 @@ async function handle(
       // handed back with the result and the panel does not have to pay a second
       // watermark probe to fetch it.
       const superseded = await cache.get(session.context.orgId, request.analyzer);
+      // Last check before the write: a cancel that arrived during the awaits
+      // above must still leave the previous snapshot in place.
+      if (!commitScan(session.context.orgId, request.analyzer)) {
+        throw new DOMException('Scan cancelled', 'AbortError');
+      }
       await cache.put(outcome.result, watermark ?? undefined);
       const diff =
         superseded && comparable(superseded.result, outcome.result)

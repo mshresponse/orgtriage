@@ -312,9 +312,9 @@ const RULES = {
       'this reason. Whether a given report is actually slow depends on its other filters and its ' +
       'volume; this rule flags the shape, not a measurement.',
     remediation:
-      'Rewrite the filter as "equals" or "starts with" on a selective field. For text searches, add a ' +
-      'selective filter on a picklist or an indexed field alongside the contains filter, so the optimizer ' +
-      'has an index it can drive from.',
+      'Rewrite the filter as "equals" or "starts with" only where the answer stays the same; "contains" and ' +
+      '"starts with" are different questions. Where the text search is unavoidable, add a selective filter ' +
+      'on a picklist or an indexed field alongside it, so the optimizer has an index it can drive from.',
     docUrl: PERF_DOC,
     weight: 10,
   },
@@ -341,7 +341,9 @@ const RULES = {
       '"Without" is the expensive form, and stacking two or more multiplies the cost. Salesforce ' +
       'advises against multiple cross filters and against any cross filter on an object with millions of rows.',
     remediation:
-      'Keep one cross filter at most. Where a "without" is doing the work, consider a roll-up summary or a formula checkbox on the parent and filter on that instead.',
+      'Keep one cross filter at most. Where a "without" is doing the work, capture the fact on the parent ' +
+      'instead: a roll-up summary count on a master-detail relationship, otherwise a count or checkbox ' +
+      'maintained by a record-triggered flow. A plain formula field cannot count child records.',
     docUrl: PERF_DOC,
     weight: 6,
   },
@@ -377,7 +379,8 @@ const RULES = {
     rationale:
       'This is a wrong-answers problem, not a slow-reports problem. A report filter on a custom Long Text ' +
       'Area or Rich Text Area field searches only the first 255 characters of it (Salesforce\u2019s rich text page ' +
-      'says 254; the one-character difference changes nothing); on a standard long text ' +
+      'says 254 for "contains"; neither number has been measured by OrgTriage, and the difference does not ' +
+      'change the advice); on a standard long text ' +
       'field such as Description or Solution Details, the first 1,000. The field itself holds up to 131,072. ' +
       'A record whose match sits past the cut-off is simply absent from the results — no error, no warning, ' +
       'and nothing on the report to suggest the rows exist. Someone builds a report, gets twelve rows, and ' +

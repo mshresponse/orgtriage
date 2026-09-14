@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "OrgTriage — Salesforce Org Health",
   "short_name": "OrgTriage",
-  "version": "0.8.60",
+  "version": "0.8.61",
   "description": "Turn Salesforce org findings into a prioritized backlog. Read-only org-health checks across ten areas, exported as Jira work items.",
   "minimum_chrome_version": "116",
   "icons": {
@@ -23,7 +23,6 @@
     "https://*.cloudforce.com/*",
     "https://*.visualforce.com/*",
     "https://*.builder.salesforce-experience.com/*",
-    "https://*.force.com.mcas.ms/*",
     "https://*.sfcrmapps.cn/*",
     "https://*.sfcrmproducts.cn/*",
     "https://*.salesforce.mil/*",
@@ -61,6 +60,6 @@
     }
   },
   "content_security_policy": {
-    "extension_pages": "script-src 'self'; object-src 'self'; frame-src 'none'; base-uri 'none'; form-action 'none'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; connect-src 'self' https://*.salesforce.com https://*.salesforce-setup.com https://*.force.com https://*.cloudforce.com https://*.visualforce.com https://*.builder.salesforce-experience.com https://*.force.com.mcas.ms https://*.sfcrmapps.cn https://*.sfcrmproducts.cn https://*.salesforce.mil https://*.force.mil https://*.cloudforce.mil https://*.visualforce.mil https://*.crmforce.mil"
+    "extension_pages": "script-src 'self'; object-src 'self'; frame-src 'none'; base-uri 'none'; form-action 'none'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; connect-src 'self' https://*.salesforce.com https://*.salesforce-setup.com https://*.force.com https://*.cloudforce.com https://*.visualforce.com https://*.builder.salesforce-experience.com https://*.sfcrmapps.cn https://*.sfcrmproducts.cn https://*.salesforce.mil https://*.force.mil https://*.cloudforce.mil https://*.visualforce.mil https://*.crmforce.mil"
   }
 }

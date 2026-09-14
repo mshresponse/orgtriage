@@ -522,9 +522,9 @@ class Store {
 
     const stopped = () => {
       // Keep the previous result and its staleness; only the in-flight state
-      // clears. If the cancel landed after the last slice had already finished,
-      // the worker wrote that snapshot before it saw the abort, so re-read the
-      // cache rather than show a result older than what is stored.
+      // clears. The worker refuses to write a cancelled scan's snapshot, so
+      // the cache holds the previous one; re-read it rather than trust what
+      // this slot had, in case the cancel arrived after the write completed.
       this.patchSlot(analyzer, { loading: false, progress: null, error: null });
       this.cancelRequested.delete(analyzer);
       void this.loadCached(analyzer);

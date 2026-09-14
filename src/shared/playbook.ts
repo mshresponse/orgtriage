@@ -440,7 +440,8 @@ export const PLAYBOOK: Record<string, Playbook> = {
       'Update every caller to pass the record instead of the id, in the same change.',
       'Test each caller: this change breaks them until they are updated, so none can be left behind.',
     ],
-    acceptance: 'Each listed flow takes a record variable rather than an id string, and every caller passes one.',
+    acceptance:
+      'Each listed flow either takes a record variable, with every caller passing one, or keeps its Text input because a caller such as a record-page launcher can only supply an id, and its description says so.',
   },
   'flows.lfs.hardcoded-url': {
     kind: 'debt',
@@ -647,9 +648,10 @@ export const PLAYBOOK: Record<string, Playbook> = {
       'Ask the report\'s audience what population it must cover before narrowing anything: a faster report that drops rows the reader relies on is a wrong report.',
       'Where a narrower population is acceptable, add a standard date filter in the report builder — Created Date or Close Date with a relative range such as THIS YEAR or LAST 90 DAYS. This is the cheapest limit a report can have.',
       'Where the report must stay all-time, add only a scope filter the requirement permits (My Records, an owner, a status, a record type), or record that it is intentionally unfiltered and treat its run time separately. For tabular reports whose readers use the top rows, add a Row Limit filter with a sort.',
-      'Save and run: the row count should be a fraction of the object, and the run time noticeably shorter.',
+      'Where a filter was added, save and run: the row count should be a fraction of the object, and the run time noticeably shorter.',
     ],
-    acceptance: 'Every listed report has a resolved date range or a narrowing filter, and none reads the whole object.',
+    acceptance:
+      'Every listed report has a date range or a narrowing filter, or is recorded as intentionally all-time with its audience\'s agreement.',
   },
   'reports.hidden-report-type': {
     kind: 'debt',

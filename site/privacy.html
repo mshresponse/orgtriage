@@ -115,9 +115,10 @@ running the scan), so the plan&#39;s cover page can say who produced it.</li>
 last week — so you can see what is calling your API. This is an aggregate
 count only: no IP addresses, individual timestamps, or browser details.</li>
 <li><strong>Access — who holds powerful permissions</strong> (<code>User</code>: Id, Name, Username,
-IsActive, UserType, LastLoginDate, CreatedDate, Profile name and the
-profile&#39;s licence id; <code>PermissionSetAssignment</code> with the same assignee
-fields). These are needed to say who holds Modify All Data, whether they
+IsActive, UserType, LastLoginDate, CreatedDate, ProfileId, the profile&#39;s
+name and its licence id; <code>PermissionSetAssignment</code> with the assignee&#39;s
+Name, Username, IsActive, UserType and LastLoginDate). These are needed to
+say who holds Modify All Data, whether they
 still log in, and by which route. Usernames are read here because permission
 set assignments identify people by them; email addresses and passwords are
 never read.</li>

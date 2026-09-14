@@ -18,6 +18,7 @@ import '@/styles/report.css';
 import { LitElement, html, nothing, type TemplateResult } from 'lit';
 import { send } from '@/shared/messages';
 import { docLabel } from '@/shared/plan';
+import { orgHosts } from '@/shared/hosts';
 import type { AnalyzerId, FindingItem, ScanResult } from '@/shared/types';
 import type { AreaDiff, RuleChange } from '@/shared/diff';
 import { icons } from './ui';
@@ -1050,17 +1051,10 @@ class OrgTriageReport extends LitElement {
   private async existingOrgTab(): Promise<chrome.tabs.Tab | null> {
     const host = this.org?.lightningHost;
     if (!host) return null;
-    // Production: label.lightning.force.com; sandbox: label.sandbox.lightning.force.com.
-    // The Setup and API hosts carry the same label and the same sandbox marker.
-    // Other families (Gov, China, proxies) fall back to the literal host.
-    const m = /^(.+?)(\.sandbox)?\.lightning\.force\.com$/.exec(host);
-    const patterns = m
-      ? [
-          `https://${m[1]}${m[2] ?? ''}.lightning.force.com/*`,
-          `https://${m[1]}${m[2] ?? ''}.my.salesforce-setup.com/*`,
-          `https://${m[1]}${m[2] ?? ''}.my.salesforce.com/*`,
-        ]
-      : [`https://${host}/*`];
+    // The same normalizer the worker uses to find the API host, so a regional
+    // or Government Cloud org matches its API-host tab exactly as a commercial
+    // one does.
+    const patterns = orgHosts(host).map((h) => `https://${h}/*`);
     try {
       const tabs = await chrome.tabs.query({ url: patterns });
       const current = await chrome.windows.getCurrent();

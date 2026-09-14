@@ -155,7 +155,7 @@ const AREAS = [
 const SHOTS = [
   ['images/panel-overview.png', 'The Overview: org health across ten areas, what to fix first, and what a scan costs in API calls.'],
   ['images/panel-work.png', 'The Work tab: every open finding in the same priority order as the plan.'],
-  ['images/panel-area.png', 'An area in detail: findings with affected components, steps, and the documentation behind each rule.'],
+  ['images/panel-area.png', 'An area in detail: findings with affected components, steps, and the documentation behind the rule.'],
   ['images/report.png', 'The remediation plan: backlog items with steps, acceptance criteria and estimates, exported to Markdown, CSV or Jira.'],
 ];
 
@@ -272,7 +272,7 @@ function renderHome() {
 </div>
 
 <h2>What it checks</h2>
-<p>Ten areas, each scored on its own and combined into one org-health grade. Every rule cites the documentation behind it &mdash; Salesforce&rsquo;s, or the open-source linter the rule came from &mdash; and says plainly when a threshold is our recommendation rather than a Salesforce limit.</p>
+<p>Ten areas, each scored on its own and combined into one org-health grade. Rules cite the documentation behind them where it exists &mdash; Salesforce&rsquo;s, or the open-source linter the rule came from &mdash; and say plainly when a threshold is our recommendation rather than a Salesforce limit.</p>
 <ul class="areas">
 ${AREAS.map(([name, line]) => `  <li><b>${escape(name)}</b><span>${escape(line)}</span></li>`).join('\n')}
 </ul>

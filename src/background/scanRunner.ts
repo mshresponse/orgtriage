@@ -159,12 +159,26 @@ export async function advanceScan(
     // have finished anyway, but the user asked for it not to count, and the
     // panel has already stopped listening. Nothing is written.
     if (job.isCancelled()) throw new DOMException('Scan cancelled', 'AbortError');
-    if (outcome.status === 'done') jobs.delete(key);
+    // A finished job stays registered until `commitScan` releases it, so a
+    // cancel that lands while the caller is still probing the watermark and
+    // writing the snapshot has something to cancel.
     return outcome;
   } catch (err) {
     jobs.delete(key);
     throw err;
   }
+}
+
+/**
+ * Release a finished job and say whether its result may be written. False
+ * means a cancel (or a restart) arrived after the last slice returned and
+ * before the caller committed, and the result must be discarded.
+ */
+export function commitScan(orgId: string, analyzer: AnalyzerId): boolean {
+  const key = jobKey(orgId, analyzer);
+  const job = jobs.get(key);
+  jobs.delete(key);
+  return job !== undefined && !job.isCancelled();
 }
 
 export function cancelScan(orgId: string, analyzer: AnalyzerId): boolean {

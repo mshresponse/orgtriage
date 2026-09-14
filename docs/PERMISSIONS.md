@@ -41,10 +41,10 @@ commercial, Government Cloud, China and proxied deployments.
   `.mil` domains entirely. Without these, OrgTriage does not work at all for a
   public-sector org.
 - **China** — `sfcrmapps.cn`, `sfcrmproducts.cn`, the Alibaba Cloud instances.
-- **Proxied** — `force.com.mcas.ms`, the suffix Microsoft Defender for Cloud
-  Apps appends when your organization routes Salesforce through it. If your
-  security team uses MCAS, your Salesforce hostname is not the one Salesforce
-  gave you, and an extension that does not account for it silently fails.
+
+Orgs reached through a reverse proxy that rewrites the hostname (Microsoft
+Defender for Cloud Apps, for example) are not supported: the tab's hostname is
+not a Salesforce one, and OrgTriage treats it as not a Salesforce page.
 
 Chrome enforces this host-access boundary. On any other site the extension has no host access at
 all: it cannot read the page, cannot read cookies, and cannot make requests.

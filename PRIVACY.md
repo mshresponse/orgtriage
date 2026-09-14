@@ -57,9 +57,10 @@ limited amount of user information from your org. This is the complete list:
   last week — so you can see what is calling your API. This is an aggregate
   count only: no IP addresses, individual timestamps, or browser details.
 - **Access — who holds powerful permissions** (`User`: Id, Name, Username,
-  IsActive, UserType, LastLoginDate, CreatedDate, Profile name and the
-  profile's licence id; `PermissionSetAssignment` with the same assignee
-  fields). These are needed to say who holds Modify All Data, whether they
+  IsActive, UserType, LastLoginDate, CreatedDate, ProfileId, the profile's
+  name and its licence id; `PermissionSetAssignment` with the assignee's
+  Name, Username, IsActive, UserType and LastLoginDate). These are needed to
+  say who holds Modify All Data, whether they
   still log in, and by which route. Usernames are read here because permission
   set assignments identify people by them; email addresses and passwords are
   never read.

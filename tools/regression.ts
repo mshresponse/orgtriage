@@ -1817,3 +1817,33 @@ test('a saving becomes hours a year only when the view count is real', () => {
   assert.equal(annualHoursSaved(500, 0), null);
   assert.equal(annualHoursSaved(0, 400), null);
 });
+
+/* --- Tab reuse and cancel commit (Codex go/no-go, 2026-09-14) ------------- */
+
+import { orgHosts, normalizeApiHost } from '@/shared/hosts';
+import { commitScan, cancelScan } from '@/background/scanRunner';
+
+test('the plan page matches every host a tab on the same org can be open at', () => {
+  assert.deepEqual(orgHosts('acme.lightning.force.com'), [
+    'acme.lightning.force.com',
+    'acme.my.salesforce.com',
+    'acme.my.salesforce-setup.com',
+  ]);
+  assert.deepEqual(orgHosts('acme--dev.sandbox.lightning.force.com'), [
+    'acme--dev.sandbox.lightning.force.com',
+    'acme--dev.sandbox.my.salesforce.com',
+    'acme--dev.sandbox.my.salesforce-setup.com',
+  ]);
+  // Regional and Government Cloud hosts go through the same normalizer the
+  // worker uses, so their API-host tab is matched too, not only the literal.
+  assert.ok(orgHosts('acme.lightning.eu1.force.com').includes('acme.my.eu1.salesforce.com'));
+  assert.ok(orgHosts('acme.lightning.force.mil').includes('acme.my.salesforce.mil'));
+  assert.equal(normalizeApiHost('acme.my.salesforce-setup.com'), 'acme.my.salesforce.com');
+});
+
+test('a scan that nobody is running cannot be committed', () => {
+  // The commit gate is what stops a cancel that lands after the last slice
+  // from being followed by a snapshot write: no live job, no write.
+  assert.equal(commitScan('00D000000000001', 'apex'), false);
+  assert.equal(cancelScan('00D000000000001', 'apex'), false);
+});

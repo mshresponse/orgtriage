@@ -72,34 +72,10 @@ export class AuthError extends Error {
   }
 }
 
-/**
- * Convert any Salesforce UI host into the API host.
- *
- * All four substitutions matter:
- *   1. `*.lightning.force.com` → `*.my.salesforce.com` (the common case).
- *   2. `*.lightning.<region>.force.com` → `*.my.<region>.salesforce.com`,
- *      which is what makes government and regional instances work.
- *   3. `*.my.salesforce-setup.com` → `*.my.salesforce.com`. Enhanced domains
- *      serve Setup from its own registrable domain, and that is where admins
- *      spend most of their time — so it is the tab host far more often than
- *      not. Whether the setup domain answers `/services/data/` with an
- *      API-capable session is undocumented; rewriting to the documented API
- *      host means we never find out the hard way.
- *   4. Strip the Microsoft Defender for Cloud Apps reverse-proxy suffix.
- *
- * Sandbox hosts fall out of (1) and (3) correctly:
- * `acme--dev.sandbox.lightning.force.com` → `acme--dev.sandbox.my.salesforce.com`.
- *
- * (4) runs **first**: rules 2 and 3 are anchored at the end of the host, so a
- * proxied `acme.my.salesforce-setup.com.mcas.ms` would otherwise match neither.
- */
-export function normalizeApiHost(host: string): string {
-  return host
-    .replace(/\.mcas\.ms$/, '')
-    .replace(/\.lightning\.force\./, '.my.salesforce.')
-    .replace(/\.lightning\.([^.]+)\.force\.com$/, '.my.$1.salesforce.com')
-    .replace(/\.my\.salesforce-setup\.com$/, '.my.salesforce.com');
-}
+// The normalizer lives in src/shared/hosts.ts so the plan page can match
+// tabs on the same org with the same rules; re-exported for existing callers.
+import { normalizeApiHost } from '@/shared/hosts';
+export { normalizeApiHost };
 
 /** Hosts this extension is willing to talk to, mirroring host_permissions. */
 const ALLOWED_API_HOST =
@@ -214,7 +190,14 @@ async function getSessionId(apiHost: string, cookieStoreId?: string): Promise<st
       'Refresh the Salesforce tab to sign in again.',
     );
   }
-  sessionCache.set(key, { value: cookie.value, fetchedAt: Date.now() });
+  const fetchedAt = Date.now();
+  sessionCache.set(key, { value: cookie.value, fetchedAt });
+  // Evict on the clock, not only on the next read: "held in memory for at
+  // most five minutes" has to hold for an entry nobody asks for again. If the
+  // worker is shut down first, the map goes with it.
+  setTimeout(() => {
+    if (sessionCache.get(key)?.fetchedAt === fetchedAt) sessionCache.delete(key);
+  }, SESSION_TTL_MS);
   return cookie.value;
 }
 
