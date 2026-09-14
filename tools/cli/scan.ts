@@ -10,8 +10,8 @@
  * `AnalyzerId` union but never registered, which would typecheck, ship, and
  * simply never run.
  *
- * Read-only, like everything else: the analyzers only issue GETs and the one
- * documented report execution, and this adds nothing of its own.
+ * Read-only, like everything else: the analyzers only issue GETs, never
+ * execute a report, and this adds nothing of its own.
  *
  *   npm run scan -- --org <alias> [--out <dir>] [--only apex,flows] [--budget 300]
  */
