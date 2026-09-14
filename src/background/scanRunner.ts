@@ -58,6 +58,8 @@ class ScanJob {
   private lastPhase: Phase = { phase: 'Starting', fraction: 0 };
   /** Guards against two `scan.run` messages advancing the same generator at once. */
   private stepping: Promise<StepOutcome> | null = null;
+  /** Set the moment the snapshot write is committed to; a cancel after this is refused. */
+  committing = false;
 
   constructor(
     readonly analyzer: Analyzer,
@@ -191,6 +193,18 @@ export function runIsLive(orgId: string, analyzer: AnalyzerId, run: ScanRun): bo
   return job !== undefined && (job as unknown as ScanRun) === run && !job.isCancelled();
 }
 
+/**
+ * The point of no return. True marks this run as committing, after which
+ * `cancelScan` returns false; false means the run was cancelled or replaced
+ * and nothing may be written. Called immediately before the write is issued.
+ */
+export function beginCommit(orgId: string, analyzer: AnalyzerId, run: ScanRun): boolean {
+  const job = jobs.get(jobKey(orgId, analyzer));
+  if (job === undefined || (job as unknown as ScanRun) !== run || job.isCancelled()) return false;
+  job.committing = true;
+  return true;
+}
+
 /** Forget a run once its result is written or discarded; a newer run is left alone. */
 export function releaseRun(orgId: string, analyzer: AnalyzerId, run: ScanRun): void {
   const key = jobKey(orgId, analyzer);
@@ -201,6 +215,9 @@ export function cancelScan(orgId: string, analyzer: AnalyzerId): boolean {
   const key = jobKey(orgId, analyzer);
   const job = jobs.get(key);
   if (!job) return false;
+  // The write has been committed to and cannot be taken back: say so rather
+  // than accept a cancel the snapshot will not honour.
+  if (job.committing) return false;
   job.cancel();
   jobs.delete(key);
   return true;

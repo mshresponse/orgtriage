@@ -86,6 +86,9 @@ whether that access is appropriate for your org.
 
 Here is exactly what is read, and why:
 
+- **Ops — `CronTrigger`: Id, CronJobDetail.Name, CronJobDetail.JobType, State,
+  NextFireTime, PreviousFireTime, TimesTriggered, OwnerId, CronExpression.**
+  The scheduled jobs and the user each one runs as.
 - **Ops — `User`: Id, Name, IsActive.** So a finding can say *"the nightly
   billing job is owned by Dana Reyes, whose account was deactivated in March"*
   instead of *"a job is owned by an inactive user id."* A scheduled process that
@@ -112,22 +115,30 @@ Here is exactly what is read, and why:
   individual login timestamps, session details, or browser fingerprints.
 - **Access — `User`: Id, Name, Username, IsActive, UserType, LastLoginDate,
   CreatedDate, ProfileId, profile name and the profile's licence id;
-  `PermissionSetAssignment` with the assignee's Name, Username, IsActive,
-  UserType and LastLoginDate.** So the extension can say who holds Modify All
-  Data and the other permissions that bypass sharing, whether they have logged
-  in recently, and whether they hold it by profile, permission set, or group.
-  Usernames are read because that is how assignments identify people.
+  `PermissionSetAssignment`: Id, AssigneeId, PermissionSetId,
+  PermissionSetGroupId, and the assignee's Name, Username, IsActive, UserType
+  and LastLoginDate.** So the extension can say who holds Modify All Data and
+  the other permissions that bypass sharing, whether they have logged in
+  recently, and whether they hold it by profile, permission set, or group.
+  Usernames are read because that is how assignments identify people. The
+  Overview's "Run diagnostics" also reads one assignment row's Id to count
+  assignments before a scan.
 - **Access — `UserLicense`: Name, MasterLabel, TotalLicenses, UsedLicenses,
   Status.** The seat totals from Setup > Company Information, joined to the
   users above to count seats held by users who no longer log in. The finding
   is per licence type and carries counts only.
 - **Limits — `ApexLog` grouped by `LogUserId` and `LogUser.Name`:** user id,
-  name, bytes and log count per user. So when debug-log storage is high, the
-  finding can say whose trace flag is producing it. Nobody is named while the
-  storage is below the warning level.
-- **Reports — `Dashboard.RunningUserId`, then `User`: Id, Name, IsActive for
-  those ids only.** So a dashboard that runs as a fixed user can be flagged
-  when that user has been deactivated, which stops it refreshing.
+  name, bytes and log count per user; **`TraceFlag`: Id, LogType,
+  TracedEntityId, StartDate, ExpirationDate, DebugLevel.MasterLabel,
+  DebugLevel.ApexCode, DebugLevel.Database.** So when debug-log storage is
+  high, the finding can say whose trace flag is producing it. Nobody is named
+  while the storage is below the warning level.
+- **Reports — `Report`: Id, Name, DeveloperName, FolderName, Format,
+  LastRunDate, LastViewedDate, Description, OwnerId; `Dashboard`: Id, Title,
+  DeveloperName, FolderId, FolderName, RunningUserId, Type, Description,
+  DashboardResultRefreshedDate; then `User`: Id, Name, IsActive for the
+  running-user ids only.** So a dashboard that runs as a fixed user can be
+  flagged when that user has been deactivated, which stops it refreshing.
 
 The limits on that access:
 

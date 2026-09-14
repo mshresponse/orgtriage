@@ -153,6 +153,9 @@ The list below explains which fields they read and why, so you can review
 whether that access is appropriate for your org.</p>
 <p>Here is exactly what is read, and why:</p>
 <ul>
+<li><strong>Ops — <code>CronTrigger</code>: Id, CronJobDetail.Name, CronJobDetail.JobType, State,
+NextFireTime, PreviousFireTime, TimesTriggered, OwnerId, CronExpression.</strong>
+The scheduled jobs and the user each one runs as.</li>
 <li><strong>Ops — <code>User</code>: Id, Name, IsActive.</strong> So a finding can say <em>&quot;the nightly
 billing job is owned by Dana Reyes, whose account was deactivated in March&quot;</em>
 instead of <em>&quot;a job is owned by an inactive user id.&quot;</em> A scheduled process that
@@ -179,22 +182,30 @@ This is an aggregate <code>COUNT()</code> query. OrgTriage does not read IP addr
 individual login timestamps, session details, or browser fingerprints.</li>
 <li><strong>Access — <code>User</code>: Id, Name, Username, IsActive, UserType, LastLoginDate,
 CreatedDate, ProfileId, profile name and the profile&#39;s licence id;
-<code>PermissionSetAssignment</code> with the assignee&#39;s Name, Username, IsActive,
-UserType and LastLoginDate.</strong> So the extension can say who holds Modify All
-Data and the other permissions that bypass sharing, whether they have logged
-in recently, and whether they hold it by profile, permission set, or group.
-Usernames are read because that is how assignments identify people.</li>
+<code>PermissionSetAssignment</code>: Id, AssigneeId, PermissionSetId,
+PermissionSetGroupId, and the assignee&#39;s Name, Username, IsActive, UserType
+and LastLoginDate.</strong> So the extension can say who holds Modify All Data and
+the other permissions that bypass sharing, whether they have logged in
+recently, and whether they hold it by profile, permission set, or group.
+Usernames are read because that is how assignments identify people. The
+Overview&#39;s &quot;Run diagnostics&quot; also reads one assignment row&#39;s Id to count
+assignments before a scan.</li>
 <li><strong>Access — <code>UserLicense</code>: Name, MasterLabel, TotalLicenses, UsedLicenses,
 Status.</strong> The seat totals from Setup &gt; Company Information, joined to the
 users above to count seats held by users who no longer log in. The finding
 is per licence type and carries counts only.</li>
 <li><strong>Limits — <code>ApexLog</code> grouped by <code>LogUserId</code> and <code>LogUser.Name</code>:</strong> user id,
-name, bytes and log count per user. So when debug-log storage is high, the
-finding can say whose trace flag is producing it. Nobody is named while the
-storage is below the warning level.</li>
-<li><strong>Reports — <code>Dashboard.RunningUserId</code>, then <code>User</code>: Id, Name, IsActive for
-those ids only.</strong> So a dashboard that runs as a fixed user can be flagged
-when that user has been deactivated, which stops it refreshing.</li>
+name, bytes and log count per user; <strong><code>TraceFlag</code>: Id, LogType,
+TracedEntityId, StartDate, ExpirationDate, DebugLevel.MasterLabel,
+DebugLevel.ApexCode, DebugLevel.Database.</strong> So when debug-log storage is
+high, the finding can say whose trace flag is producing it. Nobody is named
+while the storage is below the warning level.</li>
+<li><strong>Reports — <code>Report</code>: Id, Name, DeveloperName, FolderName, Format,
+LastRunDate, LastViewedDate, Description, OwnerId; <code>Dashboard</code>: Id, Title,
+DeveloperName, FolderId, FolderName, RunningUserId, Type, Description,
+DashboardResultRefreshedDate; then <code>User</code>: Id, Name, IsActive for the
+running-user ids only.</strong> So a dashboard that runs as a fixed user can be
+flagged when that user has been deactivated, which stops it refreshing.</li>
 </ul>
 <p>The limits on that access:</p>
 <ul>

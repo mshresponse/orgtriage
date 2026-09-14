@@ -37,6 +37,9 @@ found — are kept in the local cache.
 Some findings are only useful if they name a person, so four analyzers read a
 limited amount of user information from your org. This is the complete list:
 
+- **Ops — scheduled jobs** (`CronTrigger`: Id, the job's name and type, State,
+  NextFireTime, PreviousFireTime, TimesTriggered, OwnerId, CronExpression).
+  The owner is the user the job runs as.
 - **Ops — user names and active status** (`User`: Id, Name, IsActive), to say
   who owns a scheduled job that has stopped, or who a stalled approval is
   waiting on. A nightly process silently failing because its owner was
@@ -61,24 +64,31 @@ limited amount of user information from your org. This is the complete list:
   count only: no IP addresses, individual timestamps, or browser details.
 - **Access — who holds powerful permissions** (`User`: Id, Name, Username,
   IsActive, UserType, LastLoginDate, CreatedDate, ProfileId, the profile's
-  name and its licence id; `PermissionSetAssignment` with the assignee's
-  Name, Username, IsActive, UserType and LastLoginDate). These are needed to
-  say who holds Modify All Data, whether they
-  still log in, and by which route. Usernames are read here because permission
-  set assignments identify people by them; email addresses and passwords are
-  never read.
+  name and its licence id; `PermissionSetAssignment`: Id, AssigneeId,
+  PermissionSetId, PermissionSetGroupId, and the assignee's Name, Username,
+  IsActive, UserType and LastLoginDate). These are needed to say who holds
+  Modify All Data, whether they still log in, and by which route. Usernames
+  are read here because permission set assignments identify people by them;
+  email addresses and passwords are never read. The "Run diagnostics" check
+  on the Overview also reads one assignment row's Id, to count assignments
+  before a scan.
 - **Access — licence seat counts** (`UserLicense`: name, label, total and used
   seats, status). These are the numbers on Setup > Company Information. They
   are joined to the users above to count seats held by people who no longer
   log in; the finding reports counts per licence type, not names.
 - **Limits — who owns the debug logs** (`ApexLog` grouped by `LogUserId` and
-  `LogUser.Name`: user id, name, total bytes and number of logs per user).
-  Names are shown only once debug-log storage is high enough to be a problem,
-  so the finding can say whose trace flag is filling it.
-- **Reports — dashboard running users** (`Dashboard.RunningUserId`, then
-  `User`: Id, Name, IsActive for those ids only). So a dashboard that runs as a
-  fixed user can be flagged when that user has been deactivated, which is why
-  it stops refreshing.
+  `LogUser.Name`: user id, name, total bytes and number of logs per user;
+  `TraceFlag`: Id, LogType, TracedEntityId, which is the user or class being
+  traced, StartDate, ExpirationDate, and the debug level's label, Apex and
+  database levels). Names are shown only once debug-log storage is high enough
+  to be a problem, so the finding can say whose trace flag is filling it.
+- **Reports — report and dashboard owners** (`Report`: Id, Name,
+  DeveloperName, FolderName, Format, LastRunDate, LastViewedDate, Description,
+  OwnerId; `Dashboard`: Id, Title, DeveloperName, FolderId, FolderName,
+  RunningUserId, Type, Description, DashboardResultRefreshedDate; then `User`:
+  Id, Name, IsActive for the running-user ids only). So a dashboard that runs
+  as a fixed user can be flagged when that user has been deactivated, which is
+  why it stops refreshing.
 
 This is your own organization's employee information, and it stays on your
 device exactly like everything else. It is never transmitted to us.

@@ -375,18 +375,19 @@ const RULES = {
     id: 'reports.correctness.long-text-filter',
     severity: 'warning',
     title: (n) =>
-      `${n} ${n === 1 ? 'report filters' : 'reports filter'} on a long text field, which Salesforce documents as searched only to its first 255 characters (custom) or 1,000 (standard)`,
+      `${n} ${n === 1 ? 'report filters' : 'reports filter'} on a long text field with "contains", which Salesforce documents as searching only its first 255 characters (custom) or 1,000 (standard)`,
     rationale:
       'This is a wrong-answers problem, not a slow-reports problem. Salesforce\u2019s filter-restrictions article ' +
-      'says a report filter on a custom Long Text Area or Rich Text Area field searches only the first 255 ' +
-      'characters of it (its Rich Text Area page says 254 for "contains"; neither number has been measured by ' +
-      'OrgTriage, and the difference does not change the advice), and on a standard long text ' +
+      'says a "contains" filter on a custom Long Text Area or Rich Text Area field searches only the first 255 ' +
+      'characters of it (its Rich Text Area page says 254; neither number has been measured by OrgTriage, and ' +
+      'the difference does not change the advice), and on a standard long text ' +
       'field such as Description or Solution Details, the first 1,000. The field itself holds up to 131,072. ' +
       'A record whose match sits past the cut-off is simply absent from the results — no error, no warning, ' +
       'and nothing on the report to suggest the rows exist. Someone builds a report, gets twelve rows, and ' +
       'has no reason to think there are fifty. The field types come from the org\'s own field catalogue, so ' +
       'this covers filters on fields the report never displays — and does not fire on a plain 255-character ' +
-      'Text Area, where the cut-off costs at most the last character.',
+      'Text Area, where the cut-off costs at most the last character. Other operators on these fields are ' +
+      'not flagged: the cut-off is documented for "contains", and OrgTriage does not assert it for the rest.',
     remediation:
       'Stop filtering on the long text field. Compute the answer once, on save, into a field the database ' +
       'can actually search: a formula field where the logic allows, otherwise a checkbox or picklist set by ' +
@@ -901,13 +902,6 @@ export const reportsAnalyzer: Analyzer = {
         evidence: {
           Fields: deepText.label,
           Operators: deepText.operators.join(', '),
-          // `contains` is the operator Salesforce documents the 255-character
-          // limit against. Others are listed because a filter on a field this
-          // wide is worth a look whatever the operator, but the confirmed case
-          // is the one to lead with.
-          Documented: deepText.operators.some((op) => /contains/i.test(op))
-            ? 'contains — confirmed'
-            : 'other operator',
           'Last run': report.LastRunDate,
           Folder: report.FolderName,
         },
@@ -1795,7 +1789,8 @@ export function isDeepTextType(dataType: string | null | undefined): boolean {
  * covers every filtered field, including ones the report does not display, and
  * its data type distinguishes a Long Text Area from a plain Text Area.
  * `detailColumnInfo` is the fallback for objects the field catalogue could not
- * be read for, and it only knows about displayed columns.
+ * be read for, and it only knows about displayed columns. Only `contains`
+ * filters count; see the comment in the loop.
  */
 export function longTextFilterFields(
   meta: ReportMetadata,
@@ -1808,6 +1803,10 @@ export function longTextFilterFields(
   for (const filter of meta.reportFilters ?? []) {
     const column = filter.column ?? '';
     if (!column) continue;
+    // `contains` is the operator Salesforce documents the cut-off against.
+    // A filter with any other operator on the same field is not flagged: the
+    // rule asserts missing rows, and it may only do so where that is documented.
+    if ((filter.operator ?? '').toLowerCase() !== 'contains') continue;
 
     const match = ANY_COLUMN.exec(column);
     const catalogued = match ? fields?.get(`${match[1]}.${match[2]}`) : undefined;

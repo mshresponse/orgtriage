@@ -1821,7 +1821,7 @@ test('a saving becomes hours a year only when the view count is real', () => {
 /* --- Tab reuse and cancel commit (Codex go/no-go, 2026-09-14) ------------- */
 
 import { orgHosts, normalizeApiHost, lightningHostFor as apiLightningHostFor, isLightningHost } from '@/shared/hosts';
-import { advanceScan, cancelScan, currentRun, runIsLive, releaseRun } from '@/background/scanRunner';
+import { advanceScan, beginCommit, cancelScan, currentRun, runIsLive, releaseRun } from '@/background/scanRunner';
 import { put as cachePut } from '@/background/cache';
 
 test('the plan page matches every host a tab on the same org can be open at', () => {
@@ -1875,6 +1875,24 @@ test('a finished run stays live until released, and a cancel or restart in that 
   assert.equal(currentRun(orgId, 'apexlint'), runC, 'releasing the old run does not drop the new one');
   releaseRun(orgId, 'apexlint', runC);
   assert.equal(currentRun(orgId, 'apexlint'), null);
+
+  // Point of no return: once the write is committed to, a cancel is refused
+  // (scan.cancel answers false) instead of accepted and then ignored.
+  const d = await advanceScan('apexlint', ctx, true);
+  assert.equal(d.status, 'done');
+  const runD = currentRun(orgId, 'apexlint')!;
+  assert.equal(beginCommit(orgId, 'apexlint', runD), true);
+  assert.equal(cancelScan(orgId, 'apexlint'), false, 'a committed write cannot be cancelled');
+  assert.equal(runIsLive(orgId, 'apexlint', runD), true, 'and the run is still the live one');
+  releaseRun(orgId, 'apexlint', runD);
+  assert.equal(currentRun(orgId, 'apexlint'), null);
+
+  // A cancelled or replaced run cannot begin a commit at all.
+  const e = await advanceScan('apexlint', ctx, true);
+  assert.equal(e.status, 'done');
+  const runE = currentRun(orgId, 'apexlint')!;
+  assert.equal(cancelScan(orgId, 'apexlint'), true);
+  assert.equal(beginCommit(orgId, 'apexlint', runE), false);
 });
 
 test('the cache refuses the write when the run is no longer wanted', async () => {

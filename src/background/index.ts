@@ -20,7 +20,7 @@ import * as cache from './cache';
 import { comparable, diffAgainst, digestOf, type AreaDiff } from '@/shared/diff';
 
 import { isLightningHost, lightningHostFor } from '@/shared/hosts';
-import { ANALYZERS, advanceScan, cancelScan, currentRun, probeWatermark, releaseRun, runIsLive } from './scanRunner';
+import { ANALYZERS, advanceScan, beginCommit, cancelScan, currentRun, probeWatermark, releaseRun, runIsLive } from './scanRunner';
 import type { ErrorPayload, Request, Response, ResponseData } from '@/shared/messages';
 import { SCAN_PORT, type PortBind } from '@/shared/messages';
 import {
@@ -527,12 +527,14 @@ async function handle(
         // handed back with the result and the panel does not have to pay a second
         // watermark probe to fetch it.
         const superseded = await cache.get(orgId, request.analyzer);
-        const live = () => run !== null && runIsLive(orgId, request.analyzer, run);
-        // Checked here and again inside `put`, immediately before the write:
-        // a cancel that arrives anywhere in this window leaves the previous
-        // snapshot in place.
-        if (!live()) throw new DOMException('Scan cancelled', 'AbortError');
-        await cache.put(outcome.result, watermark ?? undefined, live);
+        // Checked here, and `put` calls `beginCommit` immediately before the
+        // write: a cancel that arrives anywhere up to that point leaves the
+        // previous snapshot in place, and one that arrives after it is refused
+        // (`scan.cancel` answers false) rather than accepted and ignored.
+        if (run === null || !runIsLive(orgId, request.analyzer, run)) {
+          throw new DOMException('Scan cancelled', 'AbortError');
+        }
+        await cache.put(outcome.result, watermark ?? undefined, () => beginCommit(orgId, request.analyzer, run));
         const diff =
           superseded && comparable(superseded.result, outcome.result)
             ? diffAgainst(digestOf(superseded.result), outcome.result)

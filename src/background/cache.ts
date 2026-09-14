@@ -85,9 +85,16 @@ function tx<T>(mode: IDBTransactionMode, fn: (store: IDBObjectStore) => IDBReque
       new Promise<T>((resolve, reject) => {
         const transaction = db.transaction(STORE, mode);
         const request = fn(transaction.objectStore(STORE));
-        request.onsuccess = () => resolve(request.result);
+        let result: T;
+        request.onsuccess = () => {
+          result = request.result;
+        };
+        // Resolve on the transaction, not the request: a write is reported
+        // only once it is durable, so "done" is never announced ahead of it.
+        transaction.oncomplete = () => resolve(result);
         request.onerror = () => reject(request.error);
         transaction.onabort = () => reject(transaction.error);
+        transaction.onerror = () => reject(transaction.error);
       }),
   );
 }
@@ -104,7 +111,11 @@ function sizeOf(value: unknown): number {
 export async function put(
   result: ScanResult,
   watermark: OrgWatermark | undefined,
-  /** Checked after the read and immediately before the write; false aborts with nothing written. */
+  /**
+   * Called after the read and immediately before the write; false aborts with
+   * nothing written. The caller uses it to mark its run as committed, so this
+   * is the last moment a cancel can win.
+   */
   stillWanted: () => boolean = () => true,
 ): Promise<CacheEntryMeta> {
   // Read before write so the snapshot being replaced can be kept as a digest.
