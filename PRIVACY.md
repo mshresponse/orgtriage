@@ -169,7 +169,13 @@ If a future feature ever changes this picture, we will update this policy before
 that feature ships and clearly label any mode in which data leaves your machine.
 The core promise will not change: OrgTriage's analysis runs locally.
 
-**Revision history.** September 12, 2026 (version 0.8.46 and later): the list of
+**Revision history.** September 15, 2026: the contact address is now
+support@orgtriage.com; nothing about what is read changed. September 14, 2026
+(versions 0.8.61 to 0.8.63): the inventory names every field read from
+permission set assignments, scheduled jobs, reports, dashboards, trace flags,
+approvals, flow interviews and Apex jobs, and the licence record id; the
+profile and permission-set reads are listed as configuration; support for
+reverse-proxied hostnames was removed. September 12, 2026 (version 0.8.46 and later): the list of
 people-related reads now names all four analyzers that make them, the job error
 text is described as fetched whole and truncated in the finding, and the
 extension's one read of your own user name is listed. The Apex exception-
@@ -185,7 +191,7 @@ administrator or developer to verify.
 
 ## Contact
 
-Questions: mike@everythingvirtually.com · Everything Virtually LLC.
+Questions: support@orgtriage.com · Everything Virtually LLC.
 
 ---
 

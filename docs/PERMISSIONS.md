@@ -221,7 +221,7 @@ OrgTriage's analysis runs locally.
 ## Questions
 
 For questions about permissions or security, email
-**mike@everythingvirtually.com**.
+**support@orgtriage.com**.
 
 See also: Privacy Policy · Help Center
 

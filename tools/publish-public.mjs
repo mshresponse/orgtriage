@@ -116,7 +116,7 @@ if (!sh('git status --porcelain', target)) {
   console.log('Public repository already matches this snapshot; nothing to push.');
   process.exit(0);
 }
-sh(`git -c user.name="Everything Virtually LLC" -c user.email="mike@everythingvirtually.com" commit --quiet -m "OrgTriage ${version} (orgsage ${sha})"`, target);
+sh(`git -c user.name="Everything Virtually LLC" -c user.email="mike@orgtriage.com" commit --quiet -m "OrgTriage ${version} (orgsage ${sha})"`, target);
 sh('git push --quiet origin HEAD:main', target);
 console.log(`Published OrgTriage ${version} to ${PUBLIC_REMOTE} (main).`);
 rmSync(work, { recursive: true, force: true });

@@ -200,7 +200,7 @@ ${body}
 </main>
 <footer>
   <p>OrgTriage is published by Everything Virtually LLC.
-    <a href="mailto:mike@everythingvirtually.com?subject=OrgTriage">Contact</a>${
+    <a href="mailto:support@orgtriage.com?subject=OrgTriage">Contact</a>${
       ISSUES_URL ? ` · <a href="${ISSUES_URL}">Report a bug or request a feature</a>` : ''
     }${
       REPO_URL ? ` · <a href="${REPO_URL}">Source on GitHub</a>` : ''
@@ -295,7 +295,7 @@ ${AREAS.map(([name, line]) => `  <li><b>${escape(name)}</b><span>${escape(line)}
 <p>Have an experienced Salesforce administrator or developer review any change before it is made, test it outside production, and deploy it the way you deploy everything else. The <a href="terms.html">terms of use</a> explain this in detail.</p>
 
 <h2>Help improve OrgTriage</h2>
-<p>Email <a href="mailto:mike@everythingvirtually.com?subject=OrgTriage">mike@everythingvirtually.com</a>${
+<p>Email <a href="mailto:support@orgtriage.com?subject=OrgTriage">support@orgtriage.com</a>${
     ISSUES_URL ? ` · <a href="${ISSUES_URL}">Report a bug or request a feature</a>` : ''
   }${
     REPO_URL ? ` · <a href="${REPO_URL}">Source on GitHub</a>` : ''

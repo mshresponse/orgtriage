@@ -94,7 +94,7 @@ this version was published; material changes will be noted on this page.
 
 ## Contact
 
-Questions: [mike@everythingvirtually.com](mailto:mike@everythingvirtually.com?subject=OrgTriage%20terms) · Everything Virtually LLC.
+Questions: [support@orgtriage.com](mailto:support@orgtriage.com?subject=OrgTriage%20terms) · Everything Virtually LLC.
 
 ---
 
